@@ -1,6 +1,6 @@
-# Weighted Grade Calculator - Android Edition
-
 ![Logo](https://github.com/jetheis/GradeCalculator-Android/raw/master/Artwork/feature_graphic.png)
+
+**TODO**
 
 ## License - Source Code
 
