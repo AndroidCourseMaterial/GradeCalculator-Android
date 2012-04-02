@@ -47,3 +47,22 @@ For complete details, see the
 [human-readable deed](https://creativecommons.org/licenses/by/3.0/),
 as well as the
 [full license](https://creativecommons.org/licenses/by/3.0/legalcode).
+
+## Development Environment Setup
+
+Before you start, make sure you have the latest version of
+[Eclipse (probably classic)](http://www.eclipse.org/downloads/), the 
+[Android SDK](https://developer.android.com/sdk/index.html), and the
+[Eclipse ADT Plugin](https://developer.android.com/sdk/eclipse-adt.html#installing)
+installed.
+
+Optionally, you can use [EGit](http://www.eclipse.org/egit/) for Eclipse Git
+integration.
+
+First, clone the repository:
+
+    $ git clone git://github.com/jetheis/GradeCalculator-Android.git
+
+**TODO**
+
+
