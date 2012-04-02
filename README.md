@@ -49,7 +49,7 @@ For complete details, see the
 as well as the
 [full license](https://creativecommons.org/licenses/by/3.0/legalcode).
 
-### Other Createive Commons Work Used
+### Other Creative Commons Work Used
 
 * [Atle Mo](http://www.atlemo.com/)'s
   [Black Paper](http://subtlepatterns.com/?p=281) pattern from
