@@ -51,7 +51,7 @@ as well as the
 ## Development Environment Setup
 
 Before you start, make sure you have the latest version of
-[Eclipse (probably classic)](http://www.eclipse.org/downloads/), the 
+[Eclipse (classic)](http://www.eclipse.org/downloads/), the 
 [Android SDK](https://developer.android.com/sdk/index.html), and the
 [Eclipse ADT Plugin](https://developer.android.com/sdk/eclipse-adt.html#installing)
 installed.
