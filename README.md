@@ -31,9 +31,10 @@ Weighted Grade Calculator is released under the MIT License:
 All original media (as well as their source files, if included) are released
 under the
 [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/).
-While attribution is appreciated (to [Jimmy Theis]() or
-[Weighted Grade Calculator]()), **it is not required**. I don't want to limit
-anyone's ability to use the media, so attribution is entirely optional.
+While attribution is appreciated (to [Jimmy Theis](http://jetheis.com) or
+[Weighted Grade Calculator](http://grades.android.jetheis.com/)), **it is not
+required**. I don't want to limit anyone's ability to use the media, so
+attribution is entirely optional.
 
 ![Creative Commons Attribution 3.0 Unported License Logo](http://i.creativecommons.org/l/by/3.0/88x31.png)
 
