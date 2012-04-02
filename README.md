@@ -30,7 +30,7 @@ Weighted Grade Calculator is released under the MIT License:
 
 All original media (as well as their source files, if included) are released
 under the
-[Creative Commons Attribution 3.0 Unported Licensei (CC BY 3.0)](https://creativecommons.org/licenses/by/3.0/).
+[Creative Commons Attribution 3.0 Unported License (CC BY 3.0)](https://creativecommons.org/licenses/by/3.0/).
 While attribution is appreciated (to [Jimmy Theis](http://jetheis.com) or
 [Weighted Grade Calculator](http://grades.android.jetheis.com/)), **it is not
 required**. I don't want to limit anyone's ability to use the media, so
@@ -52,7 +52,7 @@ as well as the
 ### Other Creative Commons Work Used
 
 * [Atle Mo](http://www.atlemo.com/)'s
-  [Black Paper](http://subtlepatterns.com/?p=281) pattern from
+  [Black Paper pattern](http://subtlepatterns.com/?p=281) from
   [Subtle Patterns](http://subtlepatterns.com/) is used as the background for
   both the feature and promotional graphic. The image and the derivative works
   both live in the
