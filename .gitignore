@@ -1,0 +1,6 @@
+# OS X files
+.DS_Store
+
+# Android generated files
+bin/
+gen/
