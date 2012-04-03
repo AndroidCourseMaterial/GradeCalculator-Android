@@ -4,3 +4,7 @@
 # Android generated files
 bin/
 gen/
+
+# Eclipse metadata
+.project
+.classpath
