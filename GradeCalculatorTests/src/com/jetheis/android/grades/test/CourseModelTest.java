@@ -25,7 +25,6 @@ package com.jetheis.android.grades.test;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
-import android.content.Context;
 
 import com.jetheis.android.grades.model.Course;
 import com.jetheis.android.grades.model.GradeComponent;
@@ -33,8 +32,8 @@ import com.jetheis.android.grades.model.PercentageGradeComponent;
 import com.jetheis.android.grades.model.PointTotalGradeComponent;
 
 /**
- * Pure Java tests for the {@link Course} class. These tests do not require a
- * {@link Context} or other Android-specific resources.
+ * Pure Java tests for the {@link Course} class. These tests do not require any
+ * Android-specific resources.
  * 
  */
 public class CourseModelTest extends TestCase {
@@ -43,9 +42,9 @@ public class CourseModelTest extends TestCase {
         Course csse120 = ObjectMother.csse120();
 
         assertEquals(0.9125, csse120.getOverallScore(), 0.0000001);
-        
+
         Course csse333 = ObjectMother.csse333();
-        
+
         assertEquals(0.835, csse333.getOverallScore(), 0.0000001);
     }
 
@@ -53,9 +52,9 @@ public class CourseModelTest extends TestCase {
         Course csse120 = ObjectMother.csse120();
 
         assertEquals(400, csse120.getTotalPossibleScore(), 0.0000001);
-        
+
         Course csse333 = ObjectMother.csse333();
-        
+
         assertEquals(1, csse333.getTotalPossibleScore(), 0.0000001);
     }
 
