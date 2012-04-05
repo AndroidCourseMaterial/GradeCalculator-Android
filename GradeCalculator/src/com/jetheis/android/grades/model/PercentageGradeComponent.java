@@ -30,8 +30,8 @@ package com.jetheis.android.grades.model;
  */
 public class PercentageGradeComponent extends GradeComponent {
 
-    private float mEarnedPercentage;
-    private float mWeight;
+    private double mEarnedPercentage;
+    private double mWeight;
 
     /**
      * Get the percentage of points earned for this grade component. Any actual
@@ -39,9 +39,9 @@ public class PercentageGradeComponent extends GradeComponent {
      * the ratio of points earned to total points.
      * 
      * @return The percentage of points earned for this grade component,
-     *         represented as a float less than or equal to 1.0f.
+     *         represented as a double less than or equal to {@code 1.0}.
      */
-    public float getEarnedPercentage() {
+    public double getEarnedPercentage() {
         return mEarnedPercentage;
     }
 
@@ -52,9 +52,9 @@ public class PercentageGradeComponent extends GradeComponent {
      * 
      * @param earnedPercentage
      *            The percentage of points earned for this grade component,
-     *            represented as a float less than or equal to 1.0f.
+     *            represented as a double less than or equal to 1.0f.
      */
-    public void setEarnedPercentage(float earnedPercentage) {
+    public void setEarnedPercentage(double earnedPercentage) {
         mEarnedPercentage = earnedPercentage;
     }
 
@@ -64,10 +64,10 @@ public class PercentageGradeComponent extends GradeComponent {
      * component to total points available across the entire course.
      * 
      * @return The percentage weighting of this grade component relative to the
-     *         rest of the course, represented as a float less than or equal to
-     *         1.0f.
+     *         rest of the course, represented as a double less than or equal to
+     *         {@code 1.0}.
      */
-    public float getWeight() {
+    public double getWeight() {
         return mWeight;
     }
 
@@ -78,10 +78,10 @@ public class PercentageGradeComponent extends GradeComponent {
      * 
      * @param weight
      *            The percentage weighting of this grade component relative to
-     *            the rest of the course, represented as a float less than or
-     *            equal to 1.0f.
+     *            the rest of the course, represented as a double less than or
+     *            equal to {@code 1.0}.
      */
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         mWeight = weight;
     }
 

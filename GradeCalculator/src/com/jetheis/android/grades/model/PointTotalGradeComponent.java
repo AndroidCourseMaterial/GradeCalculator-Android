@@ -29,8 +29,8 @@ package com.jetheis.android.grades.model;
  */
 public class PointTotalGradeComponent extends GradeComponent {
 
-    private float mTotal;
-    private float mEarned;
+    private double mTotal;
+    private double mEarned;
 
     /**
      * Get the total number of points available to be earned for this grade
@@ -38,7 +38,7 @@ public class PointTotalGradeComponent extends GradeComponent {
      * 
      * @return The total number of points available for this grade component.
      */
-    public float getTotalPoints() {
+    public double getTotalPoints() {
         return mTotal;
     }
 
@@ -49,7 +49,7 @@ public class PointTotalGradeComponent extends GradeComponent {
      * @param total
      *            The total number of points available for this grade component.
      */
-    public void setTotalPoints(float total) {
+    public void setTotalPoints(double total) {
         mTotal = total;
     }
 
@@ -58,7 +58,7 @@ public class PointTotalGradeComponent extends GradeComponent {
      * 
      * @return The total number of points earned for this grade component.
      */
-    public float getPointsEarned() {
+    public double getPointsEarned() {
         return mEarned;
     }
 
@@ -68,7 +68,7 @@ public class PointTotalGradeComponent extends GradeComponent {
      * @param earned
      *            The total number of points earned for this grade component.
      */
-    public void setPointsEarned(float earned) {
+    public void setPointsEarned(double earned) {
         mEarned = earned;
     }
 

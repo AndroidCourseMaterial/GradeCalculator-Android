@@ -33,30 +33,31 @@ public abstract class GradeComponent extends Storable {
     private Course mCourse;
 
     /**
-     * Get the human readable name of this grade component.
+     * Get the human readable name of this {@link GradeComponent}.
      * 
-     * @return The human readable name of this grade component.
+     * @return The human readable name of this {@link GradeComponent}.
      */
     public String getName() {
         return mName;
     }
 
     /**
-     * Set the human readable name of this grade component.
+     * Set the human readable name of this {@link GradeComponent}.
      * 
      * @param name
-     *            The new human readable name of this grade component.
+     *            The new human readable name of this {@link GradeComponent}.
      */
     public void setName(String name) {
         mName = name;
     }
 
     /**
-     * Get the course that contains this grade component. If the course has not
-     * yet been loaded from the database, it will be loaded here.
+     * Get the {@link Course} that contains this {@link GradeComponent}. If the
+     * {@link Course} has not yet been loaded from the database, it will be
+     * loaded here.
      * 
-     * @return The course that contains this grade component, or null if one
-     *         does not exist.
+     * @return The {@link Course} that contains this {@link GradeComponent}, or
+     *         null if one does not exist.
      */
     public Course getCourse() {
         // TODO: Load this if it exists
@@ -64,13 +65,13 @@ public abstract class GradeComponent extends Storable {
     }
 
     /**
-     * Set the course that contains this grade component. This method should
-     * only be called by the grade component's containing course, because
-     * membership to a particular course "trickles down" from the containing
-     * object.
+     * Set the {@link Course} that contains this {@link GradeComponent}. This
+     * method should only be called by the {@link GradeComponent}'s containing
+     * {@link Course}, because membership to a particular {@link Course}
+     * "trickles down" from the containing object.
      * 
      * @param course
-     *            The course this grade component belongs to.
+     *            The {@link Course} this {@link GradeComponent} belongs to.
      */
     public void setCourse(Course course) {
         mCourse = course;

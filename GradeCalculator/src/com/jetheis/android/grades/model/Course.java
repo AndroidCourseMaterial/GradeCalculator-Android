@@ -30,9 +30,10 @@ import com.jetheis.android.grades.storage.Storable;
 
 /**
  * Representation of a single academic course. Each course has a name and a
- * "type", which represents how the courses final grade is calculated: either by
- * adding points for a total score, or by weighting categories' percentages
- * together.
+ * {@link CourseType} (given by {@link #getCourseType()}), which represents how
+ * the courses final grade is calculated: either by adding points for a total
+ * score ({@link CourseType#POINT_TOTAL}), or by weighting categories'
+ * percentages ({@link CourseType#PERCENTAGE_WEIGHTING}) together.
  */
 public class Course extends Storable {
 
@@ -55,13 +56,10 @@ public class Course extends Storable {
 
     private String mName;
     private CourseType mCourseType;
+    private double mOverallScore;
+    private double mTotalPossibleScore;
 
     private Collection<GradeComponent> mGradeComponents;
-
-    public Course(String name, CourseType courseType) {
-        setName(name);
-        setCourseType(courseType);
-    }
 
     /**
      * Get the human readable name of the course.
@@ -83,23 +81,97 @@ public class Course extends Storable {
     }
 
     /**
-     * Get the "type" of the course.
+     * Get the "type" ({@link CourseType}) of the course.
      * 
-     * @return The type that designates how this course calculates its final
-     *         score.
+     * @return The {@link CourseType} that designates how this course calculates
+     *         its final score.
      */
     public CourseType getCourseType() {
         return mCourseType;
     }
 
     /**
-     * Set the "type" of the course.
+     * Set the "type" ({@link CourseType}) of the course.
      * 
      * @param courseType
-     *            The new "type" of this course.
+     *            The new {@link CourseType} of this course.
      */
     public void setCourseType(CourseType courseType) {
         mCourseType = courseType;
+    }
+
+    /**
+     * Calculate the total score for this course by combining scores for all
+     * contained {@link GradeComponent}s.
+     * 
+     * @return The overall score for this course, as a double less than or equal
+     *         to {@code 1.0}.
+     */
+    public double getOverallScore() {
+        calculateOverallScore();
+        return mOverallScore;
+    }
+
+    /**
+     * Get the total possible score for this course, based on the
+     * {@link CourseType} of this course (given by {@link #getCourseType()}). If
+     * this course is of type {@link CourseType#POINT_TOTAL}, this value will be
+     * the total available points. If this course of is type
+     * {@link CourseType#PERCENTAGE_WEIGHTING} , this value will be the total
+     * sum of all the weights of the contained {@link PercentageGradeComponent}
+     * s. In this case, the expected value will be {@code 1.0}.
+     * 
+     * @return The total possible score for this course, based on the
+     *         {@link CourseType} of this course (given by
+     *         {@link #getCourseType()}).
+     */
+    public double getTotalPossibleScore() {
+        calculateOverallScore();
+        return mTotalPossibleScore;
+    }
+
+    /**
+     * Calculate the overall and total score values, saving them off in the
+     * private member variables {@link #mOverallScore} and
+     * {@link #mTotalPossibleScore}.
+     */
+    private void calculateOverallScore() {
+        mTotalPossibleScore = 0;
+
+        if (getCourseType() == CourseType.POINT_TOTAL) {
+
+            // Sum total points
+            double totalPoints = 0;
+            double totalEarned = 0;
+
+            for (GradeComponent component : getGradeComponents()) {
+                PointTotalGradeComponent pointComponent = (PointTotalGradeComponent) component;
+                totalPoints += pointComponent.getTotalPoints();
+                totalEarned += pointComponent.getPointsEarned();
+            }
+
+            // Store the point total for reference
+            mTotalPossibleScore = totalPoints;
+
+            mOverallScore = totalEarned / totalPoints;
+        } else {
+
+            // Sum weighted individual scores
+            double totalScore = 0;
+            double totalWeight = 0;
+
+            for (GradeComponent component : getGradeComponents()) {
+                PercentageGradeComponent percentageComponent = (PercentageGradeComponent) component;
+                totalScore += percentageComponent.getEarnedPercentage()
+                        * percentageComponent.getWeight();
+                totalWeight += percentageComponent.getWeight();
+            }
+
+            // Store the weighting total for reference
+            mTotalPossibleScore = totalWeight;
+
+            mOverallScore = totalScore;
+        }
     }
 
     /**
@@ -140,7 +212,7 @@ public class Course extends Storable {
      * @param gradeComponents
      *            The grade components to add to this course.
      */
-    public void addGradComponents(Collection<GradeComponent> gradeComponents) {
+    public void addGradeComponents(Collection<GradeComponent> gradeComponents) {
         // TODO
     }
 

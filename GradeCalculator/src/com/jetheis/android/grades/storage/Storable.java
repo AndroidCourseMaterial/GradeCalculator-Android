@@ -62,7 +62,7 @@ public abstract class Storable {
 
     /**
      * Remove this object from the database. If this object is not reflected in
-     * the database, nothing should happen. This desctuction should also recurse
+     * the database, nothing should happen. This destruction should also recurse
      * to destroy any contained objects.
      */
     public abstract void destroy();
