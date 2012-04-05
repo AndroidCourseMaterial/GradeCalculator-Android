@@ -28,16 +28,35 @@ import android.database.sqlite.SQLiteDatabase;
 import com.jetheis.android.grades.GradesApplication;
 
 /**
- * TODO
+ * An abstract representation of a storage adapter. Storage adapters perform
+ * operations on the application's shared database pertaining to a certain type
+ * of object ({@link Storable} subclass). Each storage adapter operates against
+ * a specific {@link Context}, which makes it generic enough to be used in
+ * multiple settings. Storage adapters are meant to be lightweight enough to
+ * construct a new one for each use.
  */
 public abstract class StorageAdapter {
 
     private SQLiteDatabase mDb;
 
+    /**
+     * Default constructor. During the execution of this constructor, the
+     * instance's persistent {@link SQLiteDatabase} will be retrieved and
+     * stored.
+     * 
+     * @param context
+     *            The {@link Context} this adapter will operate with respect to.
+     */
     public StorageAdapter(Context context) {
         mDb = ((GradesApplication) context.getApplicationContext()).getDatabase();
     }
 
+    /**
+     * Retrieve the instance's persistent {@link SQLiteDatabase}, for use by
+     * {@link StorageAdapter} subclasses.
+     * 
+     * @return The instance's persistent {@link SQLiteDatabase}.
+     */
     protected SQLiteDatabase getDb() {
         return mDb;
     }
