@@ -260,14 +260,18 @@ public class Course extends Storable {
     }
 
     /**
-     * Remove a grade component from this course.
+     * Remove a {@link GradeComponent} from this {@link Course}. If the
+     * component is not a member of this course, nothing is done.
      * 
      * @param gradeComponent
      *            The grade component to remove from this course.
      */
     public void removeGradeComponent(GradeComponent gradeComponent) {
         initializeGradeComponents();
-        // TODO
+        
+        if (mGradeComponents.contains(gradeComponent)) {
+            mGradeComponents.remove(gradeComponent);
+        }
     }
 
     /**
@@ -278,7 +282,12 @@ public class Course extends Storable {
      */
     public void removeGradeComponents(Collection<GradeComponent> gradeComponents) {
         initializeGradeComponents();
-        // TODO
+        
+        for (GradeComponent gradeComponent : gradeComponents) { 
+            if (mGradeComponents.contains(gradeComponent)) {
+                mGradeComponents.remove(gradeComponent);
+            }  
+        }
     }
 
     /**
