@@ -33,7 +33,7 @@ public class ObjectMother {
     /**
      * Create a CSSE120 instance. This is a {@link CourseType#POINT_TOTAL}
      * course. The breakdown of {@link GradeComponent}s (specifically,
-     * {@link PercentageGradeComponent}s) is as follows:
+     * {@link PointTotalGradeComponent}s) is as follows:
      * 
      * <table border="1">
      * <tr>
@@ -91,8 +91,76 @@ public class ObjectMother {
         return result;
     }
     
-    public static Course CSSE333() {
-        // TODO
-        return null;
+    /**
+     * Create a CSSE333 instance. This is a {@link CourseType#PERCENTAGE_WEIGHTING}
+     * course. The breakdown of {@link GradeComponent}s (specifically,
+     * {@link PercentageGradeComponent}s) is as follows:
+     * 
+     * <table border="1">
+     * <tr>
+     * <th>Name</th>
+     * <th>Percentage Earned</th>
+     * <th>Percentage Weight</th>
+     * </tr>
+     * <tr>
+     * <td>Exams</td>
+     * <td>80%</td>
+     * <td>40%</td>
+     * </tr>
+     * <tr>
+     * <td>Homework</td>
+     * <td>95%</td>
+     * <td>20%</td>
+     * </tr>
+     * <tr>
+     * <td>Daily Quizzes</td>
+     * <td>100%</td>
+     * <td>10%</td>
+     * </tr>
+     * <tr>
+     * <td>Labs</td>
+     * <td>75%</td>
+     * <td>30%</td>
+     * </tr>
+     * </table>
+     * 
+     * This makes the total grade for CSSE333 {@code .835}.
+     * 
+     * @return The created {@link Course}.
+     */
+    public static Course csse333() {
+        Course result = new Course();
+        result.setName("CSSE333");
+        result.setCourseType(CourseType.PERCENTAGE_WEIGHTING);
+        
+        PercentageGradeComponent exams = new PercentageGradeComponent();
+        exams.setName("Exams");
+        exams.setWeight(0.4);
+        exams.setEarnedPercentage(0.8);
+        
+        result.addGradeComponent(exams);
+        
+        PercentageGradeComponent homework = new PercentageGradeComponent();
+        homework.setName("Homework");
+        homework.setWeight(0.2);
+        homework.setEarnedPercentage(0.95);
+        
+        result.addGradeComponent(homework);
+        
+        PercentageGradeComponent quizzes = new PercentageGradeComponent();
+        quizzes.setName("Daily Quizzes");
+        quizzes.setWeight(0.1);
+        quizzes.setEarnedPercentage(1);
+        
+        result.addGradeComponent(quizzes);
+        
+        PercentageGradeComponent labs = new PercentageGradeComponent();
+        labs.setName("Labs");
+        labs.setWeight(0.3);
+        labs.setEarnedPercentage(0.75);
+        
+        result.addGradeComponent(labs);
+        
+        return result;
     }
 }

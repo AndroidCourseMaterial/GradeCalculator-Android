@@ -202,8 +202,10 @@ public class Course extends Storable {
      * @param gradeComponent
      *            The grade component to add to this course.
      */
-    public void addGradeComponent(GradeComponent gradeComponent) {
+    public void addGradeComponent(GradeComponent gradeComponent) throws IllegalArgumentException {
         initializeGradeComponents();
+
+        validateGradeComponent(gradeComponent);
 
         if (!mGradeComponents.contains(gradeComponent)) {
             mGradeComponents.add(gradeComponent);
@@ -222,14 +224,38 @@ public class Course extends Storable {
      * @param gradeComponents
      *            The grade components to add to this course.
      */
-    public void addGradeComponents(Collection<GradeComponent> gradeComponents) {
+    public void addGradeComponents(Collection<GradeComponent> gradeComponents)
+            throws IllegalArgumentException {
         initializeGradeComponents();
 
         for (GradeComponent gradeComponent : gradeComponents) {
+            validateGradeComponent(gradeComponent);
+
             if (!mGradeComponents.contains(gradeComponent)) {
                 mGradeComponents.add(gradeComponent);
                 gradeComponent.setCourse(this);
             }
+        }
+    }
+
+    /**
+     * Validate a to-be-added {@link GradeComponent}, making sure its type
+     * corresponds with this {@link Course}'s {@link CourseType}. If there is a
+     * mismatch, a {@link IllegalArgumentException} is thrown.
+     * 
+     * @param gradeComponent
+     *            The {@link GradeComponent} to be added.
+     * @throws IllegalArgumentException
+     *             When the given {@link GradeComponent}'s type does not
+     *             correspond to this {@link Course}'s {@link CourseType}.
+     */
+    private void validateGradeComponent(GradeComponent gradeComponent)
+            throws IllegalArgumentException {
+        if (gradeComponent instanceof PercentageGradeComponent
+                && getCourseType() == CourseType.POINT_TOTAL
+                || gradeComponent instanceof PointTotalGradeComponent
+                && getCourseType() == CourseType.PERCENTAGE_WEIGHTING) {
+            throw new IllegalArgumentException("Grading type argument mismatch");
         }
     }
 
