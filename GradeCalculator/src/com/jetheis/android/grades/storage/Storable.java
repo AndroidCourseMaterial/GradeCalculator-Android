@@ -22,6 +22,8 @@
 
 package com.jetheis.android.grades.storage;
 
+import android.content.Context;
+
 /**
  * An abstract class containing shared attributes of objects that will be stored
  * in the database.
@@ -57,13 +59,19 @@ public abstract class Storable {
      * existing entry for this object should be updated with the most recent
      * values of this object. This save should also recurse to save any
      * contained objects.
+     * 
+     * @param context
+     *            The {@link Context} to save this object within.
      */
-    public abstract void save();
+    public abstract void save(Context context);
 
     /**
      * Remove this object from the database. If this object is not reflected in
      * the database, nothing should happen. This destruction should also recurse
      * to destroy any contained objects.
+     * 
+     * @param context
+     *            The {@link Context} to save this object within.
      */
-    public abstract void destroy();
+    public abstract void destroy(Context context);
 }

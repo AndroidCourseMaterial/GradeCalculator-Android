@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+import android.content.Context;
+
 import com.jetheis.android.grades.storage.Storable;
 
 /**
@@ -304,13 +306,13 @@ public class Course extends Storable {
     }
 
     @Override
-    public void save() {
+    public void save(Context context) {
         // TODO
 
     }
 
     @Override
-    public void destroy() {
+    public void destroy(Context context) {
         // TODO
 
     }

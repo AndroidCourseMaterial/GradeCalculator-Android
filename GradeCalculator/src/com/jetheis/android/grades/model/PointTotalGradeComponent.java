@@ -22,6 +22,8 @@
 
 package com.jetheis.android.grades.model;
 
+import android.content.Context;
+
 /**
  * A grade component that is scored based on a point total. The grade components
  * weight relative to the rest of the course is based on how many additional
@@ -73,13 +75,13 @@ public class PointTotalGradeComponent extends GradeComponent {
     }
 
     @Override
-    public void save() {
+    public void save(Context context) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void destroy() {
+    public void destroy(Context context) {
         // TODO Auto-generated method stub
 
     }

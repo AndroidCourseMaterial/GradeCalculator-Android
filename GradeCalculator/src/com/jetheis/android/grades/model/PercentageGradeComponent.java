@@ -22,6 +22,8 @@
 
 package com.jetheis.android.grades.model;
 
+import android.content.Context;
+
 /**
  * A grade component that is scored based on a percentage of points earned. Its
  * weight relative to the rest of the course is based on a specific percentage
@@ -86,13 +88,13 @@ public class PercentageGradeComponent extends GradeComponent {
     }
 
     @Override
-    public void save() {
+    public void save(Context context) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void destroy() {
+    public void destroy(Context context) {
         // TODO Auto-generated method stub
 
     }
