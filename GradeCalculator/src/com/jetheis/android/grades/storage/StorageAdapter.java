@@ -20,28 +20,26 @@
  * SOFTWARE.
  */
 
-package com.jetheis.android.grades.test;
+package com.jetheis.android.grades.storage;
 
 import android.content.Context;
-import android.test.AndroidTestCase;
-import android.test.RenamingDelegatingContext;
+import android.database.sqlite.SQLiteDatabase;
 
-import com.jetheis.android.grades.model.Course;
+import com.jetheis.android.grades.GradesApplication;
 
-public class CourseStorageTest extends AndroidTestCase {
+/**
+ * TODO
+ */
+public abstract class StorageAdapter {
 
-    private Context mSandboxedContext;
+    private SQLiteDatabase mDb;
 
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        mSandboxedContext = new RenamingDelegatingContext(getContext(), "course_storage_test-");
+    public StorageAdapter(Context context) {
+        mDb = ((GradesApplication) context.getApplicationContext()).getDatabase();
     }
 
-    public void testSimpleSave() {
-        Course course = new Course();
-        course.setName("testSimpleSave");
-        course.save(mSandboxedContext);
+    protected SQLiteDatabase getDb() {
+        return mDb;
     }
 
 }
