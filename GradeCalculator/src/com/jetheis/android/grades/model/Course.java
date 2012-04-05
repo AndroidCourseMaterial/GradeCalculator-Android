@@ -183,11 +183,7 @@ public class Course extends Storable {
      * @return The collection of grade components that this course contains.
      */
     public Collection<GradeComponent> getGradeComponents() {
-        // TODO: Populate this from the database if it doesn't exist already
-
-        if (mGradeComponents == null) {
-            mGradeComponents = new HashSet<GradeComponent>();
-        }
+        initializeGradeComponents();
 
         // Copy components to a new list so the original can't be modified
         ArrayList<GradeComponent> result = new ArrayList<GradeComponent>();
@@ -197,23 +193,44 @@ public class Course extends Storable {
     }
 
     /**
-     * Add a grade component to this course.
+     * Add a grade component to this course. This method also takes care of
+     * calling {@link GradeComponent#setCourse(Course)} on the added component,
+     * thus establishing a proper back link between the objects. This method
+     * also prevents duplicate {@link GradeComponent}s from being added to the
+     * course, simply by ignoring components that have already been added.
      * 
      * @param gradeComponent
      *            The grade component to add to this course.
      */
     public void addGradeComponent(GradeComponent gradeComponent) {
-        // TODO
+        initializeGradeComponents();
+
+        if (!mGradeComponents.contains(gradeComponent)) {
+            mGradeComponents.add(gradeComponent);
+            gradeComponent.setCourse(this);
+        }
     }
 
     /**
-     * Add several grade components to this course
+     * Add several grade components to this course. This method also takes care
+     * of calling {@link GradeComponent#setCourse(Course)} on the added
+     * components, thus establishing a proper back link between the objects.
+     * This method also prevents duplicate {@link GradeComponent}s from being
+     * added to the course, simply by ignoring components that have already been
+     * added.
      * 
      * @param gradeComponents
      *            The grade components to add to this course.
      */
     public void addGradeComponents(Collection<GradeComponent> gradeComponents) {
-        // TODO
+        initializeGradeComponents();
+
+        for (GradeComponent gradeComponent : gradeComponents) {
+            if (!mGradeComponents.contains(gradeComponent)) {
+                mGradeComponents.add(gradeComponent);
+                gradeComponent.setCourse(this);
+            }
+        }
     }
 
     /**
@@ -223,6 +240,7 @@ public class Course extends Storable {
      *            The grade component to remove from this course.
      */
     public void removeGradeComponent(GradeComponent gradeComponent) {
+        initializeGradeComponents();
         // TODO
     }
 
@@ -233,7 +251,21 @@ public class Course extends Storable {
      *            The grade components to remove from this course.
      */
     public void removeGradeComponents(Collection<GradeComponent> gradeComponents) {
+        initializeGradeComponents();
         // TODO
+    }
+
+    /**
+     * A helper method to load connected {@link GradeComponent}s or instantiate
+     * a new empty {@link Collection} in the {@link #mGradeComponents} member
+     * variable.
+     */
+    private void initializeGradeComponents() {
+        // TODO: Populate this from the database if it doesn't exist already
+
+        if (mGradeComponents == null) {
+            mGradeComponents = new HashSet<GradeComponent>();
+        }
     }
 
     @Override
