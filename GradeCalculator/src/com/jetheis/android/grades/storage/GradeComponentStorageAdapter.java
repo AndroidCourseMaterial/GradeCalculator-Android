@@ -27,6 +27,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.jetheis.android.grades.model.GradeComponent;
 import com.jetheis.android.grades.model.PercentageGradeComponent;
 import com.jetheis.android.grades.model.PointTotalGradeComponent;
 
@@ -69,7 +70,7 @@ public class GradeComponentStorageAdapter extends StorageAdapter {
      *            The {@link PercentageGradeComponent} to be saved.
      * @return The number of database records affected.
      */
-    public int savePerentageGradeComponent(PercentageGradeComponent component) {
+    public int savePercentageGradeComponent(PercentageGradeComponent component) {
         if (component.getId() < 1) {
             return createPercentageGradeComponent(component);
         }
@@ -143,6 +144,15 @@ public class GradeComponentStorageAdapter extends StorageAdapter {
     public int updatePercentageGradeComponent(PercentageGradeComponent component) {
         return getDb().update(TABLE_NAME, getContentValuesFromPercentageGradeComponent(component),
                 ID_COLUMN + " = ?", new String[] { Long.toString(component.getId()) });
+    }
+
+    /**
+     * Delete all {@link GradeComponent}s from the database.
+     * 
+     * @return The number of database records affected.
+     */
+    public int deleteAllGradeComponents() {
+        return getDb().delete(TABLE_NAME, null, null);
     }
 
     /**

@@ -90,11 +90,12 @@ public class ObjectMother {
 
         return result;
     }
-    
+
     /**
-     * Create a CSSE333 instance. This is a {@link CourseType#PERCENTAGE_WEIGHTING}
-     * course. The breakdown of {@link GradeComponent}s (specifically,
-     * {@link PercentageGradeComponent}s) is as follows:
+     * Create a CSSE333 instance. This is a
+     * {@link CourseType#PERCENTAGE_WEIGHTING} course. The breakdown of
+     * {@link GradeComponent}s (specifically, {@link PercentageGradeComponent}s)
+     * is as follows:
      * 
      * <table border="1">
      * <tr>
@@ -132,35 +133,66 @@ public class ObjectMother {
         Course result = new Course();
         result.setName("CSSE333");
         result.setCourseType(CourseType.PERCENTAGE_WEIGHTING);
-        
+
         PercentageGradeComponent exams = new PercentageGradeComponent();
         exams.setName("Exams");
         exams.setWeight(0.4);
         exams.setEarnedPercentage(0.8);
-        
+
         result.addGradeComponent(exams);
-        
+
         PercentageGradeComponent homework = new PercentageGradeComponent();
         homework.setName("Homework");
         homework.setWeight(0.2);
         homework.setEarnedPercentage(0.95);
-        
+
         result.addGradeComponent(homework);
-        
+
         PercentageGradeComponent quizzes = new PercentageGradeComponent();
         quizzes.setName("Daily Quizzes");
         quizzes.setWeight(0.1);
         quizzes.setEarnedPercentage(1);
-        
+
         result.addGradeComponent(quizzes);
-        
+
         PercentageGradeComponent labs = new PercentageGradeComponent();
         labs.setName("Labs");
         labs.setWeight(0.3);
         labs.setEarnedPercentage(0.75);
-        
+
         result.addGradeComponent(labs);
-        
+
+        return result;
+    }
+
+    /**
+     * Create an RH131 instance. This is a {@link CourseType#POINT_TOTAL}-type
+     * {@link Course} with no {@link GradeComponent}s.
+     * 
+     * @return An RH131 instance.
+     */
+    public static Course rh131() {
+        Course result = new Course();
+
+        result.setName("RH131");
+        result.setCourseType(CourseType.POINT_TOTAL);
+
+        return result;
+    }
+
+    /**
+     * Create a CSSE230 instance. This is a
+     * {@link CourseType#PERCENTAGE_WEIGHTING}-type {@link Course} with no
+     * {@link GradeComponent}s
+     * 
+     * @return A CSSE230 instance.
+     */
+    public static Course csse230() {
+        Course result = new Course();
+
+        result.setName("CSSE230");
+        result.setCourseType(CourseType.PERCENTAGE_WEIGHTING);
+
         return result;
     }
 }

@@ -22,6 +22,8 @@
 
 package com.jetheis.android.grades.model;
 
+import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
+
 import android.content.Context;
 
 /**
@@ -89,8 +91,7 @@ public class PercentageGradeComponent extends GradeComponent {
 
     @Override
     public void save(Context context) {
-        // TODO Auto-generated method stub
-
+        new GradeComponentStorageAdapter(context).savePercentageGradeComponent(this);
     }
 
     @Override
