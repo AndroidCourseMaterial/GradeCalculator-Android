@@ -32,9 +32,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     private static final String COURSES_TABLE = "courses";
-    private static final String COURSES_TABLE_CREATION_STATEMENT = "CREATE TABLE " + COURSES_TABLE
-            + " (_id INTEGER PRIMARY KEY AUTOINCREMENT" + ", name TEXT NOT NULL"
-            + ", grade_type INTEGER NOT NULL" + ")";
+    private static final String COURSES_TABLE_CREATION_STATEMENT ;
+    
+    static {
+        StringBuilder builder = new StringBuilder();
+        builder.append("CREATE TABLE ");
+        builder.append(COURSES_TABLE);
+        builder.append(" (_id INTEGER PRIMARY KEY AUTOINCREMENT");
+        builder.append(", name TEXT NOT NULL");
+        builder.append(", grade_type INTEGER NOT NULL");
+        builder.append(")");
+        COURSES_TABLE_CREATION_STATEMENT = builder.toString();
+    }
+    
+    private static final String GRADE_COMPONENTS_TABLE = "grade_components";
+    private static final String GRADE_COMPONENTS_TABLE_CREATION_STATEMENT;
+    
+    static {
+        StringBuilder builder = new StringBuilder();
+        builder.append("CREATE TABLE ");
+        builder.append(GRADE_COMPONENTS_TABLE);
+        builder.append(" (_id INTEGER PRIMARY KEY AUTOINCREMENT");
+        builder.append(", _course_id INTEGER NOT NULL");
+        builder.append(", name TEXT NOT NULL");
+        builder.append(", earned REAL NOT NULL");
+        builder.append(", total REAL NOT NULL");
+        builder.append(")");
+        GRADE_COMPONENTS_TABLE_CREATION_STATEMENT = builder.toString();
+    }
 
     private SQLiteDatabase mDb;
 
@@ -54,11 +79,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(COURSES_TABLE_CREATION_STATEMENT);
+        db.execSQL(GRADE_COMPONENTS_TABLE_CREATION_STATEMENT);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE " + COURSES_TABLE);
+        db.execSQL("DROP TABLE " + GRADE_COMPONENTS_TABLE);
         
         onCreate(db);
     }
