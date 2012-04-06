@@ -209,7 +209,7 @@ public class GradeComponentStorageAdapter extends StorageAdapter {
             PointTotalGradeComponent component) {
         ContentValues result = new ContentValues();
 
-        result.put(COURSE_COLUMN, component.getCourse().getId());
+        result.put(COURSE_COLUMN, component.getCourse(getContext()).getId());
         result.put(NAME_COLUMN, component.getName());
         result.put(EARNED_COLUMN, component.getPointsEarned());
         result.put(TOTAL_COLUMN, component.getTotalPoints());
@@ -231,7 +231,7 @@ public class GradeComponentStorageAdapter extends StorageAdapter {
             PercentageGradeComponent component) {
         ContentValues result = new ContentValues();
 
-        result.put(COURSE_COLUMN, component.getCourse().getId());
+        result.put(COURSE_COLUMN, component.getCourse(getContext()).getId());
         result.put(NAME_COLUMN, component.getName());
         result.put(EARNED_COLUMN, component.getEarnedPercentage());
         result.put(TOTAL_COLUMN, component.getWeight());

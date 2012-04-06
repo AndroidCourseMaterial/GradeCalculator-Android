@@ -28,6 +28,8 @@ import android.test.RenamingDelegatingContext;
 
 import com.jetheis.android.grades.model.Course;
 import com.jetheis.android.grades.model.Course.CourseType;
+import com.jetheis.android.grades.model.PercentageGradeComponent;
+import com.jetheis.android.grades.model.PointTotalGradeComponent;
 import com.jetheis.android.grades.storage.CourseStorageAdapter;
 
 public class CourseStorageTest extends AndroidTestCase {
@@ -100,6 +102,24 @@ public class CourseStorageTest extends AndroidTestCase {
         
         assertEquals(oldId, course.getId());
         assertEquals(course, new CourseStorageAdapter(mSandboxedContext).getCourseById(course.getId()));
+    }
+    
+    public void testRetrievalFromGradeComponent() {
+        Course rh131 = ObjectMother.rh131();
+        PointTotalGradeComponent pointTotalExams = ObjectMother.pointTotalExams();
+        
+        rh131.save(mSandboxedContext);
+        pointTotalExams.setCourseId(rh131.getId());
+        
+        assertEquals(rh131, pointTotalExams.getCourse(mSandboxedContext));
+        
+        Course csse230 = ObjectMother.csse230();
+        PercentageGradeComponent percentageExams = ObjectMother.percentageExams();
+        
+        csse230.save(mSandboxedContext);
+        percentageExams.setCourseId(csse230.getId());
+        
+        assertEquals(csse230, percentageExams.getCourse(mSandboxedContext));
     }
 
     @Override

@@ -22,6 +22,9 @@
 
 package com.jetheis.android.grades.model;
 
+import android.content.Context;
+
+import com.jetheis.android.grades.storage.CourseStorageAdapter;
 import com.jetheis.android.grades.storage.Storable;
 
 /**
@@ -30,6 +33,7 @@ import com.jetheis.android.grades.storage.Storable;
 public abstract class GradeComponent extends Storable {
 
     private String mName;
+    private long mCourseId;
     private Course mCourse;
 
     /**
@@ -52,15 +56,47 @@ public abstract class GradeComponent extends Storable {
     }
 
     /**
+     * Set the unique identifier of this {@link GradeComponent}'s course, to be
+     * lazy-loaded later.
+     * 
+     * @param courseId
+     *            The unique identifier of this {@link GradeComponent}'s
+     *            {@link Course}.
+     */
+    public void setCourseId(long courseId) {
+        mCourseId = courseId;
+    }
+
+    /**
      * Get the {@link Course} that contains this {@link GradeComponent}. If the
      * {@link Course} has not yet been loaded from the database, it will be
      * loaded here.
      * 
+     * @param context
+     *            A {@link Context} to use for retrieving this
+     *            {@link GradeComponent}'s {@link Course} from the database, if
+     *            it hasn't been loaded already. If this {@link GradeComponent}
+     *            is known to have its {@link Course} populated already, this
+     *            parameter can be {@code null}.
+     * 
      * @return The {@link Course} that contains this {@link GradeComponent}, or
      *         null if one does not exist.
      */
-    public Course getCourse() {
-        // TODO: Load this if it exists
+    public Course getCourse(Context context) throws IllegalStateException, IllegalArgumentException {
+        if (mCourse == null) {
+            if (mCourseId < 1) {
+                throw new IllegalStateException(
+                        "GradeComponent has no reference to a containing Course.");
+            }
+
+            if (context == null) {
+                throw new IllegalArgumentException(
+                        "Context must be provided to load Course in background");
+            }
+
+            mCourse = new CourseStorageAdapter(context).getCourseById(mCourseId);
+        }
+
         return mCourse;
     }
 

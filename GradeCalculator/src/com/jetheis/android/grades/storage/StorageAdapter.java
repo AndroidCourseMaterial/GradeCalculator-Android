@@ -38,6 +38,7 @@ import com.jetheis.android.grades.GradesApplication;
 public abstract class StorageAdapter {
 
     private SQLiteDatabase mDb;
+    private Context mContext;
 
     /**
      * Default constructor. During the execution of this constructor, the
@@ -48,7 +49,12 @@ public abstract class StorageAdapter {
      *            The {@link Context} this adapter will operate with respect to.
      */
     public StorageAdapter(Context context) {
-        mDb = ((GradesApplication) context.getApplicationContext()).getDatabase(context);
+        mContext = context;
+        mDb = ((GradesApplication) context.getApplicationContext()).getDatabase(mContext);
+    }
+    
+    protected Context getContext() {
+        return mContext;
     }
 
     /**
