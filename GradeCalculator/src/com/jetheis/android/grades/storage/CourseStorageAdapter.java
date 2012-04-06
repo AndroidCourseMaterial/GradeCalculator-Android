@@ -34,6 +34,17 @@ public class CourseStorageAdapter extends StorageAdapter {
     }
 
     /**
+     * Update the values of an existing {@link Course} in the database.
+     * 
+     * @param course
+     *            The {@link Course} to be updated.
+     */
+    public void updateCourse(Course course) {
+        getDb().update(TABLE_NAME, getContentValuesFromCourse(course), ID_COLUMN + " = ?",
+                new String[] { Long.toString(course.getId()) });
+    }
+
+    /**
      * Convenience method for saving any type of {@link Course}. Based on the
      * unique identifier of the provided {@link Course}, this method will decide
      * whether to create a new database record or update an existing one.
@@ -45,7 +56,7 @@ public class CourseStorageAdapter extends StorageAdapter {
         if (course.getId() < 1) {
             createCourse(course);
         } else {
-            // TODO: Update course
+            updateCourse(course);
         }
     }
 
