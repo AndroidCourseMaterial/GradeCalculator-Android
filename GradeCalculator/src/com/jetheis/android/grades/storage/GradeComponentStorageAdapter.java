@@ -156,6 +156,46 @@ public class GradeComponentStorageAdapter extends StorageAdapter {
     }
 
     /**
+     * Retrieve a {@link PointTotalGradeComponent} by its unique identifier.
+     * 
+     * @param id
+     *            The unique identifier of the {@link PointTotalGradeComponent}
+     *            to be retrieved.
+     * @return The relevant {@link PointTotalGradeComponent} if found, and
+     *         {@code null} otherwise.
+     */
+    public PointTotalGradeComponent getPointTotalGradeComponentById(long id) {
+        PointTotalGradeComponentStorageIterator result = new PointTotalGradeComponentStorageIterator(
+                getDb().query(TABLE_NAME, null, ID_COLUMN + " = ?",
+                        new String[] { Long.toString(id) }, null, null, null));
+
+        if (result.getCount() < 1)
+            return null;
+
+        return result.next();
+    }
+
+    /**
+     * Retrieve a {@link PercentageGradeComponent} by its unique identifier.
+     * 
+     * @param id
+     *            The unique identifier of the {@link PercentageGradeComponent}
+     *            to be retrieved.
+     * @return The relevant {@link PercentageGradeComponent} if found, and
+     *         {@code null} otherwise.
+     */
+    public PercentageGradeComponent getPercentageGradeComponentById(long id) {
+        PercentageGradeComponentIterator result = new PercentageGradeComponentIterator(getDb()
+                .query(TABLE_NAME, null, ID_COLUMN + " = ?", new String[] { Long.toString(id) },
+                        null, null, null));
+
+        if (result.getCount() < 1)
+            return null;
+
+        return result.next();
+    }
+
+    /**
      * Convert a {@link PointTotalGradeComponent} to {@link ContentValues} for
      * storing in a {@link SQLiteDatabase}. This method ignores the object's
      * unique identifier (given by {@link PointTotalGradeComponent#getId()}),

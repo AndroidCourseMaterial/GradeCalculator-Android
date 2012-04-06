@@ -22,16 +22,17 @@
 
 package com.jetheis.android.grades.model;
 
-import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
-
 import android.content.Context;
+
+import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
 
 /**
  * A grade component that is scored based on a point total. The grade components
  * weight relative to the rest of the course is based on how many additional
  * points are available in the course.
  */
-public class PointTotalGradeComponent extends GradeComponent {
+public class PointTotalGradeComponent extends GradeComponent implements
+        Comparable<PointTotalGradeComponent> {
 
     private double mTotal;
     private double mEarned;
@@ -85,6 +86,43 @@ public class PointTotalGradeComponent extends GradeComponent {
     public void destroy(Context context) {
         // TODO Auto-generated method stub
 
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("PointTotalGradeComponent %s: %.2f/%.2f", getName(),
+                getPointsEarned(), getTotalPoints());
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PointTotalGradeComponent)) return false;
+        return compareTo((PointTotalGradeComponent) o) == 0;
+    }
+
+    @Override
+    public int compareTo(PointTotalGradeComponent other) {
+        if (getId() > 0 && other.getId() > 0) {
+            return (int) Math.signum(getId() - other.getId());
+        }
+        
+        // TODO: Compare courses
+
+        if (!getName().equals(other.getName())) {
+            return getName().compareTo(other.getName());
+        }
+        
+        long totalPoints = Math.round(getTotalPoints() * 1000);
+        long otherTotalPoints = Math.round(other.getTotalPoints() * 1000);
+        
+        if (totalPoints != otherTotalPoints) {
+            return (int) Math.signum(totalPoints - otherTotalPoints);
+        }
+        
+        long pointsEarned = Math.round(getPointsEarned() * 1000);
+        long otherPointsEarned = Math.round(other.getPointsEarned() * 1000);
+        
+        return (int) Math.signum(pointsEarned - otherPointsEarned);
     }
 
 }

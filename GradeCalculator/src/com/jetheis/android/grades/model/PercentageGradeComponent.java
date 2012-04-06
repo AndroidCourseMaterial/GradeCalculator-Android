@@ -22,9 +22,9 @@
 
 package com.jetheis.android.grades.model;
 
-import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
-
 import android.content.Context;
+
+import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
 
 /**
  * A grade component that is scored based on a percentage of points earned. Its
@@ -32,7 +32,8 @@ import android.content.Context;
  * weight.
  * 
  */
-public class PercentageGradeComponent extends GradeComponent {
+public class PercentageGradeComponent extends GradeComponent implements
+        Comparable<PercentageGradeComponent> {
 
     private double mEarnedPercentage;
     private double mWeight;
@@ -98,6 +99,44 @@ public class PercentageGradeComponent extends GradeComponent {
     public void destroy(Context context) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public String toString() {
+        return String.format("PercentageGradeComponent %s: %.2f%% * %.2f%%", getName(),
+                getEarnedPercentage() * 100, getWeight() * 100);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PercentageGradeComponent))
+            return false;
+        return compareTo((PercentageGradeComponent) o) == 0;
+    }
+
+    @Override
+    public int compareTo(PercentageGradeComponent other) {
+        if (getId() > 0 && other.getId() > 0) {
+            return (int) Math.signum(getId() - other.getId());
+        }
+
+        // TODO: Compare courses
+
+        if (!getName().equals(other.getName())) {
+            return getName().compareTo(other.getName());
+        }
+        
+        long weight = Math.round(getWeight() * 100000);
+        long otherWeight = Math.round(other.getWeight() * 100000);
+
+        if (weight != otherWeight) {
+            return (int) Math.signum(weight - otherWeight);
+        }
+        
+        long earnedPercentage = Math.round(getEarnedPercentage() * 100000);
+        long otherEarnedPercentage = Math.round(other.getEarnedPercentage() * 100000);
+
+        return (int) Math.signum(earnedPercentage - otherEarnedPercentage);
     }
 
 }
