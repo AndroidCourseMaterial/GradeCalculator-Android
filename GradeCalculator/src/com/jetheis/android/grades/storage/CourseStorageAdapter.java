@@ -61,6 +61,24 @@ public class CourseStorageAdapter extends StorageAdapter {
     }
 
     /**
+     * Retrieve a {@link Course} from the database based on its unique
+     * identifier.
+     * 
+     * @param id
+     *            The {@link Course} to be retrieved's unique identifer.
+     * @return The desired {@link Course}, if found, and {@code null} otherwise.
+     */
+    public Course getCourseById(long id) {
+        CourseStorageIterator result = new CourseStorageIterator(getDb().query(TABLE_NAME, null,
+                ID_COLUMN + " = ?", new String[] { Long.toString(id) }, null, null, null));
+
+        if (result.getCount() < 1)
+            return null;
+
+        return result.next();
+    }
+
+    /**
      * Delete all {@link Course} records from the database.
      * 
      * @return The number of {@link Course}s deleted.

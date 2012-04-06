@@ -77,6 +77,15 @@ public class CourseStorageTest extends AndroidTestCase {
 
         assertEquals(course1.getId() + 1, course2.getId());
     }
+    
+    public void testSaveAndRetrieve() {
+        Course course = new Course();
+        course.setName("testSaveAndRetrieve");
+        course.setCourseType(CourseType.POINT_TOTAL);
+        course.save(mSandboxedContext);
+        
+        assertEquals(course, new CourseStorageAdapter(mSandboxedContext).getCourseById(course.getId()));
+    }
 
     @Override
     protected void tearDown() throws Exception {
