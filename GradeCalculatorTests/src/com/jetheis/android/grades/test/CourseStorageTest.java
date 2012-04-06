@@ -27,6 +27,8 @@ import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
 import com.jetheis.android.grades.model.Course;
+import com.jetheis.android.grades.model.Course.CourseType;
+import com.jetheis.android.grades.storage.CourseStorageAdapter;
 
 public class CourseStorageTest extends AndroidTestCase {
 
@@ -35,13 +37,52 @@ public class CourseStorageTest extends AndroidTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        mSandboxedContext = new RenamingDelegatingContext(getContext(), "course_storage_test-");
+        if (mSandboxedContext == null) {
+            mSandboxedContext = new RenamingDelegatingContext(getContext(), "course_storage_test-");
+        }
     }
 
-    public void testSimpleSave() {
+    public void testTotalDeletion() {
+        Course course = new Course();
+        course.setName("testTotalDeletion");
+        course.setCourseType(CourseType.POINT_TOTAL);
+        course.save(mSandboxedContext);
+
+        new CourseStorageAdapter(mSandboxedContext).deleteAllCourses();
+
+        assertEquals(0, Course.getAllCourses(mSandboxedContext).size());
+    }
+
+    public void testSimpleSaveExistance() {
         Course course = new Course();
         course.setName("testSimpleSave");
+        course.setCourseType(CourseType.POINT_TOTAL);
         course.save(mSandboxedContext);
+
+        assertEquals(1, Course.getAllCourses(mSandboxedContext).size());
+    }
+
+    public void testSaveIdentifierPopulation() {
+        Course course1 = new Course();
+        course1.setName("testSaveIdentifierPopulation1");
+        course1.setCourseType(CourseType.POINT_TOTAL);
+        course1.save(mSandboxedContext);
+
+        assertTrue(course1.getId() > 0);
+
+        Course course2 = new Course();
+        course2.setName("testSaveIdentifierPopulation2");
+        course2.setCourseType(CourseType.POINT_TOTAL);
+        course2.save(mSandboxedContext);
+
+        assertEquals(course1.getId() + 1, course2.getId());
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        
+        new CourseStorageAdapter(mSandboxedContext).deleteAllCourses();
     }
 
 }

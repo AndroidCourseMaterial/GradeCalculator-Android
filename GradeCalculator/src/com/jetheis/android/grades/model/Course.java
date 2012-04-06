@@ -28,6 +28,8 @@ import java.util.HashSet;
 
 import android.content.Context;
 
+import com.jetheis.android.grades.storage.CourseStorageAdapter;
+import com.jetheis.android.grades.storage.CourseStorageAdapter.CourseStorageIterator;
 import com.jetheis.android.grades.storage.Storable;
 
 /**
@@ -48,12 +50,55 @@ public class Course extends Storable {
          * The course calculates its final grade by summing the points of its
          * included grade components
          */
-        POINT_TOTAL,
+        POINT_TOTAL(1),
         /**
          * The course calculates its final grade by applying a specific weight
          * to the percentage grade of each of its included grade components.
          */
-        PERCENTAGE_WEIGHTING
+        PERCENTAGE_WEIGHTING(2);
+
+        private final int mIntIdentifier;;
+
+        /**
+         * Constructor for {@link CourseType}.
+         * 
+         * @param intIdenfifier
+         *            The integer that will be used to uniquely identify the
+         *            {@link CourseType} when it is stored as a database value.
+         */
+        CourseType(int intIdenfifier) {
+            mIntIdentifier = intIdenfifier;
+        }
+
+        /**
+         * Convert this {@link CourseType} to an integer for storage in a
+         * database row.
+         * 
+         * @return This {@link CourseType}'s unique integer identifier.
+         */
+        public int toInt() {
+            return mIntIdentifier;
+        }
+
+        /**
+         * Convert an integer identifier from a database row back into a proper
+         * {@link CourseType}.
+         * 
+         * @param intIdentifier
+         *            The integer identifier from a database row.
+         * @return The {@link CourseType} corresponding to the given integer
+         *         identifier.
+         */
+        public static CourseType fromInt(int intIdentifier) {
+            switch (intIdentifier) {
+            case 1:
+                return POINT_TOTAL;
+            case 2:
+                return PERCENTAGE_WEIGHTING;
+            }
+
+            return null;
+        }
     }
 
     private String mName;
@@ -270,7 +315,7 @@ public class Course extends Storable {
      */
     public void removeGradeComponent(GradeComponent gradeComponent) {
         initializeGradeComponents();
-        
+
         if (mGradeComponents.contains(gradeComponent)) {
             mGradeComponents.remove(gradeComponent);
         }
@@ -284,11 +329,11 @@ public class Course extends Storable {
      */
     public void removeGradeComponents(Collection<GradeComponent> gradeComponents) {
         initializeGradeComponents();
-        
-        for (GradeComponent gradeComponent : gradeComponents) { 
+
+        for (GradeComponent gradeComponent : gradeComponents) {
             if (mGradeComponents.contains(gradeComponent)) {
                 mGradeComponents.remove(gradeComponent);
-            }  
+            }
         }
     }
 
@@ -305,10 +350,29 @@ public class Course extends Storable {
         }
     }
 
+    /**
+     * Get all database-tracked {@link Course}s given a specific {@link Context}
+     * .
+     * 
+     * @param context
+     *            The {@link Context} to retrieve {@link Course}s with respect
+     *            to.
+     * @return A {@link Collection} of all database-tracked {@link Course}s.
+     */
+    public static Collection<Course> getAllCourses(Context context) {
+        CourseStorageIterator allCourses = new CourseStorageAdapter(context).getAllCourses();
+        ArrayList<Course> result = new ArrayList<Course>(allCourses.getCount());
+
+        for (Course course : allCourses) {
+            result.add(course);
+        }
+
+        return result;
+    }
+
     @Override
     public void save(Context context) {
-        // TODO
-
+        new CourseStorageAdapter(context).saveCourse(this);
     }
 
     @Override

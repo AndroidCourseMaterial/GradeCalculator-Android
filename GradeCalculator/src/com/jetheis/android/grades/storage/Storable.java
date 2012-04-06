@@ -31,6 +31,10 @@ import android.content.Context;
 public abstract class Storable {
 
     private long mId;
+    
+    public Storable() {
+        mId = 0;
+    }
 
     /**
      * Get the unique identifier (within the object's type) for this object.

@@ -22,10 +22,11 @@
 
 package com.jetheis.android.grades;
 
-import com.jetheis.android.grades.storage.DatabaseHelper;
-
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.jetheis.android.grades.storage.DatabaseHelper;
 
 /**
  * An {@link Application} subclass that stores data that needs to persist across
@@ -34,34 +35,18 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class GradesApplication extends Application {
 
-    private DatabaseHelper mDbHelper;
-
-    /**
-     * Default constructor. This takes care of initializing all application-wide
-     * objects.
-     */
-    public GradesApplication() {
-        mDbHelper = new DatabaseHelper(this);
+    private DatabaseHelper mDatabaseHelper;
+    
+    public DatabaseHelper getDatabaseHelper(Context context) {
+        if (mDatabaseHelper == null) {
+            mDatabaseHelper = new DatabaseHelper(context);
+        }
+        
+        return mDatabaseHelper;
     }
-
-    /**
-     * Get the application's persistent {@link DatabaseHelper} instance.
-     * 
-     * @return The application's persistent {@link DatabaseHelper} instance.
-     */
-    public DatabaseHelper getDatabaseHelper() {
-        return mDbHelper;
-    }
-
-    /**
-     * Helper method to access that application's persistent
-     * {@link SQLiteDatabase} instance from the {@link DatabaseHelper} directly.
-     * 
-     * @return The persistent {@link DatabaseHelper}'s {@link SQLiteDatabase}
-     *         instance.
-     */
-    public SQLiteDatabase getDatabase() {
-        return getDatabaseHelper().getDb();
+    
+    public SQLiteDatabase getDatabase(Context context) {
+        return getDatabaseHelper(context).getDb();
     }
 
 }

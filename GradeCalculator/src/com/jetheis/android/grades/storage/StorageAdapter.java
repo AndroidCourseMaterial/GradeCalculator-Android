@@ -48,7 +48,7 @@ public abstract class StorageAdapter {
      *            The {@link Context} this adapter will operate with respect to.
      */
     public StorageAdapter(Context context) {
-        mDb = ((GradesApplication) context.getApplicationContext()).getDatabase();
+        mDb = ((GradesApplication) context.getApplicationContext()).getDatabase(context);
     }
 
     /**

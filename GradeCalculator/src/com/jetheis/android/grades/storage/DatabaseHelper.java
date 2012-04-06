@@ -31,6 +31,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "gradecalc-data.db.sqlite";
     private static final int DATABASE_VERSION = 1;
 
+    private static final String COURSES_TABLE = "courses";
+    private static final String COURSES_TABLE_CREATION_STATEMENT = "CREATE TABLE " + COURSES_TABLE
+            + " (_id INTEGER PRIMARY KEY AUTOINCREMENT" + ", name TEXT NOT NULL"
+            + ", grade_type INTEGER NOT NULL" + ")";
+
     private SQLiteDatabase mDb;
 
     /**
@@ -48,12 +53,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Auto-generated method stub
+        db.execSQL(COURSES_TABLE_CREATION_STATEMENT);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
+        db.execSQL("DROP TABLE " + COURSES_TABLE);
+        
+        onCreate(db);
     }
 
     /**

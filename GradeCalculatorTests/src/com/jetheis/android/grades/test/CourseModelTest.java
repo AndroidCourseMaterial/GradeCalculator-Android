@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import junit.framework.TestCase;
 
 import com.jetheis.android.grades.model.Course;
+import com.jetheis.android.grades.model.Course.CourseType;
 import com.jetheis.android.grades.model.GradeComponent;
 import com.jetheis.android.grades.model.PercentageGradeComponent;
 import com.jetheis.android.grades.model.PointTotalGradeComponent;
@@ -184,4 +185,8 @@ public class CourseModelTest extends TestCase {
         assertEquals(7, csse333.getGradeComponents().size());
     }
 
+    public void testCourseTypeConversion() {
+        assertEquals(CourseType.POINT_TOTAL, CourseType.fromInt(1));
+        assertEquals(CourseType.PERCENTAGE_WEIGHTING, CourseType.fromInt(2));
+    }
 }
