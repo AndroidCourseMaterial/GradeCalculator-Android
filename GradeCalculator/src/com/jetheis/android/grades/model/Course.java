@@ -39,7 +39,7 @@ import com.jetheis.android.grades.storage.Storable;
  * score ({@link CourseType#POINT_TOTAL}), or by weighting categories'
  * percentages ({@link CourseType#PERCENTAGE_WEIGHTING}) together.
  */
-public class Course extends Storable {
+public class Course extends Storable implements Comparable<Course> {
 
     /**
      * A simple representation of a course type.
@@ -379,5 +379,25 @@ public class Course extends Storable {
     public void destroy(Context context) {
         // TODO
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Course))
+            return false;
+        return compareTo((Course) o) == 0;
+    }
+
+    @Override
+    public int compareTo(Course other) {
+        if (getId() > 0 && other.getId() > 0) {
+            return (int) Math.signum(getId() - other.getId());
+        }
+
+        if (!getName().equals(other.getName())) {
+            return getName().compareTo(other.getName());
+        }
+
+        return (int) Math.signum(getCourseType().toInt() - other.getCourseType().toInt());
     }
 }
