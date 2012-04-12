@@ -22,10 +22,11 @@
 
 package com.jetheis.android.grades;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-public class CoursesActivity extends Activity {
+import com.actionbarsherlock.app.SherlockActivity;
+
+public class CoursesActivity extends SherlockActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
