@@ -20,32 +20,13 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jetheis.android.grades"
-    android:versionCode="1"
-    android:versionName="1.0" >
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
-    <application
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/Theme.Sherlock.Light" >
-        <activity
-            android:name=".CoursesActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".CourseActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name=".AboutActivity"
-            android:label="@string/app_name" >
-        </activity>
-    </application>
-</manifest>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        android:padding="8dp"
+        android:text="@string/about_activity_text"/>
+</LinearLayout>

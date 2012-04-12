@@ -27,44 +27,31 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 
-public class CoursesActivity extends SherlockActivity {
-    
-    ActionBar mActionBar;
+public class AboutActivity extends SherlockActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.courses_activity);
-        
-        mActionBar = getSupportActionBar();
-        
-        mActionBar.setTitle(getString(R.string.courses_activity_title));
+        setContentView(R.layout.about_activity);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setTitle(getString(R.string.about_activity_title));
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
-    
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.courses_menu, menu);
-        return true;
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        
-        switch (item.getItemId()) {
-        case R.id.courses_menu_add:
-            // TODO
-            return true;
-        case R.id.courses_menu_about:
-            startActivity(new Intent(this, AboutActivity.class));
+    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(this, CoursesActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             return true;
         }
-        
-        return false;
+
+        return super.onOptionsItemSelected(item);
     }
+
 }

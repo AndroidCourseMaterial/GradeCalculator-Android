@@ -22,49 +22,16 @@
 
 package com.jetheis.android.grades;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 
-public class CoursesActivity extends SherlockActivity {
-    
-    ActionBar mActionBar;
+
+public class CourseActivity extends SherlockActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.courses_activity);
-        
-        mActionBar = getSupportActionBar();
-        
-        mActionBar.setTitle(getString(R.string.courses_activity_title));
-    }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.courses_menu, menu);
-        return true;
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        
-        switch (item.getItemId()) {
-        case R.id.courses_menu_add:
-            // TODO
-            return true;
-        case R.id.courses_menu_about:
-            startActivity(new Intent(this, AboutActivity.class));
-            return true;
-        }
-        
-        return false;
+        setContentView(R.layout.course_activity);
     }
 }

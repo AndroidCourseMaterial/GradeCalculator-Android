@@ -23,10 +23,17 @@
 <resources>
     <!-- Global -->
     <string name="app_name">Grades</string>
-    <!-- CoursesActivity -->
+    <!-- Courses Activity -->
     <string name="courses_activity_title">Courses</string>
-    <string name="courses_activity_action_item_add_course">Add Course</string>
+    <string name="courses_activity_menu_add_course">Add Course</string>
+    <string name="courses_activity_menu_about">About</string>
     <string name="courses_activity_no_courses_notice">You don\'t have any courses yet.\nTap \"Add Course\" to add one.</string>
     <string name="courses_activity_buy_notice">Full version required to add more than one course or save courses between app launches</string>
     <string name="courses_activity_buy_button">Buy Full Version</string>
+    <!-- Add Course Dialog -->
+    <!-- Course Activity -->
+    <!-- Add Grade Component Dialog -->
+    <!-- About Activity -->
+    <string name="about_activity_title">About</string>
+    <string name="about_activity_text">Weighted Grade Calculator is a personal project of mine. I think it is not only useful, but also the perfect sized project for demonstrating a lot of good Android development practices.\n\nAs such, I submit this app to both you, the user, and to you, the developer, as both a handy tool and an example of current Android design and development principles.\n\nThe source code for Weighted Grade Calculator is released under the MIT License and is available from the app\'s web site.\n\nAll original artwork is released under a Creative Commons License (CC BY 3.0) and is also available from the app\'s web site.\n\nCheers!</string>
 </resources>
