@@ -32,30 +32,30 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public class CoursesActivity extends SherlockActivity {
-    
-    ActionBar mActionBar;
+
+    private ActionBar mActionBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courses_activity);
-        
+
         mActionBar = getSupportActionBar();
-        
+
         mActionBar.setTitle(getString(R.string.courses_activity_title));
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.courses_menu, menu);
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        
+
         switch (item.getItemId()) {
         case R.id.courses_menu_add:
             // TODO
@@ -64,7 +64,7 @@ public class CoursesActivity extends SherlockActivity {
             startActivity(new Intent(this, AboutActivity.class));
             return true;
         }
-        
+
         return false;
     }
 }
