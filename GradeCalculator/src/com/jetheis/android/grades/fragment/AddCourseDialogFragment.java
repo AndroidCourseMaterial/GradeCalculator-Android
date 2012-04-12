@@ -25,23 +25,50 @@ package com.jetheis.android.grades.fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.jetheis.android.grades.R;
 
 public class AddCourseDialogFragment extends SherlockDialogFragment {
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setStyle(STYLE_NORMAL, com.actionbarsherlock.R.style.Theme_Sherlock_Light_Dialog);
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().setTitle(getActivity().getString(R.string.add_course_dialog_fragment_title));
-        return inflater.inflate(R.layout.add_course_dialog_fragment, container, false);
+
+        View result = inflater.inflate(R.layout.add_course_dialog_fragment, container, false);
+
+        Button createButton = (Button) result
+                .findViewById(R.id.add_course_dialog_fragment_create_button);
+        Button cancelButton = (Button) result
+                .findViewById(R.id.add_course_dialog_fragment_cancel_button);
+
+        createButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO: Create a course
+                dismiss();
+            }
+        });
+
+        cancelButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
+        return result;
     }
 }
