@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="2dp"
-        android:text="@string/courses_activity_buy_button" >
+        android:text="@string/course_list_activity_buy_button" >
     </Button>
     <TextView
         android:id="@+id/courses_activity_buy_notice"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/courses_activity_buy_button"
         android:gravity="center_horizontal"
-        android:text="@string/courses_activity_buy_notice" />
+        android:text="@string/course_list_activity_buy_notice" />
     <TextView
         android:id="@+id/courses_activity_empty_notice_text_view"
         android:layout_width="fill_parent"
@@ -45,6 +45,6 @@
         android:layout_above="@id/courses_activity_buy_notice"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="@string/courses_activity_no_courses_notice"
+        android:text="@string/course_list_activity_no_courses_notice"
         android:textSize="20sp" />
 </RelativeLayout>

@@ -23,13 +23,13 @@
 <resources>
     <!-- Global -->
     <string name="app_name">Grades</string>
-    <!-- Courses Activity -->
-    <string name="courses_activity_title">Courses</string>
-    <string name="courses_activity_menu_add_course">Add Course</string>
-    <string name="courses_activity_menu_about">About</string>
-    <string name="courses_activity_no_courses_notice">You don\'t have any courses yet.\nTap \"Add Course\" to add one.</string>
-    <string name="courses_activity_buy_notice">Full version required to add more than one course or save courses between app launches</string>
-    <string name="courses_activity_buy_button">Buy Full Version</string>
+    <!-- Course List Activity -->
+    <string name="course_list_activity_title">Courses</string>
+    <string name="course_list_activity_menu_add_course">Add Course</string>
+    <string name="course_list_activity_menu_about">About</string>
+    <string name="course_list_activity_no_courses_notice">You don\'t have any courses yet.\nTap \"Add Course\" to add one.</string>
+    <string name="course_list_activity_buy_notice">Full version required to add more than one course or save courses between app launches</string>
+    <string name="course_list_activity_buy_button">Buy Full Version</string>
     <!-- Add Course Dialog -->
     <!-- Course Activity -->
     <!-- Add Grade Component Dialog -->

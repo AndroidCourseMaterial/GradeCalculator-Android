@@ -20,15 +20,16 @@
  * SOFTWARE.
  */
 
-package com.jetheis.android.grades;
+package com.jetheis.android.grades.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.jetheis.android.grades.R;
 
-public class AboutActivity extends SherlockActivity {
+public class AboutActivity extends SherlockFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class AboutActivity extends SherlockActivity {
     @Override
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(this, CoursesActivity.class);
+            Intent intent = new Intent(this, CourseListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             return true;

@@ -20,25 +20,26 @@
  * SOFTWARE.
  */
 
-package com.jetheis.android.grades;
+package com.jetheis.android.grades.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.jetheis.android.grades.R;
 
-public class CoursesActivity extends SherlockActivity {
+public class CourseListActivity extends SherlockFragmentActivity {
 
     private ActionBar mActionBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.courses_activity);
+        setContentView(R.layout.course_list_activity);
 
         mActionBar = getSupportActionBar();
 
@@ -48,7 +49,7 @@ public class CoursesActivity extends SherlockActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.courses_menu, menu);
+        inflater.inflate(R.menu.course_list_menu, menu);
         return true;
     }
 

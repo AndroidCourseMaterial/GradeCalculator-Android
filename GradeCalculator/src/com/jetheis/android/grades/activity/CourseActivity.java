@@ -20,14 +20,15 @@
  * SOFTWARE.
  */
 
-package com.jetheis.android.grades;
+package com.jetheis.android.grades.activity;
 
 import android.os.Bundle;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.jetheis.android.grades.R;
 
 
-public class CourseActivity extends SherlockActivity {
+public class CourseActivity extends SherlockFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
