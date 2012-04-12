@@ -43,7 +43,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         mActionBar = getSupportActionBar();
 
-        mActionBar.setTitle(getString(R.string.courses_activity_title));
+        mActionBar.setTitle(getString(R.string.course_list_activity_title));
     }
 
     @Override

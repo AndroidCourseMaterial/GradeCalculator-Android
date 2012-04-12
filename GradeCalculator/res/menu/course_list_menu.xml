@@ -24,9 +24,9 @@
     <item
         android:id="@+id/courses_menu_add"
         android:showAsAction="always"
-        android:title="@string/courses_activity_menu_add_course"/>
+        android:title="@string/course_list_activity_menu_add_course"/>
     <item
         android:id="@+id/courses_menu_about"
         android:showAsAction="never"
-        android:title="@string/courses_activity_menu_about"/>
+        android:title="@string/course_list_activity_menu_about"/>
 </menu>
