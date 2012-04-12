@@ -27,9 +27,11 @@
     <string name="course_list_activity_title">Courses</string>
     <string name="course_list_activity_menu_add_course">Add Course</string>
     <string name="course_list_activity_menu_about">About</string>
-    <string name="course_list_activity_no_courses_notice">You don\'t have any courses yet.\nTap \"Add Course\" to add one.</string>
-    <string name="course_list_activity_buy_notice">Full version required to add more than one course or save courses between app launches</string>
-    <string name="course_list_activity_buy_button">Buy Full Version</string>
+    <!-- Buy Full Version Fragment -->
+    <string name="buy_full_version_fragment_buy_notice">Full version required to add more than one course or save courses between app launches</string>
+    <string name="buy_full_version_fragment_buy_button">Buy Full Version</string>
+    <!-- Course List Fragment -->
+    <string name="course_list_fragment_no_courses_notice">You don\'t have any courses yet.\nTap \"Add Course\" to add one.</string>
     <!-- Add Course Dialog -->
     <!-- Course Activity -->
     <!-- Add Grade Component Dialog -->

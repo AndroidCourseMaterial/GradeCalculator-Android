@@ -20,20 +20,20 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-    <fragment
-        android:id="@+id/course_list_activity_buy_full_version_fragment"
-        android:name="com.jetheis.android.grades.fragment.BuyFullVersionFragment"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-    <fragment
-        android:id="@+id/course_list_activity_course_list_fragment"
-        android:name="com.jetheis.android.grades.fragment.CourseListFragment"
+        android:gravity="center_horizontal"
+        android:text="@string/buy_full_version_fragment_buy_notice" />
+    <Button
+        android:id="@+id/buy_full_version_fragment_buy_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/course_list_activity_buy_full_version_fragment"
-        android:layout_alignParentTop="true" />
-</RelativeLayout>
+        android:layout_margin="2dp"
+        android:text="@string/buy_full_version_fragment_buy_button" >
+    </Button>
+</LinearLayout>
