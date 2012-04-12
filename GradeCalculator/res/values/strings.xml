@@ -21,7 +21,6 @@
    SOFTWARE.
 -->
 <resources>
-    <string name="hello">Hello World, GradeCalculatorActivity!</string>
     <!-- Global -->
     <string name="app_name">Grades</string>
     <!-- CoursesActivity -->
