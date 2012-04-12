@@ -22,8 +22,26 @@
 
 package com.jetheis.android.grades.fragment;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.jetheis.android.grades.R;
 
 public class AddCourseDialogFragment extends SherlockDialogFragment {
-
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        setStyle(STYLE_NORMAL, com.actionbarsherlock.R.style.Theme_Sherlock_Light_Dialog);
+    }
+    
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getDialog().setTitle(getActivity().getString(R.string.add_course_dialog_fragment_title));
+        return inflater.inflate(R.layout.add_course_dialog_fragment, container, false);
+    }
 }

@@ -31,6 +31,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.R;
+import com.jetheis.android.grades.fragment.AddCourseDialogFragment;
 
 public class CourseListActivity extends SherlockFragmentActivity {
 
@@ -59,7 +60,8 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         switch (item.getItemId()) {
         case R.id.courses_menu_add:
-            // TODO
+            AddCourseDialogFragment fragment = new AddCourseDialogFragment();
+            fragment.show(getSupportFragmentManager(), "TODO"); // TODO
             return true;
         case R.id.courses_menu_about:
             startActivity(new Intent(this, AboutActivity.class));

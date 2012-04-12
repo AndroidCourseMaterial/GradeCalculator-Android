@@ -32,7 +32,14 @@
     <string name="buy_full_version_fragment_buy_button">Buy Full Version</string>
     <!-- Course List Fragment -->
     <string name="course_list_fragment_no_courses_notice">You don\'t have any courses yet.\nTap \"Add Course\" to add one.</string>
-    <!-- Add Course Dialog -->
+    <!-- Add Course Dialog Fragment -->
+    <string name="add_course_dialog_fragment_title">New Course</string>
+    <string name="add_course_dialog_fragment_course_name">Name:</string>
+    <string name="add_course_dialog_fragment_grade_type">Grading Style:</string>
+    <string name="add_course_dialog_fragment_grade_type_point_total">Grand Point Total</string>
+    <string name="add_course_dialog_fragment_grade_type_percentage">Weighted Percentages</string>
+    <string name="add_course_dialog_fragment_create_course_button">Create Course</string>
+    <string name="add_course_dialog_fragment_cancel_button">Cancel</string>
     <!-- Course Activity -->
     <!-- Add Grade Component Dialog -->
     <!-- About Activity -->
