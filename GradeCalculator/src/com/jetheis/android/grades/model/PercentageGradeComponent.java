@@ -22,8 +22,6 @@
 
 package com.jetheis.android.grades.model;
 
-import android.content.Context;
-
 import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
 
 /**
@@ -91,12 +89,12 @@ public class PercentageGradeComponent extends GradeComponent implements
     }
 
     @Override
-    public void save(Context context) {
-        new GradeComponentStorageAdapter(context).savePercentageGradeComponent(this);
+    public void save() {
+        new GradeComponentStorageAdapter().savePercentageGradeComponent(this);
     }
 
     @Override
-    public void destroy(Context context) {
+    public void destroy() {
         // TODO Auto-generated method stub
 
     }
@@ -109,8 +107,10 @@ public class PercentageGradeComponent extends GradeComponent implements
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof PercentageGradeComponent))
+        if (!(o instanceof PercentageGradeComponent)) {
             return false;
+        }
+
         return compareTo((PercentageGradeComponent) o) == 0;
     }
 
@@ -125,14 +125,14 @@ public class PercentageGradeComponent extends GradeComponent implements
         if (!getName().equals(other.getName())) {
             return getName().compareTo(other.getName());
         }
-        
+
         long weight = Math.round(getWeight() * 100000);
         long otherWeight = Math.round(other.getWeight() * 100000);
 
         if (weight != otherWeight) {
             return (int) Math.signum(weight - otherWeight);
         }
-        
+
         long earnedPercentage = Math.round(getEarnedPercentage() * 100000);
         long otherEarnedPercentage = Math.round(other.getEarnedPercentage() * 100000);
 

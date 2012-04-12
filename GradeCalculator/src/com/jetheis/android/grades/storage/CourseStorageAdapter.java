@@ -23,7 +23,6 @@
 package com.jetheis.android.grades.storage;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -36,10 +35,6 @@ public class CourseStorageAdapter extends StorageAdapter {
     private static final String ID_COLUMN = "_id";
     private static final String NAME_COLUMN = "name";
     private static final String GRADE_TYPE_COLUMN = "grade_type";
-
-    public CourseStorageAdapter(Context context) {
-        super(context);
-    }
 
     /**
      * Save a {@link Course} that has never been saved in the database as a new

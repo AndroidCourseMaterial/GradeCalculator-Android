@@ -351,16 +351,12 @@ public class Course extends Storable implements Comparable<Course> {
     }
 
     /**
-     * Get all database-tracked {@link Course}s given a specific {@link Context}
-     * .
+     * Get all database-tracked {@link Course}s.
      * 
-     * @param context
-     *            The {@link Context} to retrieve {@link Course}s with respect
-     *            to.
      * @return A {@link Collection} of all database-tracked {@link Course}s.
      */
     public static Collection<Course> getAllCourses(Context context) {
-        CourseStorageIterator allCourses = new CourseStorageAdapter(context).getAllCourses();
+        CourseStorageIterator allCourses = new CourseStorageAdapter().getAllCourses();
         ArrayList<Course> result = new ArrayList<Course>(allCourses.getCount());
 
         for (Course course : allCourses) {
@@ -371,12 +367,18 @@ public class Course extends Storable implements Comparable<Course> {
     }
 
     @Override
-    public void save(Context context) {
-        new CourseStorageAdapter(context).saveCourse(this);
+    public void save() {
+        new CourseStorageAdapter().saveCourse(this);
     }
 
     @Override
-    public void destroy(Context context) {
+    public void destroy() {
+        // TODO
+
+    }
+
+    @Override
+    public void loadConnectedObjects() {
         // TODO
 
     }

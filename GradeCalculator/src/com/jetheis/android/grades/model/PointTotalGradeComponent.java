@@ -22,8 +22,6 @@
 
 package com.jetheis.android.grades.model;
 
-import android.content.Context;
-
 import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
 
 /**
@@ -78,25 +76,28 @@ public class PointTotalGradeComponent extends GradeComponent implements
     }
 
     @Override
-    public void save(Context context) {
-        new GradeComponentStorageAdapter(context).savePointTotalGradeComponent(this);
+    public void save() {
+        new GradeComponentStorageAdapter().savePointTotalGradeComponent(this);
     }
 
     @Override
-    public void destroy(Context context) {
+    public void destroy() {
         // TODO Auto-generated method stub
 
     }
-    
+
     @Override
     public String toString() {
         return String.format("PointTotalGradeComponent %s: %.2f/%.2f", getName(),
                 getPointsEarned(), getTotalPoints());
     }
-    
+
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof PointTotalGradeComponent)) return false;
+        if (!(o instanceof PointTotalGradeComponent)) {
+            return false;
+        }
+
         return compareTo((PointTotalGradeComponent) o) == 0;
     }
 
@@ -105,23 +106,23 @@ public class PointTotalGradeComponent extends GradeComponent implements
         if (getId() > 0 && other.getId() > 0) {
             return (int) Math.signum(getId() - other.getId());
         }
-        
+
         // TODO: Compare courses
 
         if (!getName().equals(other.getName())) {
             return getName().compareTo(other.getName());
         }
-        
+
         long totalPoints = Math.round(getTotalPoints() * 1000);
         long otherTotalPoints = Math.round(other.getTotalPoints() * 1000);
-        
+
         if (totalPoints != otherTotalPoints) {
             return (int) Math.signum(totalPoints - otherTotalPoints);
         }
-        
+
         long pointsEarned = Math.round(getPointsEarned() * 1000);
         long otherPointsEarned = Math.round(other.getPointsEarned() * 1000);
-        
+
         return (int) Math.signum(pointsEarned - otherPointsEarned);
     }
 

@@ -31,9 +31,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "gradecalc-data.db.sqlite";
     private static final int DATABASE_VERSION = 1;
 
+    private static DatabaseHelper sInstance;
+
     private static final String COURSES_TABLE = "courses";
-    private static final String COURSES_TABLE_CREATION_STATEMENT ;
-    
+    private static final String COURSES_TABLE_CREATION_STATEMENT;
+
     static {
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE ");
@@ -44,10 +46,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         builder.append(")");
         COURSES_TABLE_CREATION_STATEMENT = builder.toString();
     }
-    
+
     private static final String GRADE_COMPONENTS_TABLE = "grade_components";
     private static final String GRADE_COMPONENTS_TABLE_CREATION_STATEMENT;
-    
+
     static {
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE ");
@@ -71,9 +73,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *            The {@link Context} to initialize this {@link DatabaseHelper}
      *            with.
      */
-    public DatabaseHelper(Context context) {
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mDb = getWritableDatabase();
+    }
+
+    public static void initializeDatabaseHelper(Context context) {
+        if (sInstance != null) {
+            // Close the database connection in a DatabaseHelper instance
+            // already existed.
+            sInstance.getDb().close();
+        }
+
+        sInstance = new DatabaseHelper(context);
+    }
+
+    public static DatabaseHelper getInstance() {
+        if (sInstance == null) {
+            throw new IllegalStateException("DatabaseHelper has not been initialized yet");
+        }
+
+        return sInstance;
     }
 
     @Override
@@ -86,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE " + COURSES_TABLE);
         db.execSQL("DROP TABLE " + GRADE_COMPONENTS_TABLE);
-        
+
         onCreate(db);
     }
 

@@ -30,6 +30,7 @@ import com.jetheis.android.grades.model.Course;
 import com.jetheis.android.grades.model.PercentageGradeComponent;
 import com.jetheis.android.grades.model.PointTotalGradeComponent;
 import com.jetheis.android.grades.storage.CourseStorageAdapter;
+import com.jetheis.android.grades.storage.DatabaseHelper;
 import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
 
 public class GradeComponentStorageTest extends AndroidTestCase {
@@ -42,12 +43,13 @@ public class GradeComponentStorageTest extends AndroidTestCase {
         if (mSandboxedContext == null) {
             mSandboxedContext = new RenamingDelegatingContext(getContext(),
                     "grade_component_storage_test-");
+            DatabaseHelper.initializeDatabaseHelper(mSandboxedContext);
         }
     }
 
     public void testSimpleSave() {
         Course rh131 = ObjectMother.rh131();
-        rh131.save(mSandboxedContext);
+        rh131.save();
 
         PointTotalGradeComponent pointComponent = new PointTotalGradeComponent();
         pointComponent.setCourse(rh131);
@@ -57,15 +59,15 @@ public class GradeComponentStorageTest extends AndroidTestCase {
 
         assertEquals(0, pointComponent.getId());
 
-        pointComponent.save(mSandboxedContext);
+        pointComponent.save();
 
         assertTrue(pointComponent.getId() > 0);
         assertEquals(pointComponent,
-                new GradeComponentStorageAdapter(mSandboxedContext)
-                        .getPointTotalGradeComponentById(pointComponent.getId()));
+                new GradeComponentStorageAdapter().getPointTotalGradeComponentById(pointComponent
+                        .getId()));
 
         Course csse230 = ObjectMother.csse230();
-        csse230.save(mSandboxedContext);
+        csse230.save();
 
         PercentageGradeComponent percentageComponent = new PercentageGradeComponent();
         percentageComponent.setCourse(csse230);
@@ -75,19 +77,19 @@ public class GradeComponentStorageTest extends AndroidTestCase {
 
         assertEquals(0, percentageComponent.getId());
 
-        percentageComponent.save(mSandboxedContext);
+        percentageComponent.save();
 
         assertTrue(percentageComponent.getId() > 0);
         assertEquals(percentageComponent,
-                new GradeComponentStorageAdapter(mSandboxedContext)
+                new GradeComponentStorageAdapter()
                         .getPercentageGradeComponentById(percentageComponent.getId()));
     }
 
     protected void tearDown() throws Exception {
         super.tearDown();
 
-        new GradeComponentStorageAdapter(mSandboxedContext).deleteAllGradeComponents();
-        new CourseStorageAdapter(mSandboxedContext).deleteAllCourses();
+        new GradeComponentStorageAdapter().deleteAllGradeComponents();
+        new CourseStorageAdapter().deleteAllCourses();
     }
 
 }

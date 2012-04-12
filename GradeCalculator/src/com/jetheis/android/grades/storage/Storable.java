@@ -31,7 +31,7 @@ import android.content.Context;
 public abstract class Storable {
 
     private long mId;
-    
+
     public Storable() {
         mId = 0;
     }
@@ -39,7 +39,8 @@ public abstract class Storable {
     /**
      * Get the unique identifier (within the object's type) for this object.
      * 
-     * @return This object's unique identifier.
+     * @return This object's unique identifier (0 if unsaved, -1 if saving has
+     *         failed with an error in the past).
      */
     public long getId() {
         return mId;
@@ -58,6 +59,13 @@ public abstract class Storable {
     }
 
     /**
+     * Load (or prepare to load) any connected objects from the database. This
+     * method should only be called by {@link StorageAdapter}s that are
+     * populating "full" versions of the object.
+     */
+    public abstract void loadConnectedObjects();
+
+    /**
      * Save this object to the database. If this is a new object that is not yet
      * reflected in the database, a new entry should be created. Otherwise, the
      * existing entry for this object should be updated with the most recent
@@ -67,15 +75,12 @@ public abstract class Storable {
      * @param context
      *            The {@link Context} to save this object within.
      */
-    public abstract void save(Context context);
+    public abstract void save();
 
     /**
      * Remove this object from the database. If this object is not reflected in
      * the database, nothing should happen. This destruction should also recurse
      * to destroy any contained objects.
-     * 
-     * @param context
-     *            The {@link Context} to save this object within.
      */
-    public abstract void destroy(Context context);
+    public abstract void destroy();
 }

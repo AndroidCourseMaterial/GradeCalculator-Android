@@ -22,8 +22,6 @@
 
 package com.jetheis.android.grades.model;
 
-import android.content.Context;
-
 import com.jetheis.android.grades.storage.CourseStorageAdapter;
 import com.jetheis.android.grades.storage.Storable;
 
@@ -68,34 +66,12 @@ public abstract class GradeComponent extends Storable {
     }
 
     /**
-     * Get the {@link Course} that contains this {@link GradeComponent}. If the
-     * {@link Course} has not yet been loaded from the database, it will be
-     * loaded here.
-     * 
-     * @param context
-     *            A {@link Context} to use for retrieving this
-     *            {@link GradeComponent}'s {@link Course} from the database, if
-     *            it hasn't been loaded already. If this {@link GradeComponent}
-     *            is known to have its {@link Course} populated already, this
-     *            parameter can be {@code null}.
+     * Get the {@link Course} that contains this {@link GradeComponent}.
      * 
      * @return The {@link Course} that contains this {@link GradeComponent}, or
      *         null if one does not exist.
      */
-    public Course getCourse(Context context) throws IllegalStateException, IllegalArgumentException {
-        if (mCourse == null) {
-            if (mCourseId < 1) {
-                throw new IllegalStateException(
-                        "GradeComponent has no reference to a containing Course.");
-            }
-
-            if (context == null) {
-                throw new IllegalArgumentException(
-                        "Context must be provided to load Course in background");
-            }
-
-            mCourse = new CourseStorageAdapter(context).getCourseById(mCourseId);
-        }
+    public Course getCourse() {
 
         return mCourse;
     }
@@ -111,5 +87,12 @@ public abstract class GradeComponent extends Storable {
      */
     public void setCourse(Course course) {
         mCourse = course;
+    }
+
+    @Override
+    public void loadConnectedObjects() {
+        if (mCourseId > 0) {
+            setCourse(new CourseStorageAdapter().getCourseById(mCourseId));
+        }
     }
 }

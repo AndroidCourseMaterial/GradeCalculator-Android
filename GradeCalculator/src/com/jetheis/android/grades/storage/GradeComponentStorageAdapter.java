@@ -23,7 +23,6 @@
 package com.jetheis.android.grades.storage;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -39,10 +38,6 @@ public class GradeComponentStorageAdapter extends StorageAdapter {
     public static final String NAME_COLUMN = "name";
     public static final String EARNED_COLUMN = "earned";
     public static final String TOTAL_COLUMN = "total";
-
-    public GradeComponentStorageAdapter(Context context) {
-        super(context);
-    }
 
     /**
      * Convenience method for saving a {@link PointTotalGradeComponent}. This
@@ -209,7 +204,7 @@ public class GradeComponentStorageAdapter extends StorageAdapter {
             PointTotalGradeComponent component) {
         ContentValues result = new ContentValues();
 
-        result.put(COURSE_COLUMN, component.getCourse(getContext()).getId());
+        result.put(COURSE_COLUMN, component.getCourse().getId());
         result.put(NAME_COLUMN, component.getName());
         result.put(EARNED_COLUMN, component.getPointsEarned());
         result.put(TOTAL_COLUMN, component.getTotalPoints());
@@ -231,7 +226,7 @@ public class GradeComponentStorageAdapter extends StorageAdapter {
             PercentageGradeComponent component) {
         ContentValues result = new ContentValues();
 
-        result.put(COURSE_COLUMN, component.getCourse(getContext()).getId());
+        result.put(COURSE_COLUMN, component.getCourse().getId());
         result.put(NAME_COLUMN, component.getName());
         result.put(EARNED_COLUMN, component.getEarnedPercentage());
         result.put(TOTAL_COLUMN, component.getWeight());
