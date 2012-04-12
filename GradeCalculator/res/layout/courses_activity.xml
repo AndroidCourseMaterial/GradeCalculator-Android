@@ -20,12 +20,31 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-    <TextView
+    android:layout_height="fill_parent" >
+    <Button
+        android:id="@+id/courses_activity_buy_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello" />
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_margin="2dp"
+        android:text="@string/courses_activity_buy_button" >
+    </Button>
+    <TextView
+        android:id="@+id/courses_activity_buy_notice"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/courses_activity_buy_button"
+        android:gravity="center_horizontal"
+        android:text="@string/courses_activity_buy_notice" />
+    <TextView
+        android:id="@+id/courses_activity_empty_notice_text_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/courses_activity_buy_notice"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/courses_activity_no_courses_notice"
+        android:textSize="20sp" />
+</RelativeLayout>

@@ -24,13 +24,29 @@ package com.jetheis.android.grades;
 
 import android.os.Bundle;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 
 public class CoursesActivity extends SherlockActivity {
+    
+    ActionBar mActionBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courses_activity);
+        
+        mActionBar = getSupportActionBar();
+        
+        mActionBar.setTitle(getString(R.string.courses_activity_title));
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.courses_menu, menu);
+        return true;
     }
 }

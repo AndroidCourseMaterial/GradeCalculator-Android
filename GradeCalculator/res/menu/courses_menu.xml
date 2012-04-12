@@ -20,14 +20,10 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 -->
-<resources>
-    <string name="hello">Hello World, GradeCalculatorActivity!</string>
-    <!-- Global -->
-    <string name="app_name">Grades</string>
-    <!-- CoursesActivity -->
-    <string name="courses_activity_title">Courses</string>
-    <string name="courses_activity_action_item_add_course">Add Course</string>
-    <string name="courses_activity_no_courses_notice">You don\'t have any courses yet.\nTap \"Add Course\" to add one.</string>
-    <string name="courses_activity_buy_notice">Full version required to add more than one course or save courses between app launches</string>
-    <string name="courses_activity_buy_button">Buy Full Version</string>
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/courses_menu_add"
+        android:showAsAction="always"
+        android:title="@string/courses_activity_action_item_add_course">
+    </item>
+</menu>
