@@ -141,6 +141,21 @@ public class CourseStorageTest extends AndroidTestCase {
         csse230.destroy();
         assertEquals(0, Course.getAllCourses().size());
     }
+    
+    public void testAlphabetizingAllCourseResults() {
+        Course rh131 = ObjectMother.rh131();
+        rh131.save();
+        
+        Course csse230 = ObjectMother.csse230();
+        csse230.save();
+        
+        assertEquals(csse230, Course.getAllCourses().get(0));
+        
+        rh131.setName("AAAAA");
+        rh131.save();
+        
+        assertEquals(rh131, Course.getAllCourses().get(0));
+    }
 
     @Override
     protected void tearDown() throws Exception {

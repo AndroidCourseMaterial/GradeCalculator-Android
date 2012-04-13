@@ -22,6 +22,8 @@
 
 package com.jetheis.android.grades.activity;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -32,10 +34,15 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment;
+import com.jetheis.android.grades.model.Course;
+import com.jetheis.android.grades.storage.DatabaseHelper;
 
 public class CourseListActivity extends SherlockFragmentActivity {
 
+    private static final String CREATE_COURSE_DIALOG_TAG = "CreateCourse";
+
     private ActionBar mActionBar;
+    private List<Course> mCourses;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,23 @@ public class CourseListActivity extends SherlockFragmentActivity {
         mActionBar = getSupportActionBar();
 
         mActionBar.setTitle(getString(R.string.course_list_activity_title));
+
+        DatabaseHelper.initializeDatabaseHelper(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+        mCourses = Course.getAllCourses();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Course.destroyAllCourses();
+        DatabaseHelper.getInstance().close();
     }
 
     @Override
@@ -61,7 +85,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
         switch (item.getItemId()) {
         case R.id.courses_menu_add:
             AddCourseDialogFragment fragment = new AddCourseDialogFragment();
-            fragment.show(getSupportFragmentManager(), "TODO"); // TODO
+            fragment.show(getSupportFragmentManager(), CREATE_COURSE_DIALOG_TAG);
             return true;
         case R.id.courses_menu_about:
             startActivity(new Intent(this, AboutActivity.class));

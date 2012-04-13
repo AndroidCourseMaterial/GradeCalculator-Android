@@ -25,6 +25,7 @@ package com.jetheis.android.grades.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import com.jetheis.android.grades.storage.CourseStorageAdapter;
 import com.jetheis.android.grades.storage.CourseStorageAdapter.CourseStorageIterator;
@@ -341,8 +342,6 @@ public class Course extends Storable implements Comparable<Course> {
      * variable.
      */
     private void initializeGradeComponents() {
-        // TODO: Populate this from the database if it doesn't exist already
-
         if (mGradeComponents == null) {
             mGradeComponents = new HashSet<GradeComponent>();
         }
@@ -351,9 +350,10 @@ public class Course extends Storable implements Comparable<Course> {
     /**
      * Get all database-tracked {@link Course}s.
      * 
-     * @return A {@link Collection} of all database-tracked {@link Course}s.
+     * @return A {@link List} of all database-tracked {@link Course}s, sorted
+     *         alphabetically by name.
      */
-    public static Collection<Course> getAllCourses() {
+    public static List<Course> getAllCourses() {
         CourseStorageIterator allCourses = new CourseStorageAdapter().getAllCourses();
         ArrayList<Course> result = new ArrayList<Course>(allCourses.getCount());
 
@@ -364,14 +364,35 @@ public class Course extends Storable implements Comparable<Course> {
         return result;
     }
 
+    /**
+     * Delete all {@link Course} entries from the database
+     * 
+     * @return The number of database records affected.
+     */
+    public static int destroyAllCourses() {
+        return new CourseStorageAdapter().deleteAllCourses();
+    }
+
     @Override
     public void save() {
         new CourseStorageAdapter().saveCourse(this);
+
+        if (mGradeComponents != null) {
+            for (GradeComponent component : mGradeComponents) {
+                component.save();
+            }
+        }
     }
 
     @Override
     public void destroy() {
         new CourseStorageAdapter().deleteCourse(this);
+
+        if (mGradeComponents != null) {
+            for (GradeComponent component : mGradeComponents) {
+                component.destroy();
+            }
+        }
     }
 
     @Override

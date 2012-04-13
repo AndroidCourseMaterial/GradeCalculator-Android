@@ -28,9 +28,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.jetheis.android.grades.R;
+import com.jetheis.android.grades.model.Course;
+import com.jetheis.android.grades.model.Course.CourseType;
 
 public class AddCourseDialogFragment extends SherlockDialogFragment {
 
@@ -46,6 +50,9 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
         getDialog().setTitle(getActivity().getString(R.string.add_course_dialog_fragment_title));
 
         View result = inflater.inflate(R.layout.add_course_dialog_fragment, container, false);
+        
+        final EditText nameTextEdit = (EditText) result.findViewById(R.id.add_course_dialog_fragment_name_edit_text);
+        final RadioButton pointTotalRadioButton = (RadioButton) result.findViewById(R.id.add_course_dialog_fragment_point_total_radio_button);
 
         Button createButton = (Button) result
                 .findViewById(R.id.add_course_dialog_fragment_create_button);
@@ -56,7 +63,18 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
 
             @Override
             public void onClick(View v) {
-                // TODO: Create a course
+                Course newCourse = new Course();
+                
+                newCourse.setName(nameTextEdit.getText().toString());
+                
+                if (pointTotalRadioButton.isChecked()) {
+                    newCourse.setCourseType(CourseType.POINT_TOTAL);
+                } else {
+                    newCourse.setCourseType(CourseType.PERCENTAGE_WEIGHTING);
+                }
+                
+                newCourse.save();
+                
                 dismiss();
             }
         });

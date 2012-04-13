@@ -79,13 +79,14 @@ public class CourseStorageAdapter extends StorageAdapter {
 
     /**
      * Get all existing {@link Course}s, in {@link CourseStorageIterator} form.
+     * The results will be sorted alphabetically by name.
      * 
      * @return A {@link CourseStorageIterator} containing all {@link Course}s in
-     *         the database.
+     *         the database, sorted by name, descending.
      */
     public CourseStorageIterator getAllCourses() {
         return new CourseStorageIterator(getDb().query(TABLE_NAME, null, null, null, null, null,
-                null));
+                NAME_COLUMN + " ASC"));
     }
 
     /**
