@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
-import android.content.Context;
-
 import com.jetheis.android.grades.storage.CourseStorageAdapter;
 import com.jetheis.android.grades.storage.CourseStorageAdapter.CourseStorageIterator;
 import com.jetheis.android.grades.storage.Storable;
