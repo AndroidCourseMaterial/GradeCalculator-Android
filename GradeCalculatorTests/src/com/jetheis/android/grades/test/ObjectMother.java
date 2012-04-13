@@ -210,6 +210,10 @@ public class ObjectMother {
         return component;
     }
     
+    /**
+     * TODO
+     * @return
+     */
     public static PercentageGradeComponent percentageExams() {
         PercentageGradeComponent component = new PercentageGradeComponent();
         

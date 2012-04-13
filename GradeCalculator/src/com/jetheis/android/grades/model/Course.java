@@ -355,7 +355,7 @@ public class Course extends Storable implements Comparable<Course> {
      * 
      * @return A {@link Collection} of all database-tracked {@link Course}s.
      */
-    public static Collection<Course> getAllCourses(Context context) {
+    public static Collection<Course> getAllCourses() {
         CourseStorageIterator allCourses = new CourseStorageAdapter().getAllCourses();
         ArrayList<Course> result = new ArrayList<Course>(allCourses.getCount());
 
@@ -373,8 +373,7 @@ public class Course extends Storable implements Comparable<Course> {
 
     @Override
     public void destroy() {
-        // TODO
-
+        new CourseStorageAdapter().deleteCourse(this);
     }
 
     @Override

@@ -84,7 +84,23 @@ public class GradeComponentStorageTest extends AndroidTestCase {
                 new GradeComponentStorageAdapter()
                         .getPercentageGradeComponentById(percentageComponent.getId()));
     }
-
+    
+    public void testUpdate() {
+        // TODO
+    }
+    
+    public void testdestroy() {
+        // TODO
+    }
+    
+    public void testRetrievalById() {
+        // TODO
+    }
+    
+    public void testRetrievalFromCourse() {
+        // TODO
+    }
+    
     protected void tearDown() throws Exception {
         super.tearDown();
 

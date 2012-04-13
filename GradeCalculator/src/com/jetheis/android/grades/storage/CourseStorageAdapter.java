@@ -116,6 +116,37 @@ public class CourseStorageAdapter extends StorageAdapter {
     }
 
     /**
+     * Delete a given {@link Course}, settings its unique identifier to 0 after
+     * the deletion.
+     * 
+     * @param course
+     *            The {@link Course} to delete.
+     * 
+     * @return The number of database records affected.
+     */
+    public int deleteCourse(Course course) {
+        int result = deleteCourseById(course.getId());
+
+        if (result > 0) {
+            course.setId(0);
+        }
+
+        return result;
+    }
+
+    /**
+     * Delete the {@link Course} with the given unique identifier from the
+     * database, if it exists.
+     * 
+     * @param id
+     *            The unique identifier of the {@link Course} to be deleted.
+     * @return The number of database records affected.
+     */
+    public int deleteCourseById(long id) {
+        return getDb().delete(TABLE_NAME, ID_COLUMN + " = ?", new String[] { Long.toString(id) });
+    }
+
+    /**
      * Convert a {@link Course} to a {@link ContentValues} object for storage in
      * a {@link SQLiteDatabase}. This conversion leaves out the unique database
      * identifier, because this field will never be changed in the database, and

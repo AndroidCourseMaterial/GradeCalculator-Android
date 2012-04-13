@@ -54,7 +54,7 @@ public class CourseStorageTest extends AndroidTestCase {
 
         new CourseStorageAdapter().deleteAllCourses();
 
-        assertEquals(0, Course.getAllCourses(mSandboxedContext).size());
+        assertEquals(0, Course.getAllCourses().size());
     }
 
     public void testSimpleSaveExistance() {
@@ -63,7 +63,7 @@ public class CourseStorageTest extends AndroidTestCase {
         course.setCourseType(CourseType.POINT_TOTAL);
         course.save();
 
-        assertEquals(1, Course.getAllCourses(mSandboxedContext).size());
+        assertEquals(1, Course.getAllCourses().size());
     }
 
     public void testSaveIdentifierPopulation() {
@@ -124,6 +124,22 @@ public class CourseStorageTest extends AndroidTestCase {
         percentageExams.loadConnectedObjects();
 
         assertEquals(csse230, percentageExams.getCourse());
+    }
+    
+    public void testDestroy() {
+        Course rh131 = ObjectMother.rh131();
+        rh131.save();
+        
+        Course csse230 = ObjectMother.csse230();
+        csse230.save();
+        
+        assertEquals(2, Course.getAllCourses().size());
+        
+        rh131.destroy();
+        assertEquals(1, Course.getAllCourses().size());
+        
+        csse230.destroy();
+        assertEquals(0, Course.getAllCourses().size());
     }
 
     @Override
