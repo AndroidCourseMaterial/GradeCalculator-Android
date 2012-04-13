@@ -26,14 +26,18 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.jetheis.android.grades.Constants;
 import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment;
+import com.jetheis.android.grades.listadapter.CourseArrayAdapter;
 import com.jetheis.android.grades.model.Course;
 import com.jetheis.android.grades.storage.DatabaseHelper;
 
@@ -43,6 +47,8 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
     private ActionBar mActionBar;
     private List<Course> mCourses;
+    private CourseArrayAdapter mCourseArrayAdapter;
+    private SherlockListFragment mListFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,8 +56,10 @@ public class CourseListActivity extends SherlockFragmentActivity {
         setContentView(R.layout.course_list_activity);
 
         mActionBar = getSupportActionBar();
-
         mActionBar.setTitle(getString(R.string.course_list_activity_title));
+
+        mListFragment = (SherlockListFragment) getSupportFragmentManager().findFragmentById(
+                R.id.course_list_activity_course_list_fragment);
 
         DatabaseHelper.initializeDatabaseHelper(this);
     }
@@ -59,8 +67,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        
-        mCourses = Course.getAllCourses();
+        refreshCourseList();
     }
 
     @Override
@@ -84,7 +91,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         switch (item.getItemId()) {
         case R.id.courses_menu_add:
-            AddCourseDialogFragment fragment = new AddCourseDialogFragment();
+            AddCourseDialogFragment fragment = new AddCourseDialogFragment(this);
             fragment.show(getSupportFragmentManager(), CREATE_COURSE_DIALOG_TAG);
             return true;
         case R.id.courses_menu_about:
@@ -93,5 +100,17 @@ public class CourseListActivity extends SherlockFragmentActivity {
         }
 
         return false;
+    }
+    
+    public void refreshCourseList() {
+        mCourses = Course.getAllCourses();
+        mCourseArrayAdapter = new CourseArrayAdapter(this, mCourses);
+
+        mListFragment.setListAdapter(mCourseArrayAdapter);
+
+        if (mCourses.size() > 0) {
+            Log.d(Constants.TAG, "Found something");
+            // TODO hide text
+        }
     }
 }

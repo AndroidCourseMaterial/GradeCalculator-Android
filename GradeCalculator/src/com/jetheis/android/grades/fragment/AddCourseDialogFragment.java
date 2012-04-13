@@ -33,10 +33,19 @@ import android.widget.RadioButton;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.jetheis.android.grades.R;
+import com.jetheis.android.grades.activity.CourseListActivity;
 import com.jetheis.android.grades.model.Course;
 import com.jetheis.android.grades.model.Course.CourseType;
 
 public class AddCourseDialogFragment extends SherlockDialogFragment {
+    
+    private CourseListActivity mCourseListActivity;
+    
+    public AddCourseDialogFragment(CourseListActivity courseListActivity) {
+        super();
+        
+        mCourseListActivity = courseListActivity;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +85,8 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
                 newCourse.save();
                 
                 dismiss();
+                
+                mCourseListActivity.refreshCourseList();
             }
         });
 

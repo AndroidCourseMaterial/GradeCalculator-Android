@@ -420,4 +420,9 @@ public class Course extends Storable implements Comparable<Course> {
 
         return (int) Math.signum(getCourseType().toInt() - other.getCourseType().toInt());
     }
+    
+    @Override
+    public String toString() {
+        return "Course " + getName();
+    }
 }
