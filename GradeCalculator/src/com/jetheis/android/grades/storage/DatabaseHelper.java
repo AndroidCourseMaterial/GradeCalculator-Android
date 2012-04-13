@@ -79,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public static void initializeDatabaseHelper(Context context) {
-        if (sInstance != null) {
+        if (sInstance != null && sInstance.getDb() != null) {
             // Close the database connection in a DatabaseHelper instance
             // already existed.
             sInstance.getDb().close();
