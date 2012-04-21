@@ -29,6 +29,9 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.jetheis.android.grades.storage.CourseStorageAdapter;
 import com.jetheis.android.grades.storage.CourseStorageAdapter.CourseStorageIterator;
 import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
@@ -41,7 +44,7 @@ import com.jetheis.android.grades.storage.Storable;
  * score ({@link CourseType#POINT_TOTAL}), or by weighting categories'
  * percentages ({@link CourseType#PERCENTAGE_WEIGHTING}) together.
  */
-public class Course extends Storable implements Comparable<Course> {
+public class Course extends Storable implements Comparable<Course>, Parcelable {
 
     /**
      * A simple representation of a course type.
@@ -109,6 +112,13 @@ public class Course extends Storable implements Comparable<Course> {
     private double mTotalPossibleScore;
 
     private Collection<GradeComponent> mGradeComponents;
+
+    /**
+     * Default constructor (has no side effects)
+     */
+    public Course() {
+
+    }
 
     /**
      * Get the human readable name of the course.
@@ -476,4 +486,35 @@ public class Course extends Storable implements Comparable<Course> {
     public String toString() {
         return "Course " + getName();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(getId());
+        dest.writeString(getName());
+        dest.writeInt(getCourseType().toInt());
+    }
+
+    public Course(Parcel parcel) {
+        setId(parcel.readLong());
+        setName(parcel.readString());
+        setCourseType(CourseType.fromInt(parcel.readInt()));
+    }
+
+    public static Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>() {
+
+        @Override
+        public Course createFromParcel(Parcel source) {
+            return new Course(source);
+        }
+
+        @Override
+        public Course[] newArray(int size) {
+            return new Course[size];
+        }
+    };
 }

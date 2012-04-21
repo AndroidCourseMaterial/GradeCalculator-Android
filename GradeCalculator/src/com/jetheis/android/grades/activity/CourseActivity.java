@@ -24,15 +24,39 @@ package com.jetheis.android.grades.activity;
 
 import android.os.Bundle;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.R;
-
+import com.jetheis.android.grades.model.Course;
 
 public class CourseActivity extends SherlockFragmentActivity {
+
+    public static final String INTENT_KEY_COURSE = "course";
+
+    private Course mCourse;
+    private ActionBar mActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_activity);
+
+        mCourse = getIntent().getParcelableExtra(INTENT_KEY_COURSE);
+
+        mActionBar = getSupportActionBar();
+        mActionBar.setTitle(mCourse.getName());
+        mActionBar.setHomeButtonEnabled(true);
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

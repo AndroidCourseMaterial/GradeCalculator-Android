@@ -22,11 +22,11 @@
 
 package com.jetheis.android.grades.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.R;
 
 public class AboutActivity extends SherlockFragmentActivity {
@@ -44,11 +44,9 @@ public class AboutActivity extends SherlockFragmentActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(this, CourseListActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            finish();
             return true;
         }
 

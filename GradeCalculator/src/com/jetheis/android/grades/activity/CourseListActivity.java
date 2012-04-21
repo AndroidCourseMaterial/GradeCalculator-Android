@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
@@ -176,12 +177,22 @@ public class CourseListActivity extends SherlockFragmentActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 mListFragment.getListView().setItemChecked(position, true);
-                Log.v(Constants.TAG, "Current course is set");
                 mCurrentlySelectedCourse = mCourseArrayAdapter.getItem(position);
                 startActionMode(mCourseSelectionCallback);
                 return true;
             }
 
+        });
+
+        mListFragment.getListView().setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent courseIntent = new Intent(CourseListActivity.this, CourseActivity.class);
+                courseIntent.putExtra(CourseActivity.INTENT_KEY_COURSE,
+                        mCourseArrayAdapter.getItem(position));
+                startActivity(courseIntent);
+            }
         });
 
         Log.v(Constants.TAG, mCourses.size() + " courses loaded from the database");
