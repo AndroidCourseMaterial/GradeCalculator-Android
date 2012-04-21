@@ -22,6 +22,9 @@
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:id="@+id/courses_menu_add"
+        android:id="@+id/course_list_context_menu_edit"
+        android:title="Edit"/>
+    <item
+        android:id="@+id/course_list_context_menu_delete"
         android:title="Delete"/>
 </menu>

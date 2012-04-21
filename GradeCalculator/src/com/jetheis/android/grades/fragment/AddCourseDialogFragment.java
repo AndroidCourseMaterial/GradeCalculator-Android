@@ -33,18 +33,21 @@ import android.widget.RadioButton;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.jetheis.android.grades.R;
-import com.jetheis.android.grades.activity.CourseListActivity;
 import com.jetheis.android.grades.model.Course;
 import com.jetheis.android.grades.model.Course.CourseType;
 
 public class AddCourseDialogFragment extends SherlockDialogFragment {
-    
-    private CourseListActivity mCourseListActivity;
-    
-    public AddCourseDialogFragment(CourseListActivity courseListActivity) {
+
+    public interface OnCoursesChangeListener {
+        public void onCoursesChanged();
+    }
+
+    protected OnCoursesChangeListener mOnCoursesChangedListener;
+
+    public AddCourseDialogFragment(OnCoursesChangeListener onCoursesChangedListener) {
         super();
-        
-        mCourseListActivity = courseListActivity;
+
+        mOnCoursesChangedListener = onCoursesChangedListener;
     }
 
     @Override
@@ -59,9 +62,11 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
         getDialog().setTitle(getActivity().getString(R.string.add_course_dialog_fragment_title));
 
         View result = inflater.inflate(R.layout.add_course_dialog_fragment, container, false);
-        
-        final EditText nameTextEdit = (EditText) result.findViewById(R.id.add_course_dialog_fragment_name_edit_text);
-        final RadioButton pointTotalRadioButton = (RadioButton) result.findViewById(R.id.add_course_dialog_fragment_point_total_radio_button);
+
+        final EditText nameTextEdit = (EditText) result
+                .findViewById(R.id.add_course_dialog_fragment_name_edit_text);
+        final RadioButton pointTotalRadioButton = (RadioButton) result
+                .findViewById(R.id.add_course_dialog_fragment_point_total_radio_button);
 
         Button createButton = (Button) result
                 .findViewById(R.id.add_course_dialog_fragment_create_button);
@@ -73,20 +78,19 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
             @Override
             public void onClick(View v) {
                 Course newCourse = new Course();
-                
+
                 newCourse.setName(nameTextEdit.getText().toString());
-                
+
                 if (pointTotalRadioButton.isChecked()) {
                     newCourse.setCourseType(CourseType.POINT_TOTAL);
                 } else {
                     newCourse.setCourseType(CourseType.PERCENTAGE_WEIGHTING);
                 }
-                
+
                 newCourse.save();
-                
+
                 dismiss();
-                
-                mCourseListActivity.refreshCourseList();
+                mOnCoursesChangedListener.onCoursesChanged();
             }
         });
 

@@ -39,7 +39,8 @@ public class CourseArrayAdapter extends ArrayAdapter<Course> {
     private Context mContext;
 
     public CourseArrayAdapter(Context context, List<Course> courses) {
-        super(context, R.layout.course_list_line_item, R.id.course_list_line_item_name_text_view, courses);
+        super(context, R.layout.course_list_line_item, R.id.course_list_line_item_name_text_view,
+                courses);
 
         mContext = context;
     }
@@ -53,8 +54,8 @@ public class CourseArrayAdapter extends ArrayAdapter<Course> {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             result = inflater.inflate(R.layout.course_list_line_item, null);
         }
-        
-        Course currentCourse = getItem(position);
+
+        final Course currentCourse = getItem(position);
 
         TextView nameTextView = (TextView) result
                 .findViewById(R.id.course_list_line_item_name_text_view);

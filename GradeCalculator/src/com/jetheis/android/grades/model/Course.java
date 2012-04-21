@@ -140,12 +140,22 @@ public class Course extends Storable implements Comparable<Course> {
     }
 
     /**
-     * Set the "type" ({@link CourseType}) of the course.
+     * Set the "type" ({@link CourseType}) of the course. If this setting is a
+     * change from this {@link Course}'s current type, all
+     * {@link GradeComponent}s will be destroyed as a side effect.
      * 
      * @param courseType
      *            The new {@link CourseType} of this course.
      */
     public void setCourseType(CourseType courseType) {
+        if (mCourseType != courseType) {
+            initializeGradeComponents();
+
+            for (GradeComponent gradeComponent : mGradeComponents) {
+                gradeComponent.destroy();
+            }
+        }
+
         mCourseType = courseType;
     }
 

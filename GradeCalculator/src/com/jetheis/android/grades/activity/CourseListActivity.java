@@ -27,28 +27,81 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.Constants;
 import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment;
+import com.jetheis.android.grades.fragment.AddCourseDialogFragment.OnCoursesChangeListener;
+import com.jetheis.android.grades.fragment.EditCourseDialogFragment;
 import com.jetheis.android.grades.listadapter.CourseArrayAdapter;
 import com.jetheis.android.grades.model.Course;
 import com.jetheis.android.grades.storage.DatabaseHelper;
 
 public class CourseListActivity extends SherlockFragmentActivity {
 
-    private static final String CREATE_COURSE_DIALOG_TAG = "CreateCourse";
+    private static final String CREATE_COURSE_DIALOG_TAG = "CreateCourseDialog";
+    private static final String EDIT_COURSE_DIALOG_TAG = "EditCourseDialog";
 
     private ActionBar mActionBar;
     private List<Course> mCourses;
+    private Course mCurrentlySelectedCourse;
     private CourseArrayAdapter mCourseArrayAdapter;
     private SherlockListFragment mListFragment;
+    private ActionMode.Callback mCourseSelectionCallback = new ActionMode.Callback() {
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.course_list_context_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+            case R.id.course_list_context_menu_edit:
+                EditCourseDialogFragment editCourseDialog = new EditCourseDialogFragment(
+                        mCurrentlySelectedCourse, new OnCoursesChangeListener() {
+
+                            @Override
+                            public void onCoursesChanged() {
+                                refreshCourseList();
+                            }
+                        });
+
+                editCourseDialog.show(getSupportFragmentManager(), EDIT_COURSE_DIALOG_TAG);
+
+                return true;
+            case R.id.course_list_context_menu_delete:
+                mCurrentlySelectedCourse.destroy();
+                refreshCourseList();
+                mode.finish();
+                return true;
+            }
+
+            return false;
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +113,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         mListFragment = (SherlockListFragment) getSupportFragmentManager().findFragmentById(
                 R.id.course_list_activity_course_list_fragment);
+        mListFragment.getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         DatabaseHelper.initializeDatabaseHelper(this);
     }
@@ -91,7 +145,15 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         switch (item.getItemId()) {
         case R.id.courses_menu_add:
-            AddCourseDialogFragment fragment = new AddCourseDialogFragment(this);
+            AddCourseDialogFragment fragment = new AddCourseDialogFragment(
+                    new OnCoursesChangeListener() {
+
+                        @Override
+                        public void onCoursesChanged() {
+                            refreshCourseList();
+                        }
+
+                    });
             fragment.show(getSupportFragmentManager(), CREATE_COURSE_DIALOG_TAG);
             return true;
         case R.id.courses_menu_about:
@@ -101,16 +163,33 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         return false;
     }
-    
+
     public void refreshCourseList() {
+        Log.v(Constants.TAG, "Refreshing course list");
+
         mCourses = Course.getAllCourses();
         mCourseArrayAdapter = new CourseArrayAdapter(this, mCourses);
 
         mListFragment.setListAdapter(mCourseArrayAdapter);
+        mListFragment.getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                mListFragment.getListView().setItemChecked(position, true);
+                Log.v(Constants.TAG, "Current course is set");
+                mCurrentlySelectedCourse = mCourseArrayAdapter.getItem(position);
+                startActionMode(mCourseSelectionCallback);
+                return true;
+            }
+
+        });
 
         if (mCourses.size() > 0) {
-            Log.d(Constants.TAG, "Found something");
+            Log.v(Constants.TAG, mCourses.size() + " courses loaded from the database");
             // TODO hide text
+        } else {
+            Log.v(Constants.TAG, "No courses found in database");
+            // TODO show text
         }
     }
 }
