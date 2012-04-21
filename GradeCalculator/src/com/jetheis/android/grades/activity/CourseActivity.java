@@ -30,6 +30,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.R;
+import com.jetheis.android.grades.fragment.AddGradeComponentDialogFragment;
+import com.jetheis.android.grades.fragment.AddGradeComponentDialogFragment.OnGradeComponentsChangedListener;
 import com.jetheis.android.grades.fragment.GradeComponentListFragment;
 import com.jetheis.android.grades.fragment.GradeComponentListFragment.OnGradeComponentSelectedListener;
 import com.jetheis.android.grades.model.Course;
@@ -38,6 +40,8 @@ import com.jetheis.android.grades.model.GradeComponent;
 public class CourseActivity extends SherlockFragmentActivity {
 
     public static final String INTENT_KEY_COURSE = "course";
+
+    private static final String CREATE_GRADE_COMPONENT_DIALOG_TAG = "CreateGradeComponentDialog";
 
     private Course mCourse;
     private ActionBar mActionBar;
@@ -77,8 +81,22 @@ public class CourseActivity extends SherlockFragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
             finish();
+            return true;
+        case R.id.course_menu_add:
+            AddGradeComponentDialogFragment addGradeComponentDialog = new AddGradeComponentDialogFragment(
+                    mCourse, new OnGradeComponentsChangedListener() {
+
+                        @Override
+                        public void onGradeComponentsChanged() {
+                            mListFragment.refreshGradeComponts();
+                        }
+
+                    });
+            addGradeComponentDialog.show(getSupportFragmentManager(),
+                    CREATE_GRADE_COMPONENT_DIALOG_TAG);
             return true;
         }
 

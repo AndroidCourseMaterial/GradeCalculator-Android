@@ -56,6 +56,14 @@
     <string name="grade_component_list_fragment_percentage_earned">Current Percentage:</string>
     <string name="grade_component_list_fragment_weight">Weight: %s</string>
     <!-- Add Grade Component Dialog -->
+    <string name="add_grade_component_dialog_title">Add Grade Component</string>
+    <string name="add_grade_component_dialog_name">Name:</string>
+    <string name="add_grade_component_dialog_total_points">Total Possible Points:</string>
+    <string name="add_grade_component_dialog_weight">Weight (percentage out of 100):</string>
+    <string name="add_grade_component_dialog_cancel_button">Cancel</string>
+    <string name="add_grade_component_dialog_create_button">Create</string>
+    <!-- Edit Grade Component Dialog -->
+    <string name="edit_grade_component_dialog_save_butotn">Save</string>
     <!-- About Activity -->
     <string name="about_activity_title">About</string>
     <string name="about_activity_text">Weighted Grade Calculator is a personal project of mine. I think it is not only useful, but also the perfect sized project for demonstrating a lot of good Android development practices.\n\nAs such, I submit this app to both you, the user, and to you, the developer, as both a handy tool and an example of current Android design and development principles.\n\nThe source code for Weighted Grade Calculator is released under the MIT License and is available from the app\'s web site.\n\nAll original artwork is released under a Creative Commons License (CC BY 3.0) and is also available from the app\'s web site.\n\nCheers!</string>
