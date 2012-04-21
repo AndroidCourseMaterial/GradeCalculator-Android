@@ -26,12 +26,14 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.fragment.AddGradeComponentDialogFragment;
 import com.jetheis.android.grades.fragment.AddGradeComponentDialogFragment.OnGradeComponentsChangedListener;
+import com.jetheis.android.grades.fragment.EditGradeComponentDialogFragment;
 import com.jetheis.android.grades.fragment.GradeComponentListFragment;
 import com.jetheis.android.grades.fragment.GradeComponentListFragment.OnGradeComponentSelectedListener;
 import com.jetheis.android.grades.model.Course;
@@ -42,10 +44,54 @@ public class CourseActivity extends SherlockFragmentActivity {
     public static final String INTENT_KEY_COURSE = "course";
 
     private static final String CREATE_GRADE_COMPONENT_DIALOG_TAG = "CreateGradeComponentDialog";
+    private static final String EDIT_GRADE_COMPONENT_DIALOG_TAG = "EditGradeComponentDialog";
 
     private Course mCourse;
     private ActionBar mActionBar;
     private GradeComponentListFragment mListFragment;
+    private GradeComponent mCurrentGradeComponent;
+    private ActionMode.Callback mGradeComponentSelectedCallback = new ActionMode.Callback() {
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.course_context_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+            case R.id.course_context_menu_edit:
+                EditGradeComponentDialogFragment editDialog = new EditGradeComponentDialogFragment(mCurrentGradeComponent, new OnGradeComponentsChangedListener() {
+                    
+                    @Override
+                    public void onGradeComponentsChanged() {
+                        mListFragment.refreshGradeComponents();
+                    }
+                    
+                });
+                
+                editDialog.show(getSupportFragmentManager(), EDIT_GRADE_COMPONENT_DIALOG_TAG);
+                mode.finish();
+                return true;
+            case R.id.course_context_menu_delete:
+                mCurrentGradeComponent.destroy();
+                mListFragment.refreshGradeComponents();
+                mode.finish();
+                return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +112,8 @@ public class CourseActivity extends SherlockFragmentActivity {
             @Override
             public void onGradeComponentSelected(GradeComponentListFragment fragment,
                     GradeComponent gradeComponent) {
-                // TODO
+                mCurrentGradeComponent = gradeComponent;
+                startActionMode(mGradeComponentSelectedCallback);
             }
 
         });
@@ -91,7 +138,7 @@ public class CourseActivity extends SherlockFragmentActivity {
 
                         @Override
                         public void onGradeComponentsChanged() {
-                            mListFragment.refreshGradeComponts();
+                            mListFragment.refreshGradeComponents();
                         }
 
                     });

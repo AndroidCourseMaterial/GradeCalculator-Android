@@ -95,6 +95,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
                 return true;
             case R.id.course_list_context_menu_delete:
                 mCurrentlySelectedCourse.destroy();
+                mCurrentlySelectedCourse = null;
                 refreshCourseList();
                 mode.finish();
                 return true;

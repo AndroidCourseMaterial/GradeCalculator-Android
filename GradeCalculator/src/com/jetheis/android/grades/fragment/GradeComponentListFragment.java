@@ -48,10 +48,10 @@ public class GradeComponentListFragment extends SherlockListFragment {
 
         });
 
-        refreshGradeComponts();
+        refreshGradeComponents();
     }
 
-    public void refreshGradeComponts() {
+    public void refreshGradeComponents() {
         mCourse.loadConnectedObjects();
         setListAdapter(new GradeComponentArrayAdapter(getActivity(), mCourse.getGradeComponents()));
     }
