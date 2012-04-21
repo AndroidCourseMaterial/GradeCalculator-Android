@@ -145,7 +145,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
         super.onOptionsItemSelected(item);
 
         switch (item.getItemId()) {
-        case R.id.courses_menu_add:
+        case R.id.course_list_menu_add:
             AddCourseDialogFragment fragment = new AddCourseDialogFragment(
                     new OnCoursesChangeListener() {
 
@@ -157,7 +157,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
                     });
             fragment.show(getSupportFragmentManager(), CREATE_COURSE_DIALOG_TAG);
             return true;
-        case R.id.courses_menu_about:
+        case R.id.course_list_menu_about:
             startActivity(new Intent(this, AboutActivity.class));
             return true;
         }

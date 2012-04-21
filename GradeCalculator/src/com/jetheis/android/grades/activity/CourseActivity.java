@@ -26,6 +26,8 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.model.Course;
@@ -48,6 +50,13 @@ public class CourseActivity extends SherlockFragmentActivity {
         mActionBar.setTitle(mCourse.getName());
         mActionBar.setHomeButtonEnabled(true);
         mActionBar.setDisplayHomeAsUpEnabled(true);
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.course_menu, menu);
+        return true;
     }
 
     @Override

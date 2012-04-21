@@ -20,13 +20,18 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/course_list_menu_add"
-        android:showAsAction="always"
-        android:title="@string/course_list_activity_menu_add_course"/>
-    <item
-        android:id="@+id/course_list_menu_about"
-        android:showAsAction="never"
-        android:title="@string/course_list_activity_menu_about"/>
-</menu>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/grade_component_list_fragment_no_components_notice"
+        android:textSize="20sp" />
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+</FrameLayout>
