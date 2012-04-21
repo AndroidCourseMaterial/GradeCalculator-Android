@@ -24,14 +24,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <TextView
-        android:id="@+id/course_list_fragment_empty_notice_text_view"
+        android:id="@android:id/empty"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
         android:text="@string/course_list_fragment_no_courses_notice"
         android:textSize="20sp" />
     <ListView
-        android:id="@+id/course_list_fragment_list_view"
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 </FrameLayout>

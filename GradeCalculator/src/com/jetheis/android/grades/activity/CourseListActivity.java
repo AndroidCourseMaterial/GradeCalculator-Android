@@ -34,7 +34,6 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -43,6 +42,7 @@ import com.jetheis.android.grades.Constants;
 import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment.OnCoursesChangeListener;
+import com.jetheis.android.grades.fragment.CourseListFragment;
 import com.jetheis.android.grades.fragment.EditCourseDialogFragment;
 import com.jetheis.android.grades.listadapter.CourseArrayAdapter;
 import com.jetheis.android.grades.model.Course;
@@ -57,7 +57,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
     private List<Course> mCourses;
     private Course mCurrentlySelectedCourse;
     private CourseArrayAdapter mCourseArrayAdapter;
-    private SherlockListFragment mListFragment;
+    private CourseListFragment mListFragment;
     private ActionMode.Callback mCourseSelectionCallback = new ActionMode.Callback() {
 
         @Override
@@ -67,7 +67,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            
+
         }
 
         @Override
@@ -111,7 +111,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
         mActionBar = getSupportActionBar();
         mActionBar.setTitle(getString(R.string.course_list_activity_title));
 
-        mListFragment = (SherlockListFragment) getSupportFragmentManager().findFragmentById(
+        mListFragment = (CourseListFragment) getSupportFragmentManager().findFragmentById(
                 R.id.course_list_activity_course_list_fragment);
         mListFragment.getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
@@ -184,12 +184,6 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         });
 
-        if (mCourses.size() > 0) {
-            Log.v(Constants.TAG, mCourses.size() + " courses loaded from the database");
-            // TODO hide text
-        } else {
-            Log.v(Constants.TAG, "No courses found in database");
-            // TODO show text
-        }
+        Log.v(Constants.TAG, mCourses.size() + " courses loaded from the database");
     }
 }
