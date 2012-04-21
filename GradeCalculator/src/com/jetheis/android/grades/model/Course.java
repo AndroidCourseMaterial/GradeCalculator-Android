@@ -24,6 +24,8 @@ package com.jetheis.android.grades.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -229,12 +231,20 @@ public class Course extends Storable implements Comparable<Course> {
      * 
      * @return The collection of grade components that this course contains.
      */
-    public Collection<GradeComponent> getGradeComponents() {
+    public List<GradeComponent> getGradeComponents() {
         initializeGradeComponents();
 
         // Copy components to a new list so the original can't be modified
         ArrayList<GradeComponent> result = new ArrayList<GradeComponent>();
         result.addAll(mGradeComponents);
+
+        Collections.sort(result, new Comparator<GradeComponent>() {
+
+            @Override
+            public int compare(GradeComponent lhs, GradeComponent rhs) {
+                return (int) Math.signum(lhs.getId() - rhs.getId());
+            }
+        });
 
         return result;
     }
