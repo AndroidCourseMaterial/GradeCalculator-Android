@@ -177,6 +177,10 @@ public class Course extends Storable implements Comparable<Course>, Parcelable {
      *         to {@code 1.0}.
      */
     public double getOverallScore() {
+        if (getGradeComponents().size() == 0) {
+            loadConnectedObjects();
+        }
+        
         calculateOverallScore();
         return mOverallScore;
     }
@@ -196,6 +200,7 @@ public class Course extends Storable implements Comparable<Course>, Parcelable {
      */
     public double getTotalPossibleScore() {
         calculateOverallScore();
+
         return mTotalPossibleScore;
     }
 
@@ -231,8 +236,8 @@ public class Course extends Storable implements Comparable<Course>, Parcelable {
 
             for (GradeComponent component : getGradeComponents()) {
                 PercentageGradeComponent percentageComponent = (PercentageGradeComponent) component;
-                totalScore += percentageComponent.getEarnedPercentage()
-                        * percentageComponent.getWeight();
+                totalScore += percentageComponent.getEarnedPercentage() / 100.0
+                        * percentageComponent.getWeight() / 100.0;
                 totalWeight += percentageComponent.getWeight();
             }
 
