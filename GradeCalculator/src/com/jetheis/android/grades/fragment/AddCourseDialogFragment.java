@@ -98,6 +98,7 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
             
         });
 
+        createButton.setEnabled(false);
         createButton.setOnClickListener(new OnClickListener() {
 
             @Override
