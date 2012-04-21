@@ -84,23 +84,167 @@ public class GradeComponentStorageTest extends AndroidTestCase {
                 new GradeComponentStorageAdapter()
                         .getPercentageGradeComponentById(percentageComponent.getId()));
     }
-    
+
     public void testUpdate() {
-        // TODO
+        // Point total
+        Course rh131 = ObjectMother.rh131();
+        rh131.save();
+        
+        PointTotalGradeComponent pointExams = ObjectMother.pointTotalExams();
+        
+        rh131.addGradeComponent(pointExams);
+        rh131.save();
+
+        pointExams.setName("CHANGEDPOINTS");
+        pointExams.save();
+
+        assertEquals(pointExams,
+                PointTotalGradeComponent.getPointTotalGradeComponentById(pointExams.getId()));
+
+        // Percentage
+        Course csse230 = ObjectMother.csse230();
+        csse230.save();
+        
+        PercentageGradeComponent percentageExams = ObjectMother.percentageExams();
+        
+        csse230.addGradeComponent(percentageExams);
+        csse230.save();
+        
+        percentageExams.setName("CHANGEDPERCENTAGE");
+        percentageExams.save();
+
+        assertEquals(percentageExams,
+                PercentageGradeComponent.getPercentageGradeComponentById(percentageExams.getId()));
     }
-    
+
     public void testdestroy() {
-        // TODO
+        Course rh131 = ObjectMother.rh131();
+        rh131.save();
+        
+        PointTotalGradeComponent pointExams = ObjectMother.pointTotalExams();
+        
+        rh131.addGradeComponent(pointExams);
+        rh131.save();
+
+        assertTrue(pointExams.getId() > 0);
+        
+        long rh131ExamsId = pointExams.getId();
+        
+        pointExams.destroy();
+        
+        assertNull(PointTotalGradeComponent.getPointTotalGradeComponentById(rh131ExamsId));
+
+        // Percentage
+        Course csse230 = ObjectMother.csse230();
+        csse230.save();
+        
+        PercentageGradeComponent percentageExams = ObjectMother.percentageExams();
+        
+        csse230.addGradeComponent(percentageExams);
+        csse230.save();
+
+        assertTrue(percentageExams.getId() > 0);
+        
+        long csse230ExamsId = percentageExams.getId();
+        
+        percentageExams.destroy();
+        
+        assertNull(PercentageGradeComponent.getPercentageGradeComponentById(csse230ExamsId));
     }
-    
+
+    public void testDestroyFromCourse() {
+        Course rh131 = ObjectMother.rh131();
+        rh131.save();
+        
+        PointTotalGradeComponent pointExams = ObjectMother.pointTotalExams();
+        
+        rh131.addGradeComponent(pointExams);
+        rh131.save();
+
+        assertTrue(pointExams.getId() > 0);
+        
+        long rh131ExamsId = pointExams.getId();
+        
+        rh131.destroy();
+        
+        assertNull(PointTotalGradeComponent.getPointTotalGradeComponentById(rh131ExamsId));
+
+        // Percentage
+        Course csse230 = ObjectMother.csse230();
+        csse230.save();
+        
+        PercentageGradeComponent percentageExams = ObjectMother.percentageExams();
+        
+        csse230.addGradeComponent(percentageExams);
+        csse230.save();
+
+        assertTrue(percentageExams.getId() > 0);
+        
+        long csse230ExamsId = percentageExams.getId();
+        
+        csse230.destroy();
+        
+        assertNull(PercentageGradeComponent.getPercentageGradeComponentById(csse230ExamsId));
+    }
+
     public void testRetrievalById() {
-        // TODO
+        // Point total
+        Course rh131 = ObjectMother.rh131();
+        rh131.save();
+        
+        PointTotalGradeComponent pointExams = ObjectMother.pointTotalExams();
+        
+        rh131.addGradeComponent(pointExams);
+        rh131.save();
+
+        assertTrue(pointExams.getId() > 0);
+        assertEquals(pointExams,
+                PointTotalGradeComponent.getPointTotalGradeComponentById(pointExams.getId()));
+
+        // Percentage
+        Course csse230 = ObjectMother.csse230();
+        csse230.save();
+        
+        PercentageGradeComponent percentageExams = ObjectMother.percentageExams();
+        
+        csse230.addGradeComponent(percentageExams);
+        csse230.save();
+
+        assertTrue(percentageExams.getId() > 0);
+        assertEquals(percentageExams,
+                PercentageGradeComponent.getPercentageGradeComponentById(percentageExams.getId()));
     }
-    
+
     public void testRetrievalFromCourse() {
-        // TODO
+        // Point total
+        Course rh131 = ObjectMother.rh131();
+        rh131.save();
+        
+        PointTotalGradeComponent pointExams = ObjectMother.pointTotalExams();
+        
+        rh131.addGradeComponent(pointExams);
+        rh131.save();
+        
+        Course retrievedRh131 = Course.getCourseById(rh131.getId());
+        retrievedRh131.loadConnectedObjects();
+
+        assertEquals(pointExams, retrievedRh131.getGradeComponents().iterator().next());
+
+        // Percentage
+        Course csse230 = ObjectMother.csse230();
+        csse230.save();
+        
+        PercentageGradeComponent percentageExams = ObjectMother.percentageExams();
+        
+        csse230.addGradeComponent(percentageExams);
+        csse230.save();
+        
+        Course retrievedCsse230 = Course.getCourseById(csse230.getId());
+        retrievedCsse230.loadConnectedObjects();
+        
+        assertEquals(percentageExams, retrievedCsse230.getGradeComponents().iterator().next());
     }
-    
+
     protected void tearDown() throws Exception {
         super.tearDown();
 

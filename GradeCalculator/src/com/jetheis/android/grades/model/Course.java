@@ -29,6 +29,7 @@ import java.util.List;
 
 import com.jetheis.android.grades.storage.CourseStorageAdapter;
 import com.jetheis.android.grades.storage.CourseStorageAdapter.CourseStorageIterator;
+import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
 import com.jetheis.android.grades.storage.Storable;
 
 /**
@@ -337,6 +338,13 @@ public class Course extends Storable implements Comparable<Course> {
     }
 
     /**
+     * Clear all {@link GradeComponent}s from this {@link Course}.
+     */
+    public void clearGradeComponents() {
+        removeGradeComponents(getGradeComponents());
+    }
+
+    /**
      * A helper method to load connected {@link GradeComponent}s or instantiate
      * a new empty {@link Collection} in the {@link #mGradeComponents} member
      * variable.
@@ -362,6 +370,18 @@ public class Course extends Storable implements Comparable<Course> {
         }
 
         return result;
+    }
+
+    /**
+     * Retrieve a specific {@link Course} from the database, using its unique
+     * identifier.
+     * 
+     * @param id
+     *            The unique identifier of the {@link Course} to be retrieved.
+     * @return The {@link Course} if found, null otherwise.
+     */
+    public static Course getCourseById(long id) {
+        return new CourseStorageAdapter().getCourseById(id);
     }
 
     /**
@@ -397,8 +417,19 @@ public class Course extends Storable implements Comparable<Course> {
 
     @Override
     public void loadConnectedObjects() {
-        // TODO
+        clearGradeComponents();
 
+        if (getCourseType() == CourseType.POINT_TOTAL) {
+            for (PointTotalGradeComponent gradeComponent : new GradeComponentStorageAdapter()
+                    .getPointTotalGradeComponentsByCourse(this)) {
+                addGradeComponent(gradeComponent);
+            }
+        } else {
+            for (PercentageGradeComponent gradeComponent : new GradeComponentStorageAdapter()
+                    .getPercentageGradeComponentsByCourse(this)) {
+                addGradeComponent(gradeComponent);
+            }
+        }
     }
 
     @Override
@@ -420,7 +451,7 @@ public class Course extends Storable implements Comparable<Course> {
 
         return (int) Math.signum(getCourseType().toInt() - other.getCourseType().toInt());
     }
-    
+
     @Override
     public String toString() {
         return "Course " + getName();

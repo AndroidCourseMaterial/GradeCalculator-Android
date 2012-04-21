@@ -23,6 +23,7 @@
 package com.jetheis.android.grades.model;
 
 import com.jetheis.android.grades.storage.CourseStorageAdapter;
+import com.jetheis.android.grades.storage.GradeComponentStorageAdapter;
 import com.jetheis.android.grades.storage.Storable;
 
 /**
@@ -94,5 +95,11 @@ public abstract class GradeComponent extends Storable {
         if (mCourseId > 0) {
             setCourse(new CourseStorageAdapter().getCourseById(mCourseId));
         }
+    }
+
+    @Override
+    public void destroy() {
+        new GradeComponentStorageAdapter().destroyGradeComponent(this);
+        getCourse().removeGradeComponent(this);
     }
 }

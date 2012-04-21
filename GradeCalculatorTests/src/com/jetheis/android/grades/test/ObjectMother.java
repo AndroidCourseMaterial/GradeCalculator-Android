@@ -195,32 +195,34 @@ public class ObjectMother {
 
         return result;
     }
-    
+
     /**
-     * TODO
-     * @return
+     * Create a new {@link PointTotalGradeComponent} called "Exams".
+     * 
+     * @return A new {@link PointTotalGradeComponent}.
      */
     public static PointTotalGradeComponent pointTotalExams() {
         PointTotalGradeComponent component = new PointTotalGradeComponent();
-        
+
         component.setName("Exams");
         component.setPointsEarned(132);
         component.setTotalPoints(150);
-        
+
         return component;
     }
-    
+
     /**
-     * TODO
-     * @return
+     * Create a new {@link PercentageGradeComponent} called "Exams".
+     * 
+     * @return A new {@link PercentageGradeComponent}.
      */
     public static PercentageGradeComponent percentageExams() {
         PercentageGradeComponent component = new PercentageGradeComponent();
-        
+
         component.setName("Exams");
         component.setEarnedPercentage(.825);
         component.setWeight(1.0 / 3.0);
-        
+
         return component;
     }
 }

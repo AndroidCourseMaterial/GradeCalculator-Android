@@ -37,6 +37,18 @@ public class PercentageGradeComponent extends GradeComponent implements
     private double mWeight;
 
     /**
+     * Get a {@link PercentageGradeComponent} by its unique identifier.
+     * 
+     * @param id
+     *            The unique identifier of the {@link PercentageGradeComponent}.
+     * @return The retrieved {@link PercentageGradeComponent}, or null if one is
+     *         not found.
+     */
+    public static PercentageGradeComponent getPercentageGradeComponentById(long id) {
+        return new GradeComponentStorageAdapter().getPercentageGradeComponentById(id);
+    }
+
+    /**
      * Get the percentage of points earned for this grade component. Any actual
      * point totals are not reflected here; rather, the value tracked is simply
      * the ratio of points earned to total points.
@@ -91,12 +103,6 @@ public class PercentageGradeComponent extends GradeComponent implements
     @Override
     public void save() {
         new GradeComponentStorageAdapter().savePercentageGradeComponent(this);
-    }
-
-    @Override
-    public void destroy() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

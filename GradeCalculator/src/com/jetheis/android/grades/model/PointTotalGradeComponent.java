@@ -36,6 +36,18 @@ public class PointTotalGradeComponent extends GradeComponent implements
     private double mEarned;
 
     /**
+     * Get a {@link PointTotalGradeComponent} by its unique identifier.
+     * 
+     * @param id
+     *            The unique identifier of the {@link PointTotalGradeComponent}.
+     * @return The retrieved {@link PointTotalGradeComponent}, or null if one is
+     *         not found.
+     */
+    public static PointTotalGradeComponent getPointTotalGradeComponentById(long id) {
+        return new GradeComponentStorageAdapter().getPointTotalGradeComponentById(id);
+    }
+
+    /**
      * Get the total number of points available to be earned for this grade
      * component.
      * 
@@ -78,12 +90,6 @@ public class PointTotalGradeComponent extends GradeComponent implements
     @Override
     public void save() {
         new GradeComponentStorageAdapter().savePointTotalGradeComponent(this);
-    }
-
-    @Override
-    public void destroy() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
