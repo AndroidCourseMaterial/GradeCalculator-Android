@@ -130,7 +130,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        Course.destroyAllCourses();
+        //Course.destroyAllCourses();
         DatabaseHelper.getInstance().close();
     }
 

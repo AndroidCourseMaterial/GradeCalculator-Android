@@ -22,13 +22,32 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp" >
     <TextView
         android:id="@+id/grade_component_list_line_item_name_text_view"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
+    <TextView
+        android:id="@+id/grade_component_list_line_item_max_text_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/grade_component_list_line_item_earned_text_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp" />
+    <SeekBar
+        android:id="@+id/grade_component_list_line_item_earned_seek_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 </LinearLayout>

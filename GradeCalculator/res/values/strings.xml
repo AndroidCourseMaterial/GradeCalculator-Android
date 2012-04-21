@@ -51,9 +51,9 @@
     <string name="course_activity_context_menu_delete">Delete</string>
     <!-- Grade Component List Fragment -->
     <string name="grade_component_list_fragment_no_components_notice">You don\'t have any grade components yet. Tap \"Add Component\" to add one.</string>
-    <string name="grade_component_list_fragment_points_earned">Points Earned:</string>
+    <string name="grade_component_list_fragment_points_earned">Points Earned: %s</string>
     <string name="grade_component_list_fragment_total_points">Total Points: %s</string>
-    <string name="grade_component_list_fragment_percentage_earned">Current Percentage:</string>
+    <string name="grade_component_list_fragment_percentage_earned">Current Percentage: %s</string>
     <string name="grade_component_list_fragment_weight">Weight: %s</string>
     <!-- Add Grade Component Dialog -->
     <string name="add_grade_component_dialog_title">Add Grade Component</string>
