@@ -30,7 +30,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.R;
+import com.jetheis.android.grades.fragment.GradeComponentListFragment;
+import com.jetheis.android.grades.fragment.GradeComponentListFragment.OnGradeComponentSelectedListener;
 import com.jetheis.android.grades.model.Course;
+import com.jetheis.android.grades.model.GradeComponent;
 
 public class CourseActivity extends SherlockFragmentActivity {
 
@@ -38,6 +41,7 @@ public class CourseActivity extends SherlockFragmentActivity {
 
     private Course mCourse;
     private ActionBar mActionBar;
+    private GradeComponentListFragment mListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +54,20 @@ public class CourseActivity extends SherlockFragmentActivity {
         mActionBar.setTitle(mCourse.getName());
         mActionBar.setHomeButtonEnabled(true);
         mActionBar.setDisplayHomeAsUpEnabled(true);
+
+        mListFragment = (GradeComponentListFragment) getSupportFragmentManager().findFragmentById(
+                R.id.course_activity_grade_component_list_fragment);
+        mListFragment.initialize(mCourse, new OnGradeComponentSelectedListener() {
+
+            @Override
+            public void onGradeComponentSelected(GradeComponentListFragment fragment,
+                    GradeComponent gradeComponent) {
+                // TODO
+            }
+
+        });
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
