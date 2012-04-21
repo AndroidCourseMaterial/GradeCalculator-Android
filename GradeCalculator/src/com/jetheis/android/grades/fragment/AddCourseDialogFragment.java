@@ -23,6 +23,8 @@
 package com.jetheis.android.grades.fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,10 +70,33 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
         final RadioButton pointTotalRadioButton = (RadioButton) result
                 .findViewById(R.id.add_course_dialog_fragment_point_total_radio_button);
 
-        Button createButton = (Button) result
+        final Button createButton = (Button) result
                 .findViewById(R.id.add_course_dialog_fragment_create_button);
-        Button cancelButton = (Button) result
+        final Button cancelButton = (Button) result
                 .findViewById(R.id.add_course_dialog_fragment_cancel_button);
+
+        nameTextEdit.addTextChangedListener(new TextWatcher() {
+            
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+ 
+            }
+            
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() > 0) {
+                    createButton.setEnabled(true);
+                } else {
+                    createButton.setEnabled(false);
+                }
+            }
+            
+        });
 
         createButton.setOnClickListener(new OnClickListener() {
 

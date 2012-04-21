@@ -23,8 +23,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:id="@+id/course_list_context_menu_edit"
-        android:title="Edit"/>
+        android:title="@string/course_list_activity_context_menu_edit"/>
     <item
         android:id="@+id/course_list_context_menu_delete"
-        android:title="Delete"/>
+        android:title="@string/course_list_activity_context_menu_delete"/>
 </menu>

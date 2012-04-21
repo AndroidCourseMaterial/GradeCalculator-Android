@@ -29,7 +29,7 @@ public class EditCourseDialogFragment extends AddCourseDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: set title
+        getDialog().setTitle(getString(R.string.edit_course_dialog_fragment_title));
         View result = super.onCreateView(inflater, container, savedInstanceState);
 
         final EditText nameTextEdit = (EditText) result
@@ -49,7 +49,8 @@ public class EditCourseDialogFragment extends AddCourseDialogFragment {
 
         Button saveButton = (Button) result
                 .findViewById(R.id.add_course_dialog_fragment_create_button);
-        saveButton.setText("Save");
+        saveButton.setText(getString(R.string.edit_course_dialog_fragment_save_course_button));
+        saveButton.setEnabled(true);
         saveButton.setOnClickListener(new OnClickListener() {
 
             @Override

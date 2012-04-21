@@ -37,6 +37,7 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:imeOptions="actionDone"
         android:inputType="textCapWords" />
     <TextView
         android:layout_width="fill_parent"
@@ -84,6 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
+            android:enabled="false"
             android:text="@string/add_course_dialog_fragment_create_course_button" />
     </LinearLayout>
 </LinearLayout>

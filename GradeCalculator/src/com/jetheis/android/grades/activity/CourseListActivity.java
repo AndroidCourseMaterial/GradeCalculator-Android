@@ -91,7 +91,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
                         });
 
                 editCourseDialog.show(getSupportFragmentManager(), EDIT_COURSE_DIALOG_TAG);
-
+                mode.finish();
                 return true;
             case R.id.course_list_context_menu_delete:
                 mCurrentlySelectedCourse.destroy();
