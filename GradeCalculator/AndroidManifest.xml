@@ -22,8 +22,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jetheis.android.grades"
-    android:versionCode="2"
-    android:versionName="1.0b1" >
+    android:versionCode="3"
+    android:versionName="1.0b2" >
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
