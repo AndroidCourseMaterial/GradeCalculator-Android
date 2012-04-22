@@ -62,10 +62,11 @@ public class AddGradeComponentDialogFragment extends SherlockDialogFragment {
         setStyle(STYLE_NORMAL, com.actionbarsherlock.R.style.Theme_Sherlock_Light_Dialog);
     }
 
-    private boolean isValidData(String nameText, String maxValueText) {
+    private boolean isValidData(String nameText, String maxValueText, String earnedText) {
         try {
             double maxValue = Double.parseDouble(maxValueText);
-            return maxValue > 0 && nameText.length() > 0;
+            double earnedValue = Double.parseDouble(earnedText);
+            return maxValue > 0 && earnedValue >= 0 && nameText.length() > 0;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -80,24 +81,30 @@ public class AddGradeComponentDialogFragment extends SherlockDialogFragment {
 
         TextView maxValueLabel = (TextView) result
                 .findViewById(R.id.add_grade_component_dialog_fragment_max_value_label);
+        TextView earnedLabel = (TextView) result
+                .findViewById(R.id.add_grade_component_dialog_fragment_earned_label_text_view);
 
         if (mCourse.getCourseType() == CourseType.POINT_TOTAL) {
             maxValueLabel.setText(getString(R.string.add_grade_component_dialog_total_points));
+            earnedLabel.setText(getString(R.string.add_grade_component_dialog_earned_points));
         } else {
             maxValueLabel.setText(getString(R.string.add_grade_component_dialog_weight));
+            earnedLabel.setText(getString(R.string.add_grade_component_dialog_earned_percentage));
         }
 
         final Button cancelButton = (Button) result
                 .findViewById(R.id.add_grade_component_dialog_fragment_cancel_button);
         final Button createButton = (Button) result
                 .findViewById(R.id.add_grade_component_dialog_fragment_create_button);
-        
+
         createButton.setEnabled(false);
 
         final EditText nameText = (EditText) result
                 .findViewById(R.id.add_grade_component_dialog_fragment_name_text);
         final EditText maxValueText = (EditText) result
                 .findViewById(R.id.add_grade_component_dialog_fragment_max_value);
+        final EditText earnedText = (EditText) result
+                .findViewById(R.id.add_grade_component_dialog_fragment_earned_edit_text);
 
         TextWatcher textWatcher = new TextWatcher() {
 
@@ -112,12 +119,13 @@ public class AddGradeComponentDialogFragment extends SherlockDialogFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 createButton.setEnabled(isValidData(nameText.getText().toString(), maxValueText
-                        .getText().toString()));
+                        .getText().toString(), earnedText.getText().toString()));
             }
         };
-        
+
         nameText.addTextChangedListener(textWatcher);
         maxValueText.addTextChangedListener(textWatcher);
+        earnedText.addTextChangedListener(textWatcher);
 
         cancelButton.setOnClickListener(new OnClickListener() {
 
@@ -137,11 +145,15 @@ public class AddGradeComponentDialogFragment extends SherlockDialogFragment {
                     gradeComponent.setName(nameText.getText().toString());
                     gradeComponent.setTotalPoints(Double.parseDouble(maxValueText.getText()
                             .toString()));
+                    gradeComponent.setPointsEarned(Double.parseDouble(earnedText.getText()
+                            .toString()));
                     mCourse.addGradeComponent(gradeComponent);
                 } else {
                     PercentageGradeComponent gradeComponent = new PercentageGradeComponent();
                     gradeComponent.setName(nameText.getText().toString());
                     gradeComponent.setWeight(Double.parseDouble(maxValueText.getText().toString()));
+                    gradeComponent.setEarnedPercentage(Double.parseDouble(earnedText.getText()
+                            .toString()));
                     mCourse.addGradeComponent(gradeComponent);
                 }
 

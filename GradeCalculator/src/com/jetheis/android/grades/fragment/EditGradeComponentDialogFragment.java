@@ -31,15 +31,21 @@ public class EditGradeComponentDialogFragment extends AddGradeComponentDialogFra
                 .findViewById(R.id.add_grade_component_dialog_fragment_name_text);
         final EditText maxValueText = (EditText) result
                 .findViewById(R.id.add_grade_component_dialog_fragment_max_value);
+        final EditText earnedText = (EditText) result
+                .findViewById(R.id.add_grade_component_dialog_fragment_earned_edit_text);
 
         nameText.setText(mGradeComponent.getName());
 
         if (mGradeComponent instanceof PointTotalGradeComponent) {
             maxValueText.setText(Double.toString(((PointTotalGradeComponent) mGradeComponent)
                     .getTotalPoints()));
+            earnedText.setText(Double.toString(((PointTotalGradeComponent) mGradeComponent)
+                    .getPointsEarned()));
         } else {
             maxValueText.setText(Double.toString(((PercentageGradeComponent) mGradeComponent)
                     .getWeight()));
+            earnedText.setText(Double.toString(((PercentageGradeComponent) mGradeComponent)
+                    .getEarnedPercentage()));
         }
 
         final Button saveButton = (Button) result
@@ -55,15 +61,20 @@ public class EditGradeComponentDialogFragment extends AddGradeComponentDialogFra
                     pointComponent.setName(nameText.getText().toString());
                     pointComponent.setTotalPoints(Double.parseDouble(maxValueText.getText()
                             .toString()));
+                    pointComponent.setPointsEarned(Double.parseDouble(earnedText.getText()
+                            .toString()));
                     pointComponent.save();
                 } else {
                     PercentageGradeComponent percentageComponent = (PercentageGradeComponent) mGradeComponent;
                     percentageComponent.setName(nameText.getText().toString());
                     percentageComponent.setWeight(Double.parseDouble(maxValueText.getText()
                             .toString()));
+                    percentageComponent.setEarnedPercentage(Double.parseDouble(earnedText.getText()
+                            .toString()));
                     percentageComponent.save();
                 }
-                
+
+                mOnChangeListener.onGradeComponentsChanged();
                 dismiss();
             }
         });

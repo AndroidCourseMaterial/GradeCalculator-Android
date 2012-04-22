@@ -62,6 +62,8 @@
     <string name="add_grade_component_dialog_name">Name:</string>
     <string name="add_grade_component_dialog_total_points">Total Possible Points:</string>
     <string name="add_grade_component_dialog_weight">Weight (percentage out of 100):</string>
+    <string name="add_grade_component_dialog_earned_points">Points Earned:</string>
+    <string name="add_grade_component_dialog_earned_percentage">Current Grade (percentage out of 100):</string>
     <string name="add_grade_component_dialog_cancel_button">Cancel</string>
     <string name="add_grade_component_dialog_create_button">Create</string>
     <!-- Edit Grade Component Dialog -->

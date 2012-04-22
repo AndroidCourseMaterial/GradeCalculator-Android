@@ -25,7 +25,6 @@ package com.jetheis.android.grades.activity;
 import java.text.NumberFormat;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -33,7 +32,6 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.jetheis.android.grades.Constants;
 import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.fragment.AddGradeComponentDialogFragment;
 import com.jetheis.android.grades.fragment.AddGradeComponentDialogFragment.OnGradeComponentsChangedListener;
@@ -133,7 +131,6 @@ public class CourseActivity extends SherlockFragmentActivity {
             
             @Override
             public void onOverallGradeChanged() {
-                Log.v(Constants.TAG, "Overall grade change");
                 updateOverview();
             }
         });
