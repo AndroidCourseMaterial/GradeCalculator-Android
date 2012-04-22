@@ -25,13 +25,17 @@ package com.jetheis.android.grades.activity;
 import java.util.List;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -40,9 +44,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.Constants;
+import com.jetheis.android.grades.Constants.LicenseType;
 import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment.OnCoursesChangeListener;
+import com.jetheis.android.grades.fragment.BuyFullVersionFragment;
 import com.jetheis.android.grades.fragment.CourseListFragment;
 import com.jetheis.android.grades.fragment.EditCourseDialogFragment;
 import com.jetheis.android.grades.listadapter.CourseArrayAdapter;
@@ -59,6 +65,9 @@ public class CourseListActivity extends SherlockFragmentActivity {
     private Course mCurrentlySelectedCourse;
     private CourseArrayAdapter mCourseArrayAdapter;
     private CourseListFragment mListFragment;
+    private BuyFullVersionFragment mBuyFullVersionFragment;
+    private SharedPreferences mSharedPrefs;
+    private boolean mFullVersion;
     private ActionMode.Callback mCourseSelectionCallback = new ActionMode.Callback() {
 
         @Override
@@ -110,6 +119,9 @@ public class CourseListActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_list_activity);
 
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mFullVersion = mSharedPrefs.getBoolean(Constants.PREFS_KEY_FULL_VERSION, false);
+
         mActionBar = getSupportActionBar();
         mActionBar.setTitle(getString(R.string.course_list_activity_title));
 
@@ -117,7 +129,22 @@ public class CourseListActivity extends SherlockFragmentActivity {
                 R.id.course_list_activity_course_list_fragment);
         mListFragment.getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
+        mBuyFullVersionFragment = (BuyFullVersionFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.course_list_activity_buy_full_version_fragment);
+
         DatabaseHelper.initializeDatabaseHelper(this);
+
+        if (!mFullVersion) {
+            if (Constants.LICENSE_TYPE == LicenseType.FREE) {
+                unlockFullVersion();
+            } else if (Constants.LICENSE_TYPE == LicenseType.GOOGLE_PLAY) {
+
+            } else if (Constants.LICENSE_TYPE == LicenseType.AMAZON_APPSTORE) {
+
+            }
+        } else {
+            enterFullVersionMode();
+        }
     }
 
     @Override
@@ -130,7 +157,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        //Course.destroyAllCourses();
+        // Course.destroyAllCourses();
         DatabaseHelper.getInstance().close();
     }
 
@@ -164,6 +191,23 @@ public class CourseListActivity extends SherlockFragmentActivity {
         }
 
         return false;
+    }
+
+    private void unlockFullVersion() {
+        Log.i(Constants.TAG, "Full version unlocked");
+        Editor editor = mSharedPrefs.edit();
+        editor.putBoolean(Constants.PREFS_KEY_FULL_VERSION, true);
+        editor.commit();
+        
+        Toast.makeText(this, getString(R.string.course_list_activity_toast_unlocked),
+                Toast.LENGTH_SHORT).show();
+        
+        enterFullVersionMode();
+    }
+
+    private void enterFullVersionMode() {
+        Log.d(Constants.TAG, "Applying full version mode");
+        mBuyFullVersionFragment.getView().setVisibility(View.GONE);
     }
 
     public void refreshCourseList() {

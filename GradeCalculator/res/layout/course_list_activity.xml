@@ -33,7 +33,7 @@
         android:id="@+id/course_list_activity_course_list_fragment"
         android:name="com.jetheis.android.grades.fragment.CourseListFragment"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_above="@id/course_list_activity_buy_full_version_fragment"
         android:layout_alignParentTop="true" />
 </RelativeLayout>
