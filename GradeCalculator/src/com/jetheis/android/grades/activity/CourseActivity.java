@@ -22,7 +22,10 @@
 
 package com.jetheis.android.grades.activity;
 
+import java.text.NumberFormat;
+
 import android.os.Bundle;
+import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -30,12 +33,15 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.jetheis.android.grades.Constants;
 import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.fragment.AddGradeComponentDialogFragment;
 import com.jetheis.android.grades.fragment.AddGradeComponentDialogFragment.OnGradeComponentsChangedListener;
+import com.jetheis.android.grades.fragment.CourseOverviewFragment;
 import com.jetheis.android.grades.fragment.EditGradeComponentDialogFragment;
 import com.jetheis.android.grades.fragment.GradeComponentListFragment;
 import com.jetheis.android.grades.fragment.GradeComponentListFragment.OnGradeComponentSelectedListener;
+import com.jetheis.android.grades.fragment.GradeComponentListFragment.OnOverallGradeChangedListener;
 import com.jetheis.android.grades.model.Course;
 import com.jetheis.android.grades.model.GradeComponent;
 
@@ -49,6 +55,7 @@ public class CourseActivity extends SherlockFragmentActivity {
     private Course mCourse;
     private ActionBar mActionBar;
     private GradeComponentListFragment mListFragment;
+    private CourseOverviewFragment mOverviewFragment;
     private GradeComponent mCurrentGradeComponent;
     private ActionMode.Callback mGradeComponentSelectedCallback = new ActionMode.Callback() {
 
@@ -71,21 +78,24 @@ public class CourseActivity extends SherlockFragmentActivity {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
             case R.id.course_context_menu_edit:
-                EditGradeComponentDialogFragment editDialog = new EditGradeComponentDialogFragment(mCurrentGradeComponent, new OnGradeComponentsChangedListener() {
-                    
-                    @Override
-                    public void onGradeComponentsChanged() {
-                        mListFragment.refreshGradeComponents();
-                    }
-                    
-                });
-                
+                EditGradeComponentDialogFragment editDialog = new EditGradeComponentDialogFragment(
+                        mCurrentGradeComponent, new OnGradeComponentsChangedListener() {
+
+                            @Override
+                            public void onGradeComponentsChanged() {
+                                mListFragment.refreshGradeComponents();
+                                updateOverview();
+                            }
+
+                        });
+
                 editDialog.show(getSupportFragmentManager(), EDIT_GRADE_COMPONENT_DIALOG_TAG);
                 mode.finish();
                 return true;
             case R.id.course_context_menu_delete:
                 mCurrentGradeComponent.destroy();
                 mListFragment.refreshGradeComponents();
+                updateOverview();
                 mode.finish();
                 return true;
             }
@@ -105,6 +115,9 @@ public class CourseActivity extends SherlockFragmentActivity {
         mActionBar.setHomeButtonEnabled(true);
         mActionBar.setDisplayHomeAsUpEnabled(true);
 
+        mOverviewFragment = (CourseOverviewFragment) getSupportFragmentManager().findFragmentById(
+                R.id.course_activity_course_overview_fragment);
+
         mListFragment = (GradeComponentListFragment) getSupportFragmentManager().findFragmentById(
                 R.id.course_activity_grade_component_list_fragment);
         mListFragment.initialize(mCourse, new OnGradeComponentSelectedListener() {
@@ -116,7 +129,21 @@ public class CourseActivity extends SherlockFragmentActivity {
                 startActionMode(mGradeComponentSelectedCallback);
             }
 
+        }, new OnOverallGradeChangedListener() {
+            
+            @Override
+            public void onOverallGradeChanged() {
+                Log.v(Constants.TAG, "Overall grade change");
+                updateOverview();
+            }
         });
+        
+        updateOverview();
+    }
+
+    private void updateOverview() {
+        mOverviewFragment.setText(getString(R.string.course_overview_fragment_overall_grade,
+                NumberFormat.getPercentInstance().format(mCourse.getOverallScore())));
     }
 
     @Override
@@ -139,6 +166,7 @@ public class CourseActivity extends SherlockFragmentActivity {
                         @Override
                         public void onGradeComponentsChanged() {
                             mListFragment.refreshGradeComponents();
+                            updateOverview();
                         }
 
                     });

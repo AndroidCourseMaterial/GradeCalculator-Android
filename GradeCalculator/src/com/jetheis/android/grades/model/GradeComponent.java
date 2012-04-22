@@ -100,6 +100,5 @@ public abstract class GradeComponent extends Storable {
     @Override
     public void destroy() {
         new GradeComponentStorageAdapter().destroyGradeComponent(this);
-        getCourse().removeGradeComponent(this);
     }
 }

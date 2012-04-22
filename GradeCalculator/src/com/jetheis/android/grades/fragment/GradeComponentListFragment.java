@@ -29,13 +29,20 @@ public class GradeComponentListFragment extends SherlockListFragment {
                 GradeComponent gradeComponent);
     }
 
+    public interface OnOverallGradeChangedListener {
+        public void onOverallGradeChanged();
+    }
+
     private Course mCourse;
     private OnGradeComponentSelectedListener mOnGradeComponentSelectedListener;
+    private OnOverallGradeChangedListener mOnOverallGradeChangedListener;
 
     public void initialize(Course parentCourse,
-            OnGradeComponentSelectedListener onGradeComponentSelectedListener) {
+            OnGradeComponentSelectedListener onGradeComponentSelectedListener,
+            OnOverallGradeChangedListener onOverallGradeChangedListener) {
         mCourse = parentCourse;
         mOnGradeComponentSelectedListener = onGradeComponentSelectedListener;
+        mOnOverallGradeChangedListener = onOverallGradeChangedListener;
 
         final ListView listView = getListView();
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -120,6 +127,8 @@ public class GradeComponentListFragment extends SherlockListFragment {
                         earnedTextView.setText(getString(
                                 R.string.grade_component_list_fragment_points_earned,
                                 numberFormat.format(pointComponent.getPointsEarned())));
+
+                        mOnOverallGradeChangedListener.onOverallGradeChanged();
                     }
                 });
             } else {
@@ -152,6 +161,7 @@ public class GradeComponentListFragment extends SherlockListFragment {
                                         R.string.grade_component_list_fragment_percentage_earned,
                                         percentageFormat.format(percentageComponent
                                                 .getEarnedPercentage() / 100.0)));
+                        mOnOverallGradeChangedListener.onOverallGradeChanged();
                     }
                 });
             }

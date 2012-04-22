@@ -55,6 +55,8 @@
     <string name="grade_component_list_fragment_total_points">Total Points: %s</string>
     <string name="grade_component_list_fragment_percentage_earned">Current Percentage: %s</string>
     <string name="grade_component_list_fragment_weight">Weight: %s</string>
+    <!-- Course Overview Fragment -->
+    <string name="course_overview_fragment_overall_grade">Overall Grade: %s</string>
     <!-- Add Grade Component Dialog -->
     <string name="add_grade_component_dialog_title">Add Grade Component</string>
     <string name="add_grade_component_dialog_name">Name:</string>

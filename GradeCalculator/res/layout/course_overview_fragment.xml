@@ -20,20 +20,15 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    <fragment
-        android:id="@+id/course_activity_course_overview_fragment"
-        android:name="com.jetheis.android.grades.fragment.CourseOverviewFragment"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/course_overview_fragment_text_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-    <fragment
-        android:id="@+id/course_activity_grade_component_list_fragment"
-        android:name="com.jetheis.android.grades.fragment.GradeComponentListFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/course_activity_course_overview_fragment"
-        android:layout_alignParentTop="true" />
-</RelativeLayout>
+        android:gravity="center"
+        android:padding="10sp"
+        android:textSize="24sp" />
+</LinearLayout>

@@ -182,6 +182,11 @@ public class Course extends Storable implements Comparable<Course>, Parcelable {
         }
         
         calculateOverallScore();
+        
+        if (Double.isNaN(mOverallScore)) {
+            return 0;
+        }
+        
         return mOverallScore;
     }
 
@@ -447,6 +452,8 @@ public class Course extends Storable implements Comparable<Course>, Parcelable {
             for (GradeComponent component : mGradeComponents) {
                 component.destroy();
             }
+            
+            mGradeComponents.clear();
         }
     }
 
