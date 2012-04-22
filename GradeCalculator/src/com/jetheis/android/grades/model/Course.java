@@ -180,13 +180,13 @@ public class Course extends Storable implements Comparable<Course>, Parcelable {
         if (getGradeComponents().size() == 0) {
             loadConnectedObjects();
         }
-        
+
         calculateOverallScore();
-        
+
         if (Double.isNaN(mOverallScore)) {
             return 0;
         }
-        
+
         return mOverallScore;
     }
 
@@ -452,7 +452,7 @@ public class Course extends Storable implements Comparable<Course>, Parcelable {
             for (GradeComponent component : mGradeComponents) {
                 component.destroy();
             }
-            
+
             mGradeComponents.clear();
         }
     }

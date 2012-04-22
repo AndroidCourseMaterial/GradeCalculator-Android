@@ -61,9 +61,11 @@ public class CourseArrayAdapter extends ArrayAdapter<Course> {
         TextView nameTextView = (TextView) result
                 .findViewById(R.id.course_list_line_item_name_text_view);
         nameTextView.setText(currentCourse.getName());
-        
-        TextView gradeTextView = (TextView) result.findViewById(R.id.course_list_line_item_grade_text_view);
-        gradeTextView.setText(NumberFormat.getPercentInstance().format(currentCourse.getOverallScore()));
+
+        TextView gradeTextView = (TextView) result
+                .findViewById(R.id.course_list_line_item_grade_text_view);
+        gradeTextView.setText(NumberFormat.getPercentInstance().format(
+                currentCourse.getOverallScore()));
 
         return result;
     }

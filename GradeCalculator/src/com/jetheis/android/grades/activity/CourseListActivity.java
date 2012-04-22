@@ -198,10 +198,10 @@ public class CourseListActivity extends SherlockFragmentActivity {
         Editor editor = mSharedPrefs.edit();
         editor.putBoolean(Constants.PREFS_KEY_FULL_VERSION, true);
         editor.commit();
-        
+
         Toast.makeText(this, getString(R.string.course_list_activity_toast_unlocked),
                 Toast.LENGTH_SHORT).show();
-        
+
         enterFullVersionMode();
     }
 

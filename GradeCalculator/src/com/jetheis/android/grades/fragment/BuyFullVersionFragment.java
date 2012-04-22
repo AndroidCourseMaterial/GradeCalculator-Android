@@ -31,7 +31,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.jetheis.android.grades.R;
 
 public class BuyFullVersionFragment extends SherlockFragment {
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.buy_full_version_fragment, container, false);

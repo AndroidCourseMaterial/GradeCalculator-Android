@@ -128,13 +128,13 @@ public class CourseActivity extends SherlockFragmentActivity {
             }
 
         }, new OnOverallGradeChangedListener() {
-            
+
             @Override
             public void onOverallGradeChanged() {
                 updateOverview();
             }
         });
-        
+
         updateOverview();
     }
 

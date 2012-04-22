@@ -76,17 +76,17 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
                 .findViewById(R.id.add_course_dialog_fragment_cancel_button);
 
         nameTextEdit.addTextChangedListener(new TextWatcher() {
-            
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
- 
+
             }
-            
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-            
+
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() > 0) {
@@ -95,7 +95,7 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
                     createButton.setEnabled(false);
                 }
             }
-            
+
         });
 
         createButton.setEnabled(false);
