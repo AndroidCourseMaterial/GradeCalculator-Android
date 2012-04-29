@@ -47,6 +47,8 @@ public class EditCourseDialogFragment extends AddCourseDialogFragment {
         }
 
         mCourse = course;
+        
+        setStyle(STYLE_NORMAL, com.actionbarsherlock.R.style.Theme_Sherlock_Light_Dialog);
     }
 
     @Override

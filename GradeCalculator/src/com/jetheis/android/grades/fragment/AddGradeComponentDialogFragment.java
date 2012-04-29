@@ -53,12 +53,7 @@ public class AddGradeComponentDialogFragment extends SherlockDialogFragment {
             OnGradeComponentsChangedListener onChangeListener) {
         mCourse = course;
         mOnChangeListener = onChangeListener;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+        
         setStyle(STYLE_NORMAL, com.actionbarsherlock.R.style.Theme_Sherlock_Light_Dialog);
     }
 

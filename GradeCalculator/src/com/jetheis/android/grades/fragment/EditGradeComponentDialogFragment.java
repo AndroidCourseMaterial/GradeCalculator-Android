@@ -43,6 +43,8 @@ public class EditGradeComponentDialogFragment extends AddGradeComponentDialogFra
             OnGradeComponentsChangedListener onGradeComponentsChangedListener) {
         super(gradeComponent.getCourse(), onGradeComponentsChangedListener);
         mGradeComponent = gradeComponent;
+        
+        setStyle(STYLE_NORMAL, com.actionbarsherlock.R.style.Theme_Sherlock_Light_Dialog);
     }
 
     @Override

@@ -47,15 +47,8 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
     protected OnCoursesChangeListener mOnCoursesChangedListener;
 
     public AddCourseDialogFragment(OnCoursesChangeListener onCoursesChangedListener) {
-        super();
-
         mOnCoursesChangedListener = onCoursesChangedListener;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+        
         setStyle(STYLE_NORMAL, com.actionbarsherlock.R.style.Theme_Sherlock_Light_Dialog);
     }
 
