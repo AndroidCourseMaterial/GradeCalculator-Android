@@ -79,6 +79,14 @@
 -dontwarn android.support.**
 
 ## ADDED
+# Keep ActionBarSherlock in one piece
+-keep class android.support.v4.app.** { *; }
+-keep interface android.support.v4.app.** { *; }
+-keep class com.actionbarsherlock.** { *; }
+-keep interface com.actionbarsherlock.** { *; }
+-keepattributes *Annotation*
+
+## ADDED
 # Compile out verbose and debug logging
 # -assumenosideeffects class android.util.Log {
 #     public static int v(...);
