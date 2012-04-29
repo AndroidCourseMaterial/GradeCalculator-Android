@@ -20,73 +20,77 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="280dp"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/add_grade_component_dialog_name"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-    <EditText
-        android:id="@+id/add_grade_component_dialog_fragment_name_text"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:imeOptions="actionNext"
-        android:inputType="textCapWords" />
-    <TextView
-        android:id="@+id/add_grade_component_dialog_fragment_max_value_label"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-    <EditText
-        android:id="@+id/add_grade_component_dialog_fragment_max_value"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal" />
-    <TextView
-        android:id="@+id/add_grade_component_dialog_fragment_earned_label_text_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-    <EditText
-        android:id="@+id/add_grade_component_dialog_fragment_earned_edit_text"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal" >
-        <Button
-            android:id="@+id/add_grade_component_dialog_fragment_cancel_button"
-            android:layout_width="0dp"
+        android:orientation="vertical" >
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/add_grade_component_dialog_name"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/add_grade_component_dialog_fragment_name_text"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/add_grade_component_dialog_cancel_button" />
-        <Button
-            android:id="@+id/add_grade_component_dialog_fragment_create_button"
-            android:layout_width="0dp"
+            android:imeOptions="actionNext"
+            android:inputType="textCapWords" />
+        <TextView
+            android:id="@+id/add_grade_component_dialog_fragment_max_value_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/add_grade_component_dialog_fragment_max_value"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/add_grade_component_dialog_create_button" />
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal" />
+        <TextView
+            android:id="@+id/add_grade_component_dialog_fragment_earned_label_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/add_grade_component_dialog_fragment_earned_edit_text"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+            <Button
+                android:id="@+id/add_grade_component_dialog_fragment_cancel_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/add_grade_component_dialog_cancel_button" />
+            <Button
+                android:id="@+id/add_grade_component_dialog_fragment_create_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/add_grade_component_dialog_create_button" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

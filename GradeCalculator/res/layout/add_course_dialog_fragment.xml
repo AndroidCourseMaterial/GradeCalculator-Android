@@ -20,71 +20,75 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="280dp"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/add_course_dialog_fragment_course_name"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-    <EditText
-        android:id="@+id/add_course_dialog_fragment_name_edit_text"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:imeOptions="actionDone"
-        android:inputType="textCapWords" />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/add_course_dialog_fragment_grade_type"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-    <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-        <RadioButton
-            android:id="@+id/add_course_dialog_fragment_point_total_radio_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:checked="true"
-            android:text="@string/add_course_dialog_fragment_grade_type_point_total" />
-        <RadioButton
-            android:id="@+id/add_course_dialog_fragment_percentage_radio_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/add_course_dialog_fragment_grade_type_percentage" />
-    </RadioGroup>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal" >
-        <Button
-            android:id="@+id/add_course_dialog_fragment_cancel_button"
-            android:layout_width="0dp"
+        android:orientation="vertical" >
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/add_course_dialog_fragment_course_name"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/add_course_dialog_fragment_name_edit_text"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/add_course_dialog_fragment_cancel_button" />
-        <Button
-            android:id="@+id/add_course_dialog_fragment_create_button"
-            android:layout_width="0dp"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords" />
+        <TextView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/add_course_dialog_fragment_create_course_button" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/add_course_dialog_fragment_grade_type"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <RadioButton
+                android:id="@+id/add_course_dialog_fragment_point_total_radio_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:checked="true"
+                android:text="@string/add_course_dialog_fragment_grade_type_point_total" />
+            <RadioButton
+                android:id="@+id/add_course_dialog_fragment_percentage_radio_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/add_course_dialog_fragment_grade_type_percentage" />
+        </RadioGroup>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+            <Button
+                android:id="@+id/add_course_dialog_fragment_cancel_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/add_course_dialog_fragment_cancel_button" />
+            <Button
+                android:id="@+id/add_course_dialog_fragment_create_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="@string/add_course_dialog_fragment_create_course_button" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
