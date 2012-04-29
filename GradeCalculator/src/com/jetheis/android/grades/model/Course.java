@@ -517,7 +517,7 @@ public class Course extends Storable implements Comparable<Course>, Parcelable {
         setCourseType(CourseType.fromInt(parcel.readInt()));
     }
 
-    public static Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>() {
+    public static final Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>() {
 
         @Override
         public Course createFromParcel(Parcel source) {
