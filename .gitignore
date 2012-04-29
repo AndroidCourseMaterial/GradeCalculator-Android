@@ -4,6 +4,7 @@
 # Android generated files
 bin/
 gen/
+proguard/
 
 # Eclipse metadata
 .project
