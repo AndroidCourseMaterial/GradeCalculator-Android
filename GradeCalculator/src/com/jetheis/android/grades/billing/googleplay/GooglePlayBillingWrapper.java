@@ -39,7 +39,7 @@ public class GooglePlayBillingWrapper implements BillingWrapper {
     private Collection<OnPurchaseStateChangedListener> mOnPurchaseStateChangedListeners;
     private GooglePlayBillingService mBoundService;
 
-    public static GooglePlayBillingWrapper initializeIntance(Context context) {
+    public static GooglePlayBillingWrapper initializeInstance(Context context) {
         sInstance = new GooglePlayBillingWrapper(context);
 
         return sInstance;
@@ -109,6 +109,8 @@ public class GooglePlayBillingWrapper implements BillingWrapper {
 
     @Override
     public void requestPurchase(String itemId) {
+        Log.d(Constants.TAG, "Requesting purchase of " + itemId);
+        
         Bundle response;
 
         try {
@@ -146,6 +148,10 @@ public class GooglePlayBillingWrapper implements BillingWrapper {
     @Override
     public void registerOnBillingReadyListener(OnBillingReadyListener onBillingReadyListener) {
         mOnReadyListeners.add(onBillingReadyListener);
+        
+        if (mBoundService != null) {
+            onBillingReadyListener.onBillingReady();
+        }
     }
 
     @Override
@@ -260,6 +266,8 @@ public class GooglePlayBillingWrapper implements BillingWrapper {
 
                     Log.i(Constants.TAG, "Found record of purchase of " + productId + " from "
                             + DateFormat.getLongDateFormat(mContext).format(purchaseDate));
+                    
+                    Security.setFullVersionUnlocked(true, mContext);
 
                     for (OnPurchaseStateChangedListener listener : mOnPurchaseStateChangedListeners) {
                         listener.onPurchaseSuccessful(productId);
@@ -275,8 +283,10 @@ public class GooglePlayBillingWrapper implements BillingWrapper {
                 } else {
                     Log.e(Constants.TAG, "Google Play purchase refunded");
                     
+                    Security.setFullVersionUnlocked(false, mContext);
+                    
                     for (OnPurchaseStateChangedListener listener : mOnPurchaseStateChangedListeners) {
-                        listener.onPurchaseReturend(productId);
+                        listener.onPurchaseReturned(productId);
                     }
                 }
             }

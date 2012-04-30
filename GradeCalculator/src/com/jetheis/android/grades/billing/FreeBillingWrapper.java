@@ -35,7 +35,7 @@ public class FreeBillingWrapper implements BillingWrapper {
     private Collection<OnBillingReadyListener> mOnReadyListeners;
     private Collection<OnPurchaseStateChangedListener> mOnPurchaseStateChangedListeners;
     
-    public static FreeBillingWrapper initializeIntance(Context context) {
+    public static FreeBillingWrapper initializeInstance(Context context) {
         sInstance = new FreeBillingWrapper(context);
         
         return sInstance;

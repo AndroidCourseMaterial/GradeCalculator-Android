@@ -42,21 +42,21 @@ public class Constants {
     /**
      * License type for this build of the app.
      */
-    public static final LicenseType LICENSE_TYPE = LicenseType.GOOGLE_PLAY;
+    public static final LicenseType LICENSE_TYPE = LicenseType.FREE;
     
     /**
      * Free (not tracked anywhere) item identifier
      */
-    public static final String FREE_ITEM_ID = "grade_calc_full_version";
+    public static final String FREE_ITEM_ID = "weighted_grade_calculator_full_version";
     
     /**
      * Google Play item identifier
      */
-    public static final String GOOGLE_PLAY_ITEM_ID = "grade_calc_full_version";
+    public static final String GOOGLE_PLAY_ITEM_ID = "weighted_grade_calculator_full_version";
     
     /**
      * Amazon App Store item identifier
      */
-    public static final String AMAZON_ITEM_ID = "grade_calc_full_version";
+    public static final String AMAZON_ITEM_ID = "weighted_grade_calculator_full_version";
 
 }

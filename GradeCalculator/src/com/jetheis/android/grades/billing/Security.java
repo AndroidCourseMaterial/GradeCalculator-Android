@@ -146,10 +146,11 @@ public class Security {
         }
 
         if (getUnlockKeyForDevice(context).equals(decryptUnlockKey(encrypted, context))) {
+            Log.i(Constants.TAG, "Stored full version key checks out!");
             return true;
         }
 
-        Log.w(Constants.TAG, "Old or incorrect key found. Deleting.");
+        Log.w(Constants.TAG, "Old or incorrect full version key found. Deleting.");
 
         Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.remove(UNLOCK_KEY_STORAGE_KEY);
@@ -161,11 +162,12 @@ public class Security {
     private static String createNewEncryptedUnlockKey(Context context) {
         byte salt[] = new byte[6];
         RANDOM.nextBytes(salt);
+        Log.d(Constants.TAG, "Creating new full version key");
         Log.v(Constants.TAG, "Salt chosen: " + Base64.encodeToString(salt, Base64.NO_WRAP));
 
         String result = encryptUnlockKey(context, salt);
 
-        Log.v(Constants.TAG, "New encrypted data (length " + result.length() + "): " + result);
+        Log.v(Constants.TAG, "New full version key: " + result);
 
         return result;
     }
@@ -246,15 +248,14 @@ public class Security {
         if (encrypted == null) {
             return null;
         }
+        
+        Log.d(Constants.TAG, "Decrypting stored full version key");
 
         byte[] salt = Base64.decode(encrypted.substring(0, 8), Base64.NO_WRAP);
 
         Log.v(Constants.TAG, "Found salt: " + encrypted.substring(0, 8));
 
         encrypted = encrypted.substring(8);
-
-        Log.v(Constants.TAG, "Remaining encrypted data: " + encrypted);
-        Log.v(Constants.TAG, "Length after salt removed: " + encrypted.length());
 
         SecretKeyFactory factory;
         try {
@@ -300,7 +301,9 @@ public class Security {
         }
 
         try {
-            return new String(decrypter.doFinal(Base64.decode(encrypted, Base64.NO_WRAP)), "UTF-8");
+            String result = new String(decrypter.doFinal(Base64.decode(encrypted, Base64.NO_WRAP)), "UTF-8");
+            Log.v(Constants.TAG, "Decrypted string:" + result);
+            return result;
         } catch (UnsupportedEncodingException e) {
             Log.e("Error decrypting: ", e.getLocalizedMessage());
             return null;

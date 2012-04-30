@@ -87,7 +87,7 @@ public interface BillingWrapper {
          *            The billing service's {@link String} identifier for the
          *            item purchased.
          */
-        public void onPurchaseReturend(String itemId);
+        public void onPurchaseReturned(String itemId);
     }
 
     /**

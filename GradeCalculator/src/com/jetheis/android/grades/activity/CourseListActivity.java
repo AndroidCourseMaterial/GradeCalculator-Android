@@ -139,10 +139,11 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         if (Constants.LICENSE_TYPE == LicenseType.FREE) {
             mBillingWrapper = FreeBillingWrapper.isInstanceInitialized() ? FreeBillingWrapper
-                    .getInstance() : FreeBillingWrapper.initializeIntance(this);
+                    .getInstance() : FreeBillingWrapper.initializeInstance(this);
             mItemId = Constants.FREE_ITEM_ID;
         } else if (Constants.LICENSE_TYPE == LicenseType.GOOGLE_PLAY) {
-            mBillingWrapper = GooglePlayBillingWrapper.isInstanceInitialized() ? GooglePlayBillingWrapper.getInstance() : GooglePlayBillingWrapper.initializeIntance(this);
+            mBillingWrapper = GooglePlayBillingWrapper.isInstanceInitialized() ? GooglePlayBillingWrapper.getInstance() : GooglePlayBillingWrapper.initializeInstance(this);
+            mItemId = Constants.GOOGLE_PLAY_ITEM_ID;
         } else if (Constants.LICENSE_TYPE == LicenseType.AMAZON_APPSTORE) {
 
         }
@@ -153,12 +154,13 @@ public class CourseListActivity extends SherlockFragmentActivity {
                     @Override
                     public void onPurchaseSuccessful(String itemId) {
                         if (itemId.equals(mItemId)) {
+                            Log.i(Constants.TAG, "Full version unlocked!");
                             unlockFullVersion();
                         }
                     }
 
                     @Override
-                    public void onPurchaseReturend(String itemId) {
+                    public void onPurchaseReturned(String itemId) {
                         if (mFullVersion) {
                             Toast.makeText(
                                     CourseListActivity.this,
@@ -256,8 +258,6 @@ public class CourseListActivity extends SherlockFragmentActivity {
     }
 
     private void unlockFullVersion() {
-        Log.i(Constants.TAG, "Full version unlocked");
-
         if (!mFullVersion) {
             Toast.makeText(this, getString(R.string.course_list_activity_toast_unlocked),
                     Toast.LENGTH_SHORT).show();

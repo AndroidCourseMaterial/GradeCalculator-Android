@@ -23,6 +23,7 @@
 package com.jetheis.android.grades.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +37,7 @@ import com.jetheis.android.grades.R;
 import com.jetheis.android.grades.billing.BillingWrapper;
 import com.jetheis.android.grades.billing.BillingWrapper.OnBillingReadyListener;
 import com.jetheis.android.grades.billing.FreeBillingWrapper;
+import com.jetheis.android.grades.billing.googleplay.GooglePlayBillingWrapper;
 
 public class BuyFullVersionFragment extends SherlockFragment {
 
@@ -55,26 +57,26 @@ public class BuyFullVersionFragment extends SherlockFragment {
                         if (Constants.LICENSE_TYPE == LicenseType.FREE) {
                             billingWrapper = FreeBillingWrapper.isInstanceInitialized() ? FreeBillingWrapper
                                     .getInstance() : FreeBillingWrapper
-                                    .initializeIntance(getActivity());
+                                    .initializeInstance(getActivity());
                             itemId = Constants.FREE_ITEM_ID;
                         } else if (Constants.LICENSE_TYPE == LicenseType.GOOGLE_PLAY) {
-                            billingWrapper = FreeBillingWrapper.isInstanceInitialized() ? FreeBillingWrapper
-                                    .getInstance() : FreeBillingWrapper
-                                    .initializeIntance(getActivity());
-
-                            itemId = Constants.FREE_ITEM_ID;
+                            billingWrapper = GooglePlayBillingWrapper.isInstanceInitialized() ? GooglePlayBillingWrapper
+                                    .getInstance() : GooglePlayBillingWrapper
+                                    .initializeInstance(getActivity());
+                            itemId = Constants.GOOGLE_PLAY_ITEM_ID;
                         } else { // Amazon
                             billingWrapper = FreeBillingWrapper.isInstanceInitialized() ? FreeBillingWrapper
                                     .getInstance() : FreeBillingWrapper
-                                    .initializeIntance(getActivity());
+                                    .initializeInstance(getActivity());
 
-                            itemId = Constants.FREE_ITEM_ID;
+                            itemId = Constants.AMAZON_ITEM_ID;
                         }
 
                         billingWrapper.registerOnBillingReadyListener(new OnBillingReadyListener() {
 
                             @Override
                             public void onBillingReady() {
+                                Log.v(Constants.TAG, "Requesting full version");
                                 billingWrapper.requestPurchase(itemId);
                             }
 
