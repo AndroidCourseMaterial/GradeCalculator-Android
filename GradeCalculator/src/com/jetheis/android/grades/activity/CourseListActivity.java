@@ -25,10 +25,7 @@ package com.jetheis.android.grades.activity;
 import java.util.List;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,6 +43,10 @@ import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.Constants;
 import com.jetheis.android.grades.Constants.LicenseType;
 import com.jetheis.android.grades.R;
+import com.jetheis.android.grades.billing.BillingWrapper;
+import com.jetheis.android.grades.billing.BillingWrapper.OnBillingReadyListener;
+import com.jetheis.android.grades.billing.BillingWrapper.OnPurchaseStateChangedListener;
+import com.jetheis.android.grades.billing.FreeBillingWrapper;
 import com.jetheis.android.grades.billing.Security;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment.OnCoursesChangeListener;
@@ -67,8 +68,9 @@ public class CourseListActivity extends SherlockFragmentActivity {
     private CourseArrayAdapter mCourseArrayAdapter;
     private CourseListFragment mListFragment;
     private BuyFullVersionFragment mBuyFullVersionFragment;
-    private SharedPreferences mSharedPrefs;
     private boolean mFullVersion;
+    private BillingWrapper mBillingWrapper;
+    private String mItemId;
     private ActionMode.Callback mCourseSelectionCallback = new ActionMode.Callback() {
 
         @Override
@@ -120,8 +122,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_list_activity);
 
-        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mFullVersion = mSharedPrefs.getBoolean(Constants.PREFS_KEY_FULL_VERSION, false);
+        mFullVersion = Security.isFullVersionUnlocked(this);
 
         mActionBar = getSupportActionBar();
         mActionBar.setTitle(getString(R.string.course_list_activity_title));
@@ -137,14 +138,51 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         if (!mFullVersion) {
             if (Constants.LICENSE_TYPE == LicenseType.FREE) {
-                Security.setFullVersionUnlocked(true, this);
-                Log.d(Constants.TAG, Security.isFullVersionUnlocked(this) + "");
-                unlockFullVersion();
+                mBillingWrapper = FreeBillingWrapper.isInstanceInitialized() ? FreeBillingWrapper
+                        .getInstance() : FreeBillingWrapper.initializeIntance(this);
+                mItemId = Constants.FREE_ITEM_ID;
             } else if (Constants.LICENSE_TYPE == LicenseType.GOOGLE_PLAY) {
 
             } else if (Constants.LICENSE_TYPE == LicenseType.AMAZON_APPSTORE) {
 
             }
+
+            mBillingWrapper.registerOnBillingReadyListener(new OnBillingReadyListener() {
+
+                @Override
+                public void onBillingReady() {
+                    // TODO Auto-generated method stub
+                }
+
+                @Override
+                public void onBillingNotSupported() {
+                    // TODO Auto-generated method stub
+                }
+            });
+
+            mBillingWrapper
+                    .registerOnPurchaseStateChangedListener(new OnPurchaseStateChangedListener() {
+
+                        @Override
+                        public void onPurchaseSuccessful(String itemId) {
+                            if (itemId.equals(mItemId)) {
+                                unlockFullVersion();
+                            }
+                        }
+
+                        @Override
+                        public void onPurchaseReturend(String itemId) {
+                            // TODO Auto-generated method stub
+
+                        }
+
+                        @Override
+                        public void onPurchaseCancelled(String itemId) {
+                            // TODO Auto-generated method stub
+
+                        }
+                    });
+
         } else {
             enterFullVersionMode();
         }
@@ -160,7 +198,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        // Course.destroyAllCourses();
+        Course.destroyAllCourses();
         DatabaseHelper.getInstance().close();
     }
 
@@ -198,9 +236,8 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
     private void unlockFullVersion() {
         Log.i(Constants.TAG, "Full version unlocked");
-        Editor editor = mSharedPrefs.edit();
-        editor.putBoolean(Constants.PREFS_KEY_FULL_VERSION, true);
-        editor.commit();
+
+        Security.setFullVersionUnlocked(true, this);
 
         Toast.makeText(this, getString(R.string.course_list_activity_toast_unlocked),
                 Toast.LENGTH_SHORT).show();
