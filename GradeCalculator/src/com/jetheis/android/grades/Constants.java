@@ -42,7 +42,7 @@ public class Constants {
     /**
      * License type for this build of the app.
      */
-    public static final LicenseType LICENSE_TYPE = LicenseType.FREE;
+    public static final LicenseType LICENSE_TYPE = LicenseType.GOOGLE_PLAY;
     
     /**
      * Free (not tracked anywhere) item identifier

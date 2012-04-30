@@ -22,11 +22,14 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jetheis.android.grades"
-    android:versionCode="4"
-    android:versionName="1.0b2" >
+    android:versionCode="5"
+    android:versionName="1.0b3" >
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
+    <!-- BEGIN Google Play -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <!-- END Google Play -->
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -50,5 +53,17 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" >
         </activity>
+        <!-- BEGIN Google Play -->
+        <service android:name=".billing.googleplay.GooglePlayBillingService" />
+        <receiver android:name=".billing.googleplay.GooglePlayBillingReceiver" >
+            <intent-filter>
+                <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
+                <action android:name="com.android.vending.billing.RESPONSE_CODE" />
+                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <!-- END Google Play -->
+        <!-- BEGIN Amazon Appstore -->
+        <!-- END Amazon Appstore -->
     </application>
 </manifest>

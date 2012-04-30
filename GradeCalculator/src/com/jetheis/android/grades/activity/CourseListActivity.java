@@ -48,6 +48,7 @@ import com.jetheis.android.grades.billing.BillingWrapper.OnBillingReadyListener;
 import com.jetheis.android.grades.billing.BillingWrapper.OnPurchaseStateChangedListener;
 import com.jetheis.android.grades.billing.FreeBillingWrapper;
 import com.jetheis.android.grades.billing.Security;
+import com.jetheis.android.grades.billing.googleplay.GooglePlayBillingWrapper;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment.OnCoursesChangeListener;
 import com.jetheis.android.grades.fragment.BuyFullVersionFragment;
@@ -141,7 +142,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
                     .getInstance() : FreeBillingWrapper.initializeIntance(this);
             mItemId = Constants.FREE_ITEM_ID;
         } else if (Constants.LICENSE_TYPE == LicenseType.GOOGLE_PLAY) {
-
+            mBillingWrapper = GooglePlayBillingWrapper.isInstanceInitialized() ? GooglePlayBillingWrapper.getInstance() : GooglePlayBillingWrapper.initializeIntance(this);
         } else if (Constants.LICENSE_TYPE == LicenseType.AMAZON_APPSTORE) {
 
         }
