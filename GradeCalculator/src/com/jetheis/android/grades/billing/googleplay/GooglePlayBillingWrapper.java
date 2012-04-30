@@ -1,3 +1,25 @@
+/*
+ * Copyright (C) 2012 Jimmy Theis. Licensed under the MIT License:
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.jetheis.android.grades.billing.googleplay;
 
 import java.util.ArrayList;
@@ -110,7 +132,7 @@ public class GooglePlayBillingWrapper implements BillingWrapper {
     @Override
     public void requestPurchase(String itemId) {
         Log.d(Constants.TAG, "Requesting purchase of " + itemId);
-        
+
         Bundle response;
 
         try {
@@ -148,7 +170,7 @@ public class GooglePlayBillingWrapper implements BillingWrapper {
     @Override
     public void registerOnBillingReadyListener(OnBillingReadyListener onBillingReadyListener) {
         mOnReadyListeners.add(onBillingReadyListener);
-        
+
         if (mBoundService != null) {
             onBillingReadyListener.onBillingReady();
         }
@@ -266,7 +288,7 @@ public class GooglePlayBillingWrapper implements BillingWrapper {
 
                     Log.i(Constants.TAG, "Found record of purchase of " + productId + " from "
                             + DateFormat.getLongDateFormat(mContext).format(purchaseDate));
-                    
+
                     Security.setFullVersionUnlocked(true, mContext);
 
                     for (OnPurchaseStateChangedListener listener : mOnPurchaseStateChangedListeners) {
@@ -275,16 +297,16 @@ public class GooglePlayBillingWrapper implements BillingWrapper {
 
                 } else if (purchaseState == GooglePlayPurchaseState.CANCELLED) {
                     Log.i(Constants.TAG, "User cancelled purchase");
-                    
+
                     for (OnPurchaseStateChangedListener listener : mOnPurchaseStateChangedListeners) {
                         listener.onPurchaseCancelled(productId);
                     }
-                    
+
                 } else {
                     Log.e(Constants.TAG, "Google Play purchase refunded");
-                    
+
                     Security.setFullVersionUnlocked(false, mContext);
-                    
+
                     for (OnPurchaseStateChangedListener listener : mOnPurchaseStateChangedListeners) {
                         listener.onPurchaseReturned(productId);
                     }

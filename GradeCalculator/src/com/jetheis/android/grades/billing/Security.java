@@ -248,7 +248,7 @@ public class Security {
         if (encrypted == null) {
             return null;
         }
-        
+
         Log.d(Constants.TAG, "Decrypting stored full version key");
 
         byte[] salt = Base64.decode(encrypted.substring(0, 8), Base64.NO_WRAP);
@@ -301,7 +301,8 @@ public class Security {
         }
 
         try {
-            String result = new String(decrypter.doFinal(Base64.decode(encrypted, Base64.NO_WRAP)), "UTF-8");
+            String result = new String(decrypter.doFinal(Base64.decode(encrypted, Base64.NO_WRAP)),
+                    "UTF-8");
             Log.v(Constants.TAG, "Decrypted string:" + result);
             return result;
         } catch (UnsupportedEncodingException e) {

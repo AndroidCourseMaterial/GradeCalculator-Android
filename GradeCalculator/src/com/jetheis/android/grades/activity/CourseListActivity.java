@@ -142,7 +142,8 @@ public class CourseListActivity extends SherlockFragmentActivity {
                     .getInstance() : FreeBillingWrapper.initializeInstance(this);
             mItemId = Constants.FREE_ITEM_ID;
         } else if (Constants.LICENSE_TYPE == LicenseType.GOOGLE_PLAY) {
-            mBillingWrapper = GooglePlayBillingWrapper.isInstanceInitialized() ? GooglePlayBillingWrapper.getInstance() : GooglePlayBillingWrapper.initializeInstance(this);
+            mBillingWrapper = GooglePlayBillingWrapper.isInstanceInitialized() ? GooglePlayBillingWrapper
+                    .getInstance() : GooglePlayBillingWrapper.initializeInstance(this);
             mItemId = Constants.GOOGLE_PLAY_ITEM_ID;
         } else if (Constants.LICENSE_TYPE == LicenseType.AMAZON_APPSTORE) {
 

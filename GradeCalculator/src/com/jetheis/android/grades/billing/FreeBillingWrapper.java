@@ -28,31 +28,31 @@ import java.util.HashSet;
 import android.content.Context;
 
 public class FreeBillingWrapper implements BillingWrapper {
-    
+
     private static FreeBillingWrapper sInstance;
-    
+
     private Context mContext;
     private Collection<OnBillingReadyListener> mOnReadyListeners;
     private Collection<OnPurchaseStateChangedListener> mOnPurchaseStateChangedListeners;
-    
+
     public static FreeBillingWrapper initializeInstance(Context context) {
         sInstance = new FreeBillingWrapper(context);
-        
+
         return sInstance;
     }
-    
+
     public static FreeBillingWrapper getInstance() {
         if (sInstance == null) {
             throw new IllegalStateException("Billing wrapper has not been initialized");
         }
-        
+
         return sInstance;
     }
-    
+
     public static boolean isInstanceInitialized() {
         return sInstance != null;
     }
-    
+
     public FreeBillingWrapper(Context context) {
         mContext = context;
         mOnReadyListeners = new HashSet<OnBillingReadyListener>();
@@ -62,7 +62,7 @@ public class FreeBillingWrapper implements BillingWrapper {
     @Override
     public void requestPurchase(String itemId) {
         Security.setFullVersionUnlocked(true, mContext);
-        
+
         for (OnPurchaseStateChangedListener listener : mOnPurchaseStateChangedListeners) {
             listener.onPurchaseSuccessful(itemId);
         }
@@ -70,16 +70,17 @@ public class FreeBillingWrapper implements BillingWrapper {
 
     @Override
     public void restorePurchases() {
-//        for (OnPurchaseStateChangedListener listener : mOnPurchaseStateChangedListeners) {
-//            Log.d(Constants.TAG, "Restoring purchases");
-//            listener.onPurchaseReturend(Constants.FREE_ITEM_ID);
-//        }
+        // for (OnPurchaseStateChangedListener listener :
+        // mOnPurchaseStateChangedListeners) {
+        // Log.d(Constants.TAG, "Restoring purchases");
+        // listener.onPurchaseReturend(Constants.FREE_ITEM_ID);
+        // }
     }
 
     @Override
     public void registerOnBillingReadyListener(OnBillingReadyListener onBillingReadyListener) {
         mOnReadyListeners.add(onBillingReadyListener);
-        
+
         onBillingReadyListener.onBillingReady();
     }
 
@@ -87,7 +88,7 @@ public class FreeBillingWrapper implements BillingWrapper {
     public int clearOnBillingReadyListeners() {
         int result = mOnReadyListeners.size();
         mOnReadyListeners.clear();
-        
+
         return result;
     }
 
@@ -101,7 +102,7 @@ public class FreeBillingWrapper implements BillingWrapper {
     public int clearOnPurchaseStateChangedListeners() {
         int result = mOnPurchaseStateChangedListeners.size();
         mOnPurchaseStateChangedListeners.clear();
-        
+
         return result;
     }
 

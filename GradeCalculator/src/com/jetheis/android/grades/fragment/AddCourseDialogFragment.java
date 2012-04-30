@@ -48,7 +48,7 @@ public class AddCourseDialogFragment extends SherlockDialogFragment {
 
     public AddCourseDialogFragment(OnCoursesChangeListener onCoursesChangedListener) {
         mOnCoursesChangedListener = onCoursesChangedListener;
-        
+
         setStyle(STYLE_NORMAL, com.actionbarsherlock.R.style.Theme_Sherlock_Light_Dialog);
     }
 

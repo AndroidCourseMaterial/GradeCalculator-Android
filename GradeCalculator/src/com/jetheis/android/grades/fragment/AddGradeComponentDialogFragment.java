@@ -53,7 +53,7 @@ public class AddGradeComponentDialogFragment extends SherlockDialogFragment {
             OnGradeComponentsChangedListener onChangeListener) {
         mCourse = course;
         mOnChangeListener = onChangeListener;
-        
+
         setStyle(STYLE_NORMAL, com.actionbarsherlock.R.style.Theme_Sherlock_Light_Dialog);
     }
 
