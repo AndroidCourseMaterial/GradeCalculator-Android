@@ -1,4 +1,4 @@
-![Logo](https://github.com/jetheis/GradeCalculator-Android/raw/master/Artwork/feature_graphic.png)
+![Logo](https://github.com/jetheis/GradeCalculator-Android/raw/master/Artwork/Google%20Play/feature_graphic.png)
 
 **TODO**
 
