@@ -139,8 +139,11 @@ public class CourseActivity extends SherlockFragmentActivity {
     }
 
     private void updateOverview() {
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMinimumFractionDigits(2);
+
         mOverviewFragment.setText(getString(R.string.course_overview_fragment_overall_grade,
-                NumberFormat.getPercentInstance().format(mCourse.getOverallScore())));
+                nf.format(mCourse.getOverallScore())));
     }
 
     @Override
