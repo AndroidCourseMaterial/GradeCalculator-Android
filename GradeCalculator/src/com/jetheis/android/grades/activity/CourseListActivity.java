@@ -136,54 +136,62 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         DatabaseHelper.initializeDatabaseHelper(this);
 
-        if (!mFullVersion) {
-            if (Constants.LICENSE_TYPE == LicenseType.FREE) {
-                mBillingWrapper = FreeBillingWrapper.isInstanceInitialized() ? FreeBillingWrapper
-                        .getInstance() : FreeBillingWrapper.initializeIntance(this);
-                mItemId = Constants.FREE_ITEM_ID;
-            } else if (Constants.LICENSE_TYPE == LicenseType.GOOGLE_PLAY) {
+        if (Constants.LICENSE_TYPE == LicenseType.FREE) {
+            mBillingWrapper = FreeBillingWrapper.isInstanceInitialized() ? FreeBillingWrapper
+                    .getInstance() : FreeBillingWrapper.initializeIntance(this);
+            mItemId = Constants.FREE_ITEM_ID;
+        } else if (Constants.LICENSE_TYPE == LicenseType.GOOGLE_PLAY) {
 
-            } else if (Constants.LICENSE_TYPE == LicenseType.AMAZON_APPSTORE) {
+        } else if (Constants.LICENSE_TYPE == LicenseType.AMAZON_APPSTORE) {
 
+        }
+
+        mBillingWrapper
+                .registerOnPurchaseStateChangedListener(new OnPurchaseStateChangedListener() {
+
+                    @Override
+                    public void onPurchaseSuccessful(String itemId) {
+                        if (itemId.equals(mItemId)) {
+                            unlockFullVersion();
+                        }
+                    }
+
+                    @Override
+                    public void onPurchaseReturend(String itemId) {
+                        if (mFullVersion) {
+                            Toast.makeText(
+                                    CourseListActivity.this,
+                                    getString(R.string.course_list_activity_toast_full_version_refunded),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                        lockFullVersion();
+                    }
+
+                    @Override
+                    public void onPurchaseCancelled(String itemId) {
+                        // Don't care
+                    }
+                });
+
+        mBillingWrapper.registerOnBillingReadyListener(new OnBillingReadyListener() {
+
+            @Override
+            public void onBillingReady() {
+                Log.i(Constants.TAG, "Billing ready");
+                mBillingWrapper.restorePurchases();
             }
 
-            mBillingWrapper.registerOnBillingReadyListener(new OnBillingReadyListener() {
+            @Override
+            public void onBillingNotSupported() {
+                Toast.makeText(CourseListActivity.this,
+                        getString(R.string.course_list_activity_toast_billing_unavailable),
+                        Toast.LENGTH_LONG).show();
+                removeFullVersionOptions();
+            }
+        });
 
-                @Override
-                public void onBillingReady() {
-                    // TODO Auto-generated method stub
-                }
-
-                @Override
-                public void onBillingNotSupported() {
-                    // TODO Auto-generated method stub
-                }
-            });
-
-            mBillingWrapper
-                    .registerOnPurchaseStateChangedListener(new OnPurchaseStateChangedListener() {
-
-                        @Override
-                        public void onPurchaseSuccessful(String itemId) {
-                            if (itemId.equals(mItemId)) {
-                                unlockFullVersion();
-                            }
-                        }
-
-                        @Override
-                        public void onPurchaseReturend(String itemId) {
-                            // TODO Auto-generated method stub
-
-                        }
-
-                        @Override
-                        public void onPurchaseCancelled(String itemId) {
-                            // TODO Auto-generated method stub
-
-                        }
-                    });
-
-        } else {
+        if (mFullVersion) {
             enterFullVersionMode();
         }
     }
@@ -198,7 +206,10 @@ public class CourseListActivity extends SherlockFragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        Course.destroyAllCourses();
+        if (!mFullVersion) {
+            Course.destroyAllCourses();
+        }
+
         DatabaseHelper.getInstance().close();
     }
 
@@ -215,6 +226,14 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         switch (item.getItemId()) {
         case R.id.course_list_menu_add:
+
+            if (!mFullVersion && mCourses.size() > 0) {
+                Toast.makeText(this,
+                        getString(R.string.course_list_activity_toast_add_course_denied),
+                        Toast.LENGTH_LONG).show();
+                return true;
+            }
+
             AddCourseDialogFragment fragment = new AddCourseDialogFragment(
                     new OnCoursesChangeListener() {
 
@@ -226,6 +245,7 @@ public class CourseListActivity extends SherlockFragmentActivity {
                     });
             fragment.show(getSupportFragmentManager(), CREATE_COURSE_DIALOG_TAG);
             return true;
+
         case R.id.course_list_menu_about:
             startActivity(new Intent(this, AboutActivity.class));
             return true;
@@ -237,16 +257,29 @@ public class CourseListActivity extends SherlockFragmentActivity {
     private void unlockFullVersion() {
         Log.i(Constants.TAG, "Full version unlocked");
 
-        Security.setFullVersionUnlocked(true, this);
-
-        Toast.makeText(this, getString(R.string.course_list_activity_toast_unlocked),
-                Toast.LENGTH_SHORT).show();
+        if (!mFullVersion) {
+            Toast.makeText(this, getString(R.string.course_list_activity_toast_unlocked),
+                    Toast.LENGTH_SHORT).show();
+        }
 
         enterFullVersionMode();
     }
 
+    private void lockFullVersion() {
+        Log.d(Constants.TAG, "Re-locking full version mode");
+        mFullVersion = false;
+        mBuyFullVersionFragment.getView().setVisibility(View.VISIBLE);
+    }
+
+    private void removeFullVersionOptions() {
+        Log.d(Constants.TAG, "Removing full version mode options");
+        mFullVersion = false;
+        mBuyFullVersionFragment.getView().setVisibility(View.GONE);
+    }
+
     private void enterFullVersionMode() {
         Log.d(Constants.TAG, "Applying full version mode");
+        mFullVersion = true;
         mBuyFullVersionFragment.getView().setVisibility(View.GONE);
     }
 

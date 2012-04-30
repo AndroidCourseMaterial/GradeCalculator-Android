@@ -76,7 +76,7 @@ public class Security {
     private static final String KEYGEN_ALGORITHM = "PBEWITHSHAAND256BITAES-CBC-BC";
     private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
 
-    private static final String UNLOCK_KEY_STORAGE_KEY = "unlock_key";
+    private static final String UNLOCK_KEY_STORAGE_KEY = "full_version_key";
 
     private static final SecureRandom sRandom = new SecureRandom();
 

@@ -31,11 +31,12 @@ public class FreeBillingWrapper implements BillingWrapper {
     
     private static FreeBillingWrapper sInstance;
     
+    private Context mContext;
     private Collection<OnBillingReadyListener> mOnReadyListeners;
     private Collection<OnPurchaseStateChangedListener> mOnPurchaseStateChangedListeners;
     
     public static FreeBillingWrapper initializeIntance(Context context) {
-        sInstance = new FreeBillingWrapper();
+        sInstance = new FreeBillingWrapper(context);
         
         return sInstance;
     }
@@ -52,13 +53,16 @@ public class FreeBillingWrapper implements BillingWrapper {
         return sInstance != null;
     }
     
-    public FreeBillingWrapper() {
+    public FreeBillingWrapper(Context context) {
+        mContext = context;
         mOnReadyListeners = new HashSet<OnBillingReadyListener>();
         mOnPurchaseStateChangedListeners = new HashSet<OnPurchaseStateChangedListener>();
     }
 
     @Override
     public void requestPurchase(String itemId) {
+        Security.setFullVersionUnlocked(true, mContext);
+        
         for (OnPurchaseStateChangedListener listener : mOnPurchaseStateChangedListeners) {
             listener.onPurchaseSuccessful(itemId);
         }
@@ -67,7 +71,8 @@ public class FreeBillingWrapper implements BillingWrapper {
     @Override
     public void restorePurchases() {
 //        for (OnPurchaseStateChangedListener listener : mOnPurchaseStateChangedListeners) {
-//            listener.onPurchaseCancelled(Constants.FREE_ITEM_ID);
+//            Log.d(Constants.TAG, "Restoring purchases");
+//            listener.onPurchaseReturend(Constants.FREE_ITEM_ID);
 //        }
     }
 

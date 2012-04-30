@@ -30,6 +30,9 @@
     <string name="course_list_activity_context_menu_edit">Edit</string>
     <string name="course_list_activity_context_menu_delete">Delete</string>
     <string name="course_list_activity_toast_unlocked">Full Version Unlocked!</string>
+    <string name="course_list_activity_toast_billing_unavailable">Billing service unavailable. Full Version cannot be activated.</string>
+    <string name="course_list_activity_toast_full_version_refunded">Full Version purchase refunded. Full version will no longer be available.</string>
+    <string name="course_list_activity_toast_add_course_denied">Full version required to add multiple courses</string>
     <!-- Buy Full Version Fragment -->
     <string name="buy_full_version_fragment_buy_notice">Full version required to add more than one course or save courses between app launches</string>
     <string name="buy_full_version_fragment_buy_button">Buy Full Version</string>
