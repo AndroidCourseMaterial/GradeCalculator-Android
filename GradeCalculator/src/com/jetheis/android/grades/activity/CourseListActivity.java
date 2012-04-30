@@ -46,6 +46,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.jetheis.android.grades.Constants;
 import com.jetheis.android.grades.Constants.LicenseType;
 import com.jetheis.android.grades.R;
+import com.jetheis.android.grades.billing.Security;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment;
 import com.jetheis.android.grades.fragment.AddCourseDialogFragment.OnCoursesChangeListener;
 import com.jetheis.android.grades.fragment.BuyFullVersionFragment;
@@ -136,6 +137,8 @@ public class CourseListActivity extends SherlockFragmentActivity {
 
         if (!mFullVersion) {
             if (Constants.LICENSE_TYPE == LicenseType.FREE) {
+                Security.setFullVersionUnlocked(true, this);
+                Log.d(Constants.TAG, Security.isFullVersionUnlocked(this) + "");
                 unlockFullVersion();
             } else if (Constants.LICENSE_TYPE == LicenseType.GOOGLE_PLAY) {
 
